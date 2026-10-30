@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="tr">
+<head><base href="../../">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>alsatbul · karşılama fikirleri</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* Demonun varsayılan paleti */
+  :root { --navy: #12344a; --orange: #f2632f; --orange-d: #d9531f; --teal: #1f4e5a; --cream: #f6f1ea; --text: #1d2a33; --muted: #6b7680; --line: #e6e0d6; --ok: #16a34a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--cream); color: var(--text); font: 15px/1.55 "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1140px; margin: 0 auto; padding: 44px 20px 90px; }
+  .hand { font-family: Caveat, cursive; }
+  h1 { font-size: 36px; letter-spacing: -0.035em; line-height: 1.1; margin: 4px 0 10px; color: var(--navy); }
+  h2 { font-size: 24px; letter-spacing: -0.03em; margin: 56px 0 6px; color: var(--navy); }
+  h3 { font-size: 19px; letter-spacing: -0.02em; margin: 0; color: var(--navy); }
+  .lead { max-width: 760px; color: var(--muted); margin: 0; }
+  .note { font-size: 12.5px; color: var(--muted); }
+  .box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; }
+  .oneri { margin-top: 26px; display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; border-left: 4px solid var(--orange); }
+  .oneri .hand { font-size: 30px; color: var(--orange-d); line-height: 1; }
+  ol.bulgu { margin: 14px 0 0; padding: 0; list-style: none; counter-reset: b; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  ol.bulgu li { counter-increment: b; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 14px 50px; position: relative; font-size: 14px; color: var(--muted); }
+  ol.bulgu li::before { content: counter(b); position: absolute; left: 16px; top: 13px; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+  ol.bulgu b { color: var(--text); display: block; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: 13.5px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: #fbf9f5; }
+  td b { color: var(--navy); }
+  .tw { overflow-x: auto; }
+  .bar { position: sticky; top: 0; z-index: 10; display: flex; gap: 6px; justify-content: flex-end; padding: 10px 0; }
+  .bar button { border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 6px 14px; font: 600 13px "Plus Jakarta Sans", sans-serif; cursor: pointer; color: var(--muted); }
+  .bar button.on { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+  /* ---- fikir kartı ---- */
+  .fikir { margin-top: 30px; }
+  .fikir-bas { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .harf { font-size: 13px; font-weight: 800; color: #fff; background: var(--orange); border-radius: 8px; padding: 2px 9px; }
+  .fikir-bas .hand { font-size: 24px; color: var(--orange-d); margin-left: auto; }
+  .sahne { margin: 0 auto; max-width: 1100px; transition: max-width .35s; container-type: inline-size; }
+  body.tel .sahne { max-width: 390px; }
+  .analiz { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+  .analiz div { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-size: 13px; color: var(--muted); }
+  .analiz b { display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--navy); margin-bottom: 2px; }
+  .replay { border: 0; background: none; color: var(--orange-d); font: 700 12.5px "Plus Jakarta Sans", sans-serif; cursor: pointer; }
+  @media (max-width: 800px) { ol.bulgu, .analiz { grid-template-columns: 1fr; } }
+
+  /* ortak hero parçaları */
+  .hero { position: relative; border-radius: 16px; overflow: hidden; min-height: 300px; }
+  .kick { font-size: 12.5px; color: var(--muted); margin: 0; }
+  .kick i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--ok); margin-right: 6px; vertical-align: 1px; animation: nabiz 2.2s infinite; }
+  @keyframes nabiz { 0% { box-shadow: 0 0 0 0 rgba(22,163,74,.45) } 70%,100% { box-shadow: 0 0 0 8px rgba(22,163,74,0) } }
+  .baslik { font-size: 38px; line-height: 1.04; letter-spacing: -0.04em; font-weight: 800; margin: 8px 0 0; color: var(--navy); }
+  .baslik em { font-style: normal; color: var(--orange); }
+  .cta { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border: 0; border-radius: 12px; background: var(--orange); color: #fff; font: 700 14.5px "Plus Jakarta Sans", sans-serif; cursor: pointer; white-space: nowrap; }
+  .alan { display: flex; gap: 8px; margin-top: 18px; background: #fff; border-radius: 14px; padding: 6px; box-shadow: 0 0 0 1px var(--line), 0 6px 18px rgba(18,52,74,.06); }
+  .alan input { flex: 1; min-width: 0; border: 0; outline: 0; font: 500 15px "Plus Jakarta Sans", sans-serif; padding: 0 12px; background: transparent; color: var(--text); }
+  @container (max-width: 600px) { .baslik { font-size: 29px; } .alan { flex-direction: column; } .alan input { height: 44px; } .cta { justify-content: center; } }
+
+  /* A · Sohbet */
+  .A { background: #fff; box-shadow: inset 0 0 0 1px var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding: 34px 38px; }
+  .A .sohbet { background: #f3efe8; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 8px; height: 270px; overflow: hidden; justify-content: flex-end; }
+  .A .msg { max-width: 82%; padding: 9px 13px; border-radius: 16px; font-size: 13.5px; line-height: 1.4; animation: belir .35s cubic-bezier(.2,.9,.3,1.2) both; }
+  .A .ben { align-self: flex-end; background: var(--orange); color: #fff; border-bottom-right-radius: 5px; }
+  .A .o { align-self: flex-start; background: #fff; border-bottom-left-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+  .A .o small { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .A .o b { color: var(--navy); }
+  .A .yaziyor { align-self: flex-start; font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; }
+  .A .yaziyor span { display: inline-flex; gap: 3px; }
+  .A .yaziyor span i { width: 6px; height: 6px; border-radius: 50%; background: #b9b1a5; animation: zipla 1s infinite; }
+  .A .yaziyor span i:nth-child(2) { animation-delay: .15s } .A .yaziyor span i:nth-child(3) { animation-delay: .3s }
+  @keyframes zipla { 0%,60%,100% { transform: none } 30% { transform: translateY(-4px) } }
+  @keyframes belir { from { opacity: 0; transform: translateY(8px) scale(.96) } }
+  .A .ornek { font-size: 11px; color: var(--muted); text-align: center; }
+  @container (max-width: 600px) { .A { grid-template-columns: 1fr; padding: 24px 18px; gap: 20px; } .A .sohbet { height: 250px; } }
+
+  /* B · Aranıyor panosu */
+  .B { background: #0f1b24; color: #fff; padding: 30px 34px; }
+  .B .baslik { color: #fff; }
+  .B .kick { color: #9fb0bc; }
+  .B .ust { display: flex; justify-content: space-between; align-items: end; gap: 20px; }
+  .B .pano { margin-top: 18px; display: grid; gap: 6px; }
+  .B .satir { display: flex; gap: 14px; align-items: center; }
+  .B .hucreler { display: flex; gap: 2px; }
+  .B .h { width: 19px; height: 28px; border-radius: 3px; background: linear-gradient(#1d2b36 50%, #18252f 50%); color: #f4efe6; font: 700 17px ui-monospace, "SF Mono", Menlo, monospace; display: grid; place-items: center; position: relative; text-transform: uppercase; }
+  .B .h::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #0b141b; }
+  .B .h.or { color: var(--orange); }
+  .B .h.d { animation: flip .06s linear; }
+  @keyframes flip { 50% { transform: scaleY(.2) } }
+  .B .etik { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: #6f8392; display: flex; gap: 14px; }
+  .B .alan { background: #1a2833; box-shadow: none; }
+  .B .alan input { color: #fff; }
+  .B .alan input::placeholder { color: #8396a4; }
+  @container (max-width: 600px) { .B { padding: 22px 16px; } .B .h { width: 15px; height: 24px; font-size: 14px; } .B .ust { display: block; } }
+
+  /* C · Koparmalı ilan */
+  .C { background: radial-gradient(120% 120% at 80% 10%, #fbf7f0, #efe7da); display: grid; grid-template-columns: 1fr 420px; gap: 30px; padding: 34px 40px 30px; align-items: center; }
+  .C .afis { position: relative; justify-self: center; width: 330px; background: #fffdf8; padding: 22px 24px 0; transform: rotate(-1.6deg); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 34px rgba(60,40,10,.14); }
+  .C .afis::before { content: ""; position: absolute; top: -10px; left: 50%; width: 86px; height: 22px; transform: translateX(-50%) rotate(2deg); background: rgba(242, 99, 47, .22); }
+  .C .afis h4 { margin: 0; font-size: 30px; letter-spacing: .14em; font-weight: 800; color: var(--navy); }
+  .C .yazi { font-family: Caveat, cursive; font-size: 30px; line-height: 1.12; color: #23395b; min-height: 68px; margin-top: 6px; outline: 0; border-bottom: 1.5px dashed transparent; }
+  .C .yazi:focus { border-bottom-color: #d8cfc0; }
+  .C .yazi:empty::before { content: attr(data-ph); color: #b6ad9e; }
+  .C .alt { font-family: Caveat, cursive; font-size: 21px; color: #4a5a6a; margin: 6px 0 14px; }
+  .C .seritler { display: flex; margin: 0 -24px; border-top: 1.5px dashed #d8cfc0; }
+  .C .serit { flex: 1; height: 92px; border-right: 1.5px dashed #d8cfc0; display: grid; place-items: center; background: #fffdf8; transform-origin: 50% 0; transition: transform .7s cubic-bezier(.5,0,.7,.4), opacity .7s; }
+  .C .serit:last-child { border-right: 0; }
+  .C .serit span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10.5px; font-weight: 700; letter-spacing: .04em; color: var(--navy); white-space: nowrap; }
+  .C .serit.kop { transform: translate(14px, 140px) rotate(24deg); opacity: 0; }
+  .C .bildirim { position: absolute; right: -34px; top: -20px; background: var(--navy); color: #fff; font-size: 12px; border-radius: 12px; padding: 8px 12px; box-shadow: 0 8px 20px rgba(0,0,0,.18); opacity: 0; transform: translateY(6px); transition: .3s; white-space: nowrap; }
+  .C .bildirim.on { opacity: 1; transform: none; }
+  .C .bildirim b { color: #ffb08f; }
+  @container (max-width: 600px) { .C { grid-template-columns: 1fr; padding: 24px 18px; } .C .afis { width: 300px; } .C .bildirim { right: -6px; } }
+
+  /* D · Mıknatıs */
+  .D { background: var(--navy); color: #fff; padding: 34px 38px 30px; text-align: center; }
+  .D .baslik { color: #fff; }
+  .D .kick { color: #a9bccb; }
+  .D .alan { max-width: 620px; margin: 18px auto 0; }
+  .D .meydan { position: relative; height: 150px; margin-top: 10px; }
+  .D .mk { position: absolute; left: 50%; bottom: 6px; width: 58px; transform: translateX(-50%); color: #fff; }
+  .D .cip { position: absolute; left: 0; top: 0; background: #fff; color: var(--navy); font-size: 12px; font-weight: 700; border-radius: 99px; padding: 6px 11px; white-space: nowrap; box-shadow: 0 6px 16px rgba(0,0,0,.2); }
+  .D .cip small { color: var(--orange-d); }
+  .D .sayac { font-size: 13px; color: #a9bccb; }
+  .D .sayac b { color: #fff; }
+  @container (max-width: 600px) { .D { padding: 24px 16px; } }
+
+  /* E · İki yol */
+  .E { background: #fff; box-shadow: inset 0 0 0 1px var(--line); padding: 30px 34px; }
+  .E .yollar { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .E .yol { border-radius: 14px; padding: 16px 18px; min-height: 170px; position: relative; overflow: hidden; }
+  .E .eski { background: #f1f0ee; color: #7a7f84; }
+  .E .yeni { background: color-mix(in srgb, var(--orange) 9%, #fff); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--orange) 30%, transparent); }
+  .E .yol h5 { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .E .yol p { margin: 4px 0 0; font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--navy); }
+  .E .eski p { color: #8a8f94; text-decoration: line-through; text-decoration-thickness: 2px; }
+  .E .sekmeler { position: absolute; left: 18px; right: 18px; bottom: 14px; height: 70px; }
+  .E .sekme { position: absolute; width: 120px; height: 26px; border-radius: 7px 7px 0 0; background: #fff; border: 1px solid #ddd; font-size: 10.5px; padding: 5px 8px; color: #999; white-space: nowrap; overflow: hidden; animation: dus .4s both; }
+  @keyframes dus { from { transform: translateY(-30px); opacity: 0 } }
+  .E .teklif { display: flex; justify-content: space-between; background: #fff; border-radius: 10px; padding: 8px 12px; margin-top: 8px; font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,.05); animation: belir .35s cubic-bezier(.2,.9,.3,1.2) both; }
+  .E .teklif b { color: var(--orange-d); }
+  .E .olcu { position: absolute; right: 16px; top: 14px; font-size: 12px; font-weight: 700; }
+  @container (max-width: 600px) { .E { padding: 22px 16px; } .E .yollar { grid-template-columns: 1fr; } }
+
+  /* F · Cümle (referans) */
+  .F { background: #fff; box-shadow: inset 0 0 0 1px var(--line); padding: 32px 38px; }
+  .F .cumle { margin-top: 16px; font-size: 24px; font-weight: 600; color: var(--muted); line-height: 1.7; }
+  .F .bos { display: inline-block; min-width: 280px; border-bottom: 2px solid var(--navy); color: var(--navy); padding: 0 4px; }
+  .F .bos.k { min-width: 110px; }
+  .F .imlec { display: inline-block; width: 2px; height: 1em; background: var(--orange); vertical-align: -3px; animation: yanson 1s steps(1) infinite; }
+  @keyframes yanson { 50% { opacity: 0 } }
+  @container (max-width: 600px) { .F { padding: 22px 16px; } .F .cumle { font-size: 19px; } .F .bos { min-width: 0; } }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="hand" style="font-size:26px;color:var(--orange-d);margin:0">karşılama</p>
+  <h1>Siteye girene ilk ne gösterelim?</h1>
+  <p class="lead">Ana sayfanın girişi için altı fikir, hepsi canlı çalışıyor. Demo şimdilik eski hâlinde; burada karşılaştırıp seçtiğini demoya koyarım. Örneklerdeki talepler yerel veritabanındaki gerçek talep başlıkları, satıcı teklifleri ise örnek.</p>
+
+  <div class="box oneri">
+    <span class="hand">önerim</span>
+    <div><b>C · Koparmalı ilan.</b> Sokak direğindeki "ARANIYOR" ilanı herkesin bildiği bir şey ve bizim işimizi birebir anlatıyor: talep = ilan, satıcının iletişimi açması = şeridi koparmak. Başka hiçbir sitede yok, fotoğrafa ihtiyaç duymuyor, insan eli değmiş gibi duruyor. Daha garantici bir seçenek istersen <b>A · Sohbet</b>: mekanizmayı en hızlı anlatan o.</div>
+  </div>
+
+  <h2>Bugünkü giriş neden yetmiyor</h2>
+  <p class="lead">Demodaki şimdiki girişi (lacivert-turkuaz fotoğraflı kutu + turuncu satıcı kartı) tek tek inceledim.</p>
+  <ol class="bulgu">
+    <li><b>İki tane arama kutusu var.</b> Üst bardaki "talep ara" kutusu talepleri arıyor; girişteki aynı görünüşlü kutu ise talep oluşturuyor. Ziyaretçi ikisini aynı şey sanıyor, büyük olasılıkla girişteki kutuya "iphone" yazıp arama sonucu bekliyor.</li>
+    <li><b>Fotoğraf ürünü anlatmıyor.</b> Kahve içen kadın fotoğrafı hiçbir şey göstermiyor ve "yapay zeka yapmış gibi" hissinin ana kaynağı. Stok insan fotoğrafı kullanmama kararımıza da aykırı.</li>
+    <li><b>İlk okunan cümle "Ne arıyorsun?".</b> Bu, arama sitelerinin cümlesi. Asıl fark ("satıcılar sana ulaşsın") ikinci yarıda, daha açık renkte kalıyor.</li>
+    <li><b>Sonrası görünmüyor.</b> Talep verince ne olacağı (kim, ne kadar sürede, nasıl teklif verir) girişte hiç gösterilmiyor. Yeni gelen için en büyük soru bu.</li>
+    <li><b>Canlılık yok.</b> Sitenin en güçlü kanıtı gerçek talepler, ama girişte değil aşağıda duruyor. Giriş her gün aynı görünüyor.</li>
+    <li><b>El yazısı not zor okunuyor.</b> "İhtiyacın var mı? Burada bulunur." fotoğrafın üstünde kalıyor ve 1400 pikselin altında hiç görünmüyor.</li>
+    <li><b>Telefonda sıradan bir forma dönüşüyor.</b> Mobilde fotoğraf gizleniyor; geriye başlık + kutu + düğme kalıyor. Ziyaretçilerin çoğu telefondan geliyor.</li>
+    <li><b>Alıcı ile satıcı aynı ağırlıkta.</b> Giriş ve satıcı kartı eşit yükseklikte (206 px) duruyor. Siteye gelenlerin çoğu alıcı, ama turuncu satıcı kartı gözü daha çok çekiyor.</li>
+  </ol>
+
+  <h2>Benzerleri ne yapıyor</h2>
+  <p class="lead">Ters pazar yerleri ve Türkiye'deki büyük siteler. <span class="note">Bilgiler hafızamdan; sitelerin bugünkü hâlini tek tek açıp kontrol etmedim.</span></p>
+  <div class="tw" style="margin-top:14px"><table>
+    <tr><th>Site</th><th>Girişte ne var</th><th>Bize dersi</th></tr>
+    <tr><td><b>Armut</b> (TR, hizmet için ters pazar)</td><td>Büyük arama kutusu ("Hangi hizmeti arıyorsun?"), popüler hizmet kısayolları</td><td>Bizim gibi ters çalışıyor ama girişi bir arama sitesi gibi. Mekanizmayı göstermiyor.</td></tr>
+    <tr><td><b>Bark</b> (İngiltere)</td><td>"Hangi hizmete ihtiyacın var?" + posta kodu, illüstrasyon</td><td>Aynı kalıp. Ters pazar yerlerinin neredeyse hepsi bu kalıbı kullanıyor.</td></tr>
+    <tr><td><b>Thumbtack</b> (ABD)</td><td>Arama + gerçek iş fotoğrafları, ardından "nasıl çalışır" adımları</td><td>Güveni gerçek işlerle kuruyor. Bizde bunun karşılığı gerçek talepler.</td></tr>
+    <tr><td><b>sahibinden</b></td><td>Karşılama yok; doğrudan kategoriler ve vitrin</td><td>Alışkanlık ve hız. Kalabalık kategoriler için iyi, ama yeni bir fikri anlatmıyor.</td></tr>
+    <tr><td><b>Dolap / letgo</b></td><td>Uygulama indirme çağrısı + ürün ızgarası</td><td>Ürün akışı canlılık hissi veriyor. Bizde akış talepler olur.</td></tr>
+    <tr><td><b>Vinted</b></td><td>Tek büyük görsel + tek mesaj ("Dolabını boşalt") + tek düğme</td><td>Tek mesaj, tek eylem. Bizim girişte iki mesaj, iki kutu var.</td></tr>
+    <tr><td><b>Trendyol / Hepsiburada</b></td><td>Kampanya kaydırıcısı</td><td>Kampanyamız yok; kaydırıcı bize uymaz.</td></tr>
+    <tr><td><b>Airbnb</b></td><td>Tek, sade ve güçlü arama çubuğu</td><td>Sadelik premium his veriyor. Kalabalık değil, tek odak.</td></tr>
+  </table></div>
+  <p class="lead" style="margin-top:12px"><b style="color:var(--navy)">Ortak sonuç:</b> bizim gibi ters çalışan sitelerin hepsi girişte arama kutusu kullanıyor, bu yüzden hepsi birbirine benziyor ve hiçbiri "teklifler sana gelir" farkını göstermiyor. Bizim fırsatımız ilk 3 saniyede kutuyu değil olayı göstermek: biri bir şey arıyor, satıcılar ona geliyor.</p>
+
+  <h2>Altı fikir</h2>
+  <div class="bar"><button class="on" data-g="m">Masaüstü</button><button data-g="t">Telefon</button></div>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">A</span><h3>Sohbet: talep yazılır, teklifler mesaj olarak gelir</h3><button class="replay" data-r="A">tekrar oynat</button><span class="hand">Sen yaz, teklifler gelsin.</span></div>
+    <div class="sahne"><div class="hero A" id="A"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Ürünün nasıl çalıştığını 4 saniyede, hiç okutmadan gösteriyor.</div>
+      <div><b>Neden işe yarar</b>Herkes WhatsApp kullanıyor; sohbet balonu öğrenme gerektirmiyor.</div>
+      <div><b>Risk</b>Sohbet uygulamalarına benzeyebilir; tasarım sade tutulmalı. Teklifler örnek olduğu için "örnek" yazmalı.</div>
+      <div><b>Telefon · süre</b>Telefonda en iyi çalışan fikir. Yaklaşık 1 gün.</div>
+    </div>
+  </section>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">B</span><h3>"Aranıyor" panosu: havalimanı tabelası gibi dönen talepler</h3><span class="hand">Şu an aranıyor.</span></div>
+    <div class="sahne"><div class="hero B" id="B"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Sitenin canlı olduğunu; insanlar şu an bir şey arıyor.</div>
+      <div><b>Neden işe yarar</b>Çok akılda kalır ve premium durur. Gerçek veriyle her ziyarette farklı görünür.</div>
+      <div><b>Risk</b>Mekanizmayı (teklif gelir) kendisi anlatmıyor; alt cümle şart. Türkçe karakterler (İ, Ş, Ğ) harf hücrelerinde test edilmeli.</div>
+      <div><b>Telefon · süre</b>Telefonda daha az harf sığıyor. Yaklaşık 1,5 gün.</div>
+    </div>
+  </section>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">C</span><h3>Koparmalı ilan: talebini as, satıcılar şeridini koparsın</h3><button class="replay" data-r="C">tekrar oynat</button><span class="hand">İlanını as, satıcılar koşsun.</span></div>
+    <div class="sahne"><div class="hero C" id="C"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Talep = ilan, satıcı iletişimi açar = şerit koparılır. Mekanizmanın birebir karşılığı.</div>
+      <div><b>Neden işe yarar</b>Herkesin sokakta gördüğü bir şey; sıcak, yerel, insani. Rakiplerde yok, fotoğraf gerektirmiyor.</div>
+      <div><b>Risk</b>Kötü uygulanırsa "çocuksu" durabilir. Kâğıt dokusu ve bant çok hafif tutulmalı, yazı el yazısı (Caveat), başlık sert.</div>
+      <div><b>Telefon · süre</b>İlan dikey olduğu için telefona çok uygun. Yaklaşık 1,5 gün. İlana tıklayıp kendi talebini yazabilirsin.</div>
+    </div>
+  </section>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">D</span><h3>Mıknatıs: yazdıkça teklifler mıknatısa çekilir</h3><span class="hand">Aradığını yaz, teklifleri çek.</span></div>
+    <div class="sahne"><div class="hero D" id="D"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Logodaki mıknatısın hikâyesi: talep teklifleri çeker.</div>
+      <div><b>Neden işe yarar</b>Marka ile giriş aynı dili konuşur. Kutuya yazmaya başlayınca hızlanır, yazmaya teşvik eder.</div>
+      <div><b>Risk</b>Mıknatısı bilmeyene ilk bakışta soyut gelebilir. Sohbet kadar açık değil.</div>
+      <div><b>Telefon · süre</b>İyi çalışıyor. Yaklaşık 1 gün.</div>
+    </div>
+  </section>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">E</span><h3>İki yol: aramakla yazmanın farkı yan yana</h3><button class="replay" data-r="E">tekrar oynat</button><span class="hand">Ararsın ya da aranırsın.</span></div>
+    <div class="sahne"><div class="hero E" id="E"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Neden alsatbul: sekme sekme ilan gezmek yerine tek cümle yazıp teklif beklemek.</div>
+      <div><b>Neden işe yarar</b>Karşılaştırma en ikna edici anlatım biçimi; "neden?" sorusunu cevaplıyor.</div>
+      <div><b>Risk</b>Reklam gibi durabilir; girişte değil, "nasıl çalışır" bölümünde daha iyi olabilir.</div>
+      <div><b>Telefon · süre</b>Telefonda alt alta düşüyor, uzuyor. Yaklaşık 1 gün.</div>
+    </div>
+  </section>
+
+  <section class="fikir">
+    <div class="fikir-bas"><span class="harf">F</span><h3>Cümle (geçen sefer denediğimiz, karşılaştırma için)</h3><span class="hand">Aradığın seni bulsun.</span></div>
+    <div class="sahne"><div class="hero F" id="F"></div></div>
+    <div class="analiz">
+      <div><b>Ne anlatıyor</b>Talep vermenin ne kadar kolay olduğunu: bir cümle.</div>
+      <div><b>Neden işe yarar</b>Formu cümleye çeviriyor; sade, premium.</div>
+      <div><b>Risk</b>Teklif gelme anını göstermiyor; tek başına biraz durağan.</div>
+      <div><b>Telefon · süre</b>Hazırdı. Yarım gün.</div>
+    </div>
+  </section>
+
+  <h2>Karşılaştırma</h2>
+  <p class="lead">1 ile 5 arası puanlar; "kolaylık" geliştirme süresinin tersidir. Toplamda kimin kazandığından çok, hangi satırın senin için önemli olduğuna bak.</p>
+  <div class="tw" style="margin-top:14px"><table>
+    <tr><th>Fikir</th><th>3 saniyede anlaşılır mı</th><th>Özgün mü</th><th>Premium his</th><th>Telefon</th><th>Canlı veri</th><th>Kolaylık</th><th>Toplam</th></tr>
+    <tr><td><b>A · Sohbet</b></td><td>5</td><td>3</td><td>4</td><td>5</td><td>3</td><td>4</td><td><b>24</b></td></tr>
+    <tr><td><b>B · Aranıyor panosu</b></td><td>3</td><td>5</td><td>5</td><td>3</td><td>5</td><td>3</td><td><b>24</b></td></tr>
+    <tr style="background:color-mix(in srgb,var(--orange) 7%,#fff)"><td><b>C · Koparmalı ilan</b></td><td>4</td><td>5</td><td>4</td><td>5</td><td>3</td><td>3</td><td><b>24</b> · önerim</td></tr>
+    <tr><td><b>D · Mıknatıs</b></td><td>3</td><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td><td><b>21</b></td></tr>
+    <tr><td><b>E · İki yol</b></td><td>5</td><td>3</td><td>3</td><td>3</td><td>1</td><td>4</td><td><b>19</b></td></tr>
+    <tr><td><b>F · Cümle</b></td><td>4</td><td>3</td><td>4</td><td>4</td><td>3</td><td>5</td><td><b>23</b></td></tr>
+  </table></div>
+  <p class="lead" style="margin-top:12px">İlk üç fikir puanda başa baş. C'yi önermemin nedeni: "özgün" ve "telefon" satırları birlikte en yüksek onda, ve bizi rakiplerden ilk bakışta ayıran tek fikir o. İstersen birleştirebiliriz: girişte <b>C</b>, hemen altında canlı veri için <b>B</b>'nin küçük bir şeridi.</p>
+
+  <h2>Ayrıca düşündüklerim (çizmedim)</h2>
+  <ol class="bulgu">
+    <li><b>Türkiye haritası nabzı.</b> Haritada talep gelen illerde noktalar yanıp söner: "Şu an 23 ilde biri bir şey arıyor." Talep sayısı arttığında çok etkileyici olur; şu an az veriyle boş görünür.</li>
+    <li><b>Bulunanlar duvarı.</b> "Ayşe, İzmir'de aradığı bebek arabasını 2 günde buldu." En güçlü kanıt bu olur, ama önce talebin "buldum" diye kapatılmasını ve kişinin izin vermesini kaydetmemiz gerekir.</li>
+    <li><b>Fotoğrafla talep.</b> "Aradığının fotoğrafını çek, gerisini biz yazalım." Asistan fotoğraftan başlık ve kategori çıkarır. Telefonda çok güçlü olur, ama arka uçta iş gerektirir.</li>
+    <li><b>Saate göre karşılama.</b> Sabah "Günaydın, bugün 14 kişi telefon arıyor", akşam farklı. Küçük ama insani bir dokunuş; her fikre eklenebilir.</li>
+  </ol>
+  <p class="note" style="margin-top:28px">Kaynak: tasarim-secenekleri/karsilama/sablon.html · üretim: node tasarim-secenekleri/karsilama/uret.cjs</p>
+</div>
+
+<script>
+const TALEPLER=[{"t":"Keratin bakım seti alınacak","il":"Ankara","b":7600},{"t":"Temiz JBL taşınabilir hoparlör","il":"İstanbul","b":5400},{"t":"İş kıyafeti toplu arıyoruz","il":"İstanbul","b":48500},{"t":"Nişan elbisesi almak istiyorum","il":"Çanakkale","b":8700},{"t":"Temiz nişan elbisesi","il":"Sakarya","b":0},{"t":"Keratin bakım seti lazım","il":"Hatay","b":7800},{"t":"MacBook Air M2 13 inç, sıfır","il":"İstanbul","b":38500},{"t":"Temiz Philips OneBlade","il":"Gaziantep","b":2500},{"t":"iPad 10. nesil, ikinci el","il":"Konya","b":14000},{"t":"Samsung Galaxy Tab S9 lazım","il":"Nevşehir","b":28500},{"t":"GoPro Hero 12 arıyorum","il":"İstanbul","b":15000},{"t":"IPL epilasyon cihazı lazım","il":"Denizli","b":10000},{"t":"Dyson dikey süpürge lazım","il":"Bursa","b":25000},{"t":"Temiz keten gömlek seti","il":"Denizli","b":3600},{"t":"27 inç 4K monitör arayışındayım","il":"Antalya","b":16500},{"t":"Fondöten ve kapatıcı seti arıyorum","il":"Trabzon","b":3100},{"t":"iPhone 15 128 GB, sıfır","il":"İstanbul","b":45000},{"t":"Kore cilt bakım seti arayışındayım","il":"İstanbul","b":2400},{"t":"Temiz iPhone 13 128 GB","il":"Antalya","b":25000},{"t":"Sıfır halı 200x300","il":"Sakarya","b":0},{"t":"Ankastre fırın ve ocak seti lazım","il":"Ankara","b":50000},{"t":"Saç düzleştirici, sıfır","il":"İzmir","b":2800},{"t":"MacBook Air M2 13 inç alınacak","il":"İstanbul","b":36000},{"t":"Temiz Huda Beauty far paleti","il":"Hatay","b":3950},{"t":"Nintendo Switch Lite lazım","il":"Kocaeli","b":10000},{"t":"La Roche-Posay rutin seti, sıfır","il":"Ankara","b":3100}];
+const MIKNATIS={"x":575.9,"govde":"M99.7 84.8C99.8 85.5 100 87.5 100 88.9C100 90.3 100 91.8 99.9 93.3C99.8 94.7 99.7 96.1 99.5 97.6C99.3 99 99 100.4 98.7 101.8C98.4 103.2 98 104.6 97.6 106C97.1 107.4 96.6 108.8 96.1 110.1C95.6 111.4 95 112.7 94.3 114C93.7 115.3 93 116.5 92.2 117.8C91.5 119 90.7 120.2 89.8 121.3C89 122.5 88.1 123.6 87.2 124.7C86.2 125.7 85.2 126.8 84.2 127.8C83.2 128.8 82.1 129.7 81 130.6C79.9 131.5 78.8 132.3 77.6 133.1C76.5 133.9 75.3 134.7 74.1 135.4C72.8 136.1 71.6 136.7 70.3 137.3C69 137.8 67.7 138.4 66.4 138.8C65.1 139.3 63.7 139.7 62.4 140.1C61 140.4 59.7 140.7 58.3 140.9C56.9 141.2 55.5 141.3 54.2 141.4C52.8 141.6 51.4 141.6 50 141.6C48.6 141.6 47.2 141.6 45.8 141.4C44.5 141.3 43.1 141.2 41.7 140.9C40.3 140.7 39 140.4 37.6 140.1C36.3 139.7 34.9 139.3 33.6 138.8C32.3 138.4 31 137.8 29.7 137.3C28.4 136.7 27.2 136.1 25.9 135.4C24.7 134.7 23.5 133.9 22.4 133.1C21.2 132.3 20.1 131.5 19 130.6C17.9 129.7 16.8 128.8 15.8 127.8C14.8 126.8 13.8 125.7 12.8 124.7C11.9 123.6 11 122.5 10.2 121.3C9.3 120.2 8.5 119 7.8 117.8C7 116.5 6.3 115.3 5.7 114C5 112.7 4.4 111.4 3.9 110.1C3.4 108.8 2.9 107.4 2.4 106C2 104.6 1.6 103.2 1.3 101.8C1 100.4 0.7 99 0.5 97.6C0.3 96.1 0.2 94.7 0.1 93.3C0 91.8 0 90.3 0 88.9C0 87.5 0.2 85.5 0.3 84.8L32.1 87.4C32.1 87.8 32 88.9 32 89.5C32 90.2 32 90.8 32 91.4C32.1 92 32.1 92.7 32.2 93.3C32.3 93.9 32.4 94.5 32.5 95.2C32.6 95.8 32.7 96.4 32.9 97C33 97.6 33.2 98.2 33.4 98.7C33.6 99.3 33.8 99.9 34.1 100.5C34.3 101 34.5 101.6 34.8 102.1C35.1 102.6 35.4 103.1 35.7 103.6C36 104.2 36.3 104.6 36.6 105.1C37 105.6 37.3 106 37.7 106.5C38 106.9 38.4 107.3 38.8 107.7C39.2 108.1 39.6 108.5 40 108.8C40.4 109.2 40.9 109.5 41.3 109.8C41.7 110.1 42.2 110.4 42.6 110.7C43.1 111 43.6 111.2 44 111.4C44.5 111.6 45 111.8 45.5 112C46 112.2 46.5 112.3 47 112.4C47.5 112.5 48 112.6 48.5 112.7C49 112.8 49.5 112.8 50 112.8C50.5 112.8 51 112.8 51.5 112.7C52 112.6 52.5 112.5 53 112.4C53.5 112.3 54 112.2 54.5 112C55 111.8 55.5 111.6 56 111.4C56.4 111.2 56.9 111 57.4 110.7C57.8 110.4 58.3 110.1 58.7 109.8C59.1 109.5 59.6 109.2 60 108.8C60.4 108.5 60.8 108.1 61.2 107.7C61.6 107.3 62 106.9 62.3 106.5C62.7 106 63 105.6 63.4 105.1C63.7 104.6 64 104.2 64.3 103.6C64.6 103.1 64.9 102.6 65.2 102.1C65.5 101.6 65.7 101 65.9 100.5C66.2 99.9 66.4 99.3 66.6 98.7C66.8 98.2 67 97.6 67.1 97C67.3 96.4 67.4 95.8 67.5 95.2C67.6 94.5 67.7 93.9 67.8 93.3C67.9 92.7 67.9 92 68 91.4C68 90.8 68 90.2 68 89.5C68 88.9 67.9 87.8 67.9 87.4ZM0 73.8H32V92H0ZM68 73.8H100V92H68Z","kutuplar":"M0 40H32V70H0ZM68 40H100V70H68Z"};
+const tl = (n) => n.toLocaleString("tr-TR") + " TL";
+const bekle = (ms) => new Promise((r) => setTimeout(r, ms));
+const az = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const git = (q) => alert("Demoda burası talep formuna gider: /talep-ver?baslik=" + encodeURIComponent(q || ""));
+const oturum = {};
+// Her sahne kendi döngüsünü çalıştırır; yeniden başlatınca eski döngü durur.
+function dongu(id, fn) { const tok = (oturum[id] = {}); fn(() => oturum[id] !== tok); }
+
+/* ---------- A · Sohbet ---------- */
+const SOHBET = [
+  { ben: "İzmir'de ikinci el bebek arabası arıyorum, 5.000 TL'ye kadar", o: [["Bende Chicco var, 1 yıllık, temiz.", "4.200 TL", "Bornova · Bebek Dünyası"], ["Kombi model, ana kucağıyla birlikte.", "4.850 TL", "Karşıyaka · bireysel"], ["Sıfır kutusunda, faturalı.", "5.000 TL", "Konak · Mini Adım"]] },
+  { ben: "MacBook Air M2 13 inç, sıfır. Bütçem 38.500 TL", o: [["Kapalı kutu, 2 yıl garantili.", "37.900 TL", "Kadıköy · Teknoloji Evi"], ["Faturalı, kargo bizden.", "38.400 TL", "Ankara · Bilgi Market"]] },
+];
+function A() {
+  const el = document.getElementById("A");
+  el.innerHTML = `<div><p class="kick"><i></i> Şu an <b>31 kişi</b> bir şey arıyor</p><h2 class="baslik">Sen yaz,<br><em>teklifler gelsin.</em></h2>
+    <p style="color:var(--muted);margin:10px 0 0;max-width:380px">Ne aradığını ve bütçeni yaz. Satıcılar görür, sana teklifle gelir. Seçen sen olursun.</p>
+    <form class="alan" onsubmit="event.preventDefault();git(this.q.value)"><input name="q" placeholder="Sen de yaz: ne arıyorsun?"><button class="cta">Talep ver →</button></form>
+    <p class="note" style="margin-top:8px">Ücretsiz · Numaran yalnızca abone satıcılara görünür</p></div>
+    <div><div class="sohbet" id="As"></div><p class="ornek">sağdaki talep gerçek bir örnekten, teklifler temsilîdir</p></div>`;
+  const s = el.querySelector("#As");
+  dongu("A", async (bitti) => {
+    for (let k = 0; !bitti(); k++) {
+      const c = SOHBET[k % SOHBET.length];
+      s.innerHTML = "";
+      await bekle(400); if (bitti()) return;
+      s.insertAdjacentHTML("beforeend", `<div class="msg ben">${c.ben}</div>`);
+      await bekle(900); if (bitti()) return;
+      s.insertAdjacentHTML("beforeend", `<div class="yaziyor"><span><i></i><i></i><i></i></span> ${c.o.length} satıcı yazıyor</div>`);
+      await bekle(1300); if (bitti()) return;
+      s.querySelector(".yaziyor").remove();
+      for (const [m, f, kim] of c.o) {
+        s.insertAdjacentHTML("beforeend", `<div class="msg o">${m} <b>${f}</b><small>${kim}</small></div>`);
+        await bekle(700); if (bitti()) return;
+      }
+      await bekle(az ? 99999 : 2600);
+    }
+  });
+}
+
+/* ---------- B · Aranıyor panosu ---------- */
+const KARAKTER = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789";
+function B() {
+  const el = document.getElementById("B");
+  const dar = el.clientWidth < 600, N = dar ? 18 : 26, IL = dar ? 0 : 9;
+  el.innerHTML = `<div class="ust"><div><p class="kick"><i></i> Canlı · alıcıların yazdığı gibi</p><h2 class="baslik">Şu an aranıyor.</h2></div>
+    <p style="color:#9fb0bc;margin:0;max-width:300px;font-size:13.5px">Sen de ne aradığını yaz; satıcılar panoda görüp teklifle sana gelsin.</p></div>
+    <div class="pano"><div class="etik"><span style="width:${N * 21}px">Aranan</span>${IL ? `<span>İl</span>` : ""}</div>
+    ${[0, 1, 2, 3].map((i) => `<div class="satir" data-i="${i}"><div class="hucreler t">${"<span class=h></span>".repeat(N)}</div>${IL ? `<div class="hucreler i">${"<span class='h or'></span>".repeat(IL)}</div>` : ""}</div>`).join("")}</div>
+    <form class="alan" onsubmit="event.preventDefault();git(this.q.value)"><input name="q" placeholder="Panoya sen de yaz…"><button class="cta">Talep ver →</button></form>`;
+  const yaz = async (hucreler, metin, bitti) => {
+    const H = [...hucreler.children], m = metin.toLocaleUpperCase("tr-TR").padEnd(H.length).slice(0, H.length);
+    await Promise.all(H.map(async (h, j) => {
+      if (h.textContent === m[j]) return;
+      if (!az) for (let r = 0; r < 3 + (j % 4); r++) { if (bitti()) return; h.textContent = KARAKTER[(Math.random() * KARAKTER.length) | 0]; h.classList.remove("d"); void h.offsetWidth; h.classList.add("d"); await bekle(45); }
+      h.textContent = m[j] === " " ? "" : m[j];
+    }));
+  };
+  dongu("B", async (bitti) => {
+    let k = 0;
+    const satirlar = [...el.querySelectorAll(".satir")];
+    for (const s of satirlar) { const r = TALEPLER[k++ % TALEPLER.length]; yaz(s.querySelector(".t"), r.t, bitti); if (IL) yaz(s.querySelector(".i"), r.il, bitti); await bekle(250); }
+    while (!bitti()) {
+      await bekle(az ? 99999 : 2600); if (bitti()) return;
+      // En alttaki satır yeni talebe döner; diğerleri bir aşağı kayar.
+      for (let i = satirlar.length - 1; i > 0; i--) {
+        const ust = satirlar[i - 1];
+        yaz(satirlar[i].querySelector(".t"), [...ust.querySelector(".t").children].map((h) => h.textContent || " ").join(""), bitti);
+        if (IL) yaz(satirlar[i].querySelector(".i"), [...ust.querySelector(".i").children].map((h) => h.textContent || " ").join(""), bitti);
+      }
+      const r = TALEPLER[k++ % TALEPLER.length];
+      yaz(satirlar[0].querySelector(".t"), r.t, bitti); if (IL) yaz(satirlar[0].querySelector(".i"), r.il, bitti);
+    }
+  });
+}
+
+/* ---------- C · Koparmalı ilan ---------- */
+const KISILER = ["Mehmet T.", "Selin K.", "Teknoloji Evi", "Ayhan B.", "Mini Adım", "Deniz Ç.", "Kuzey Ticaret"];
+function C() {
+  const el = document.getElementById("C");
+  el.innerHTML = `<div><p class="kick"><i></i> Bugün <b>31 ilan</b> asıldı</p><h2 class="baslik">İlanını as,<br><em>satıcılar koşsun.</em></h2>
+    <p style="color:var(--muted);margin:10px 0 0;max-width:400px">Ne aradığını yaz, ilanın asılsın. İşini bilen satıcı şeridini koparır, sana teklifle ulaşır. İlana dokunup kendininkini yazabilirsin.</p>
+    <div style="display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap"><button class="cta" onclick="git(document.querySelector('#C .yazi').textContent)">İlanımı as →</button><span class="note">Ücretsiz · numaran yalnızca abone satıcılara görünür</span></div></div>
+    <div class="afis"><h4>ARANIYOR</h4><div class="yazi" contenteditable="true" spellcheck="false" data-ph="Ne arıyorsun? Buraya yaz…"></div>
+    <p class="alt"></p><div class="seritler">${'<div class="serit"><span>alsatbul · teklif ver</span></div>'.repeat(7)}</div><div class="bildirim"></div></div>`;
+  const yazi = el.querySelector(".yazi"), alt = el.querySelector(".alt"), bil = el.querySelector(".bildirim");
+  let elle = false;
+  yazi.addEventListener("focus", () => { elle = true; oturum.C = {}; yazi.textContent = ""; alt.textContent = "Bütçem: … · İlim: …"; el.querySelectorAll(".serit").forEach((s) => s.classList.remove("kop")); bil.classList.remove("on"); });
+  dongu("C", async (bitti) => {
+    for (let k = 0; !bitti(); k++) {
+      const r = TALEPLER[(k * 3 + 6) % TALEPLER.length];
+      yazi.textContent = ""; alt.textContent = ""; bil.classList.remove("on");
+      el.querySelectorAll(".serit").forEach((s) => s.classList.remove("kop"));
+      await bekle(500);
+      for (let i = 1; i <= r.t.length; i++) { if (bitti()) return; yazi.textContent = r.t.slice(0, i); await bekle(az ? 0 : 45); }
+      alt.textContent = `${r.b ? "Bütçem " + tl(r.b) + "'ye kadar · " : ""}${r.il}`;
+      await bekle(900);
+      const S = [...el.querySelectorAll(".serit")], kac = 3;
+      for (let i = 0; i < kac; i++) {
+        if (bitti()) return;
+        const s = S[[5, 1, 3][i]];
+        s.classList.add("kop");
+        bil.innerHTML = `<b>${KISILER[(k + i) % KISILER.length]}</b> şeridini kopardı · teklif yolda`;
+        bil.classList.add("on");
+        await bekle(1300);
+      }
+      bil.innerHTML = `<b>${kac} satıcı</b> sana ulaşmak istiyor`;
+      await bekle(az ? 99999 : 2600);
+    }
+  });
+}
+
+/* ---------- D · Mıknatıs ---------- */
+const TEKLIF_CIP = [["Teknoloji Evi", "37.900"], ["Selin K.", "4.200"], ["Bilgi Market", "38.400"], ["Mini Adım", "5.000"], ["Deniz Ç.", "14.000"], ["Kuzey Ticaret", "21.000"]];
+function D() {
+  const el = document.getElementById("D");
+  el.innerHTML = `<p class="kick"><i></i> Şu an <b style="color:#fff">31 kişi</b> bir şey arıyor</p><h2 class="baslik">Aradığını yaz, <em>teklifleri çek.</em></h2>
+    <form class="alan" onsubmit="event.preventDefault();git(this.q.value)"><input name="q" placeholder="Örn: MacBook Air M2, sıfır"><button class="cta">Talep ver →</button></form>
+    <div class="meydan"><svg class="mk" viewBox="-10 30 120 120" fill="currentColor"><path d="${MIKNATIS.govde}"/><path d="${MIKNATIS.kutuplar}" fill="#f2632f"/></svg></div>
+    <p class="sayac">bu ay talep başına ortalama <b>3 teklif</b> <span class="note" style="color:#7f95a5">(örnek rakam)</span></p>`;
+  const meydan = el.querySelector(".meydan"), input = el.querySelector("input");
+  let hiz = 1;
+  input.addEventListener("input", () => (hiz = input.value ? 2.4 : 1));
+  dongu("D", async (bitti) => {
+    for (let k = 0; !bitti(); k++) {
+      const [kim, f] = TEKLIF_CIP[k % TEKLIF_CIP.length];
+      const c = document.createElement("span"); c.className = "cip"; c.innerHTML = `${kim} · <small>${f} TL</small>`;
+      meydan.appendChild(c);
+      const W = meydan.clientWidth, sol = k % 2 === 0, x0 = sol ? 0 : W - c.offsetWidth, y0 = 10 + ((k * 37) % 60);
+      const x1 = W / 2 - c.offsetWidth / 2, y1 = 104;
+      c.animate([{ transform: `translate(${x0}px,${y0}px)`, opacity: 0 }, { transform: `translate(${x0 + (sol ? 30 : -30)}px,${y0}px)`, opacity: 1, offset: 0.25 }, { transform: `translate(${x1}px,${y1}px) scale(.3)`, opacity: 0 }], { duration: 1700 / hiz, easing: "cubic-bezier(.6,0,.9,.5)" }).onfinish = () => {
+        c.remove();
+        meydan.querySelector(".mk").animate([{ transform: "translateX(-50%) scale(1.12)" }, { transform: "translateX(-50%)" }], { duration: 300 });
+      };
+      await bekle(az ? 99999 : 900 / hiz);
+    }
+  });
+}
+
+/* ---------- E · İki yol ---------- */
+function E() {
+  const el = document.getElementById("E");
+  el.innerHTML = `<p class="kick"><i></i> Aynı iPhone, iki ayrı yol</p><h2 class="baslik">Ararsın <em>ya da aranırsın.</em></h2>
+    <div class="yollar"><div class="yol eski"><h5>Klasik yol</h5><p>Sen ararsın.</p><span class="olcu" id="Eo">0 ilan gezildi</span><div class="sekmeler" id="Es"></div></div>
+    <div class="yol yeni"><h5 style="color:var(--orange-d)">alsatbul</h5><p>Sen yazarsın, onlar gelir.</p><span class="olcu" style="color:var(--orange-d)" id="Ey">0 teklif</span><div id="Et"></div></div></div>
+    <form class="alan" onsubmit="event.preventDefault();git(this.q.value)"><input name="q" placeholder="Bir cümle yaz, gerisini satıcılar yapsın"><button class="cta">Talep ver →</button></form>`;
+  const ilanlar = ["iPhone 15 128GB temiz", "iphone 15 sahibinden", "iPhone 15 garantili", "iphone 15 pro max değil", "iPhone 15 kutusuz", "iphone 15 hasar kaydı?", "iPhone 15 takas", "iPhone 15 yenilenmiş", "iphone 15 kargo?"];
+  dongu("E", async (bitti) => {
+    const s = el.querySelector("#Es"), t = el.querySelector("#Et");
+    for (let i = 0; i < 9 && !bitti(); i++) {
+      s.insertAdjacentHTML("beforeend", `<span class="sekme" style="left:${(i * 23) % 150}px;top:${(i * 7) % 44}px">${ilanlar[i]}</span>`);
+      el.querySelector("#Eo").textContent = `${(i + 1) * 4} ilan gezildi · ${Math.round((i + 1) * 17)} dk`;
+      if (i % 3 === 2) { const n = (i + 1) / 3; t.insertAdjacentHTML("beforeend", `<div class="teklif"><span>${["Teknoloji Evi", "Selin K.", "Bilgi Market"][n - 1]}</span><b>${["36.900", "37.500", "38.000"][n - 1]} TL</b></div>`); el.querySelector("#Ey").textContent = `${n} teklif · 0 arama`; }
+      await bekle(az ? 0 : 650);
+    }
+  });
+}
+
+/* ---------- F · Cümle ---------- */
+function F() {
+  const el = document.getElementById("F");
+  el.innerHTML = `<p class="kick"><i></i> Şu an <b>31 kişi</b> bir şey arıyor</p><h2 class="baslik">Aradığın seni bulsun.</h2>
+    <p class="cumle">Ben <span class="bos" id="Ft"></span> arıyorum,<br>bütçem <span class="bos k" id="Fb"></span> TL'ye kadar.</p>
+    <button class="cta" style="margin-top:14px" onclick="git(document.getElementById('Ft').textContent)">Satıcılara sor →</button>`;
+  dongu("F", async (bitti) => {
+    for (let k = 0; !bitti(); k++) {
+      const r = TALEPLER[(k * 5 + 1) % TALEPLER.length], t = el.querySelector("#Ft"), b = el.querySelector("#Fb");
+      b.textContent = "";
+      for (let i = 0; i <= r.t.length; i++) { if (bitti()) return; t.innerHTML = r.t.slice(0, i) + '<i class="imlec"></i>'; await bekle(az ? 0 : 50); }
+      b.textContent = r.b ? r.b.toLocaleString("tr-TR") : "—";
+      await bekle(az ? 99999 : 1800);
+      for (let i = r.t.length; i >= 0; i--) { if (bitti()) return; t.innerHTML = r.t.slice(0, i) + '<i class="imlec"></i>'; await bekle(18); }
+    }
+  });
+}
+
+const SAHNE = { A, B, C, D, E, F };
+const kur = () => Object.values(SAHNE).forEach((f) => f());
+kur();
+document.querySelectorAll(".replay").forEach((b) => (b.onclick = () => SAHNE[b.dataset.r]()));
+document.querySelectorAll(".bar button").forEach((b) => (b.onclick = () => {
+  document.querySelectorAll(".bar button").forEach((x) => x.classList.toggle("on", x === b));
+  document.body.classList.toggle("tel", b.dataset.g === "t");
+  setTimeout(kur, 380);
+}));
+</script>
+<script>(function(){
+var keep=["#D"];
+var K=keep.map(function(s){return document.querySelector(s)}).filter(Boolean);
+function gez(n){[].slice.call(n.children).forEach(function(c){
+  if(K.indexOf(c)>=0)return;
+  if(K.some(function(k){return c.contains(k)})){gez(c);return}
+  if(/^(SCRIPT|STYLE|LINK|svg)$/i.test(c.tagName))return;
+  c.style.setProperty('display','none','important');
+})}
+if(K.length){gez(document.body);K[0].style.margin='0 auto';document.body.style.padding='24px 0';document.body.style.margin='0'}
+function boy(){var b=document.body,h=Math.ceil(b.getBoundingClientRect().height+parseFloat(getComputedStyle(b).marginTop)+parseFloat(getComputedStyle(b).marginBottom));
+parent.postMessage({vitrin:window.name,h:h},'*')}
+new ResizeObserver(boy).observe(document.body);addEventListener('load',boy);setTimeout(boy,800);
+})();</script></body>
+</html>

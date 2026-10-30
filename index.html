@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>alsatbul tasarım vitrini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --header:#18181b; --primary:#f59e0b; --primary-dark:#d97706; --link:#b45309; --text:#18181b; --muted:#71717a; --line:#e7e5e4; --page:#f5f5f4; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--page); color:var(--text); font:16px/1.55 "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  .top { background:var(--header); color:#fff; position:sticky; top:0; z-index:10; }
+  .top .in { max-width:1280px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:20px; overflow-x:auto; }
+  .logo { height:26px; width:auto; color:#fff; flex-shrink:0; overflow:visible; }
+  .top nav { display:flex; gap:4px; }
+  .top nav a { color:#d4d4d8; text-decoration:none; font-size:13.5px; padding:6px 10px; border-radius:6px; white-space:nowrap; }
+  .top nav a:hover { background:#2a2a2f; color:#fff; }
+  .kapak { max-width:1280px; margin:0 auto; padding:72px 16px 40px; }
+  .kapak p.k { color:var(--link); font:600 30px/1 Caveat, cursive; margin:0 0 10px; }
+  .kapak h1 { font-size:clamp(36px,6vw,68px); line-height:1.02; letter-spacing:-.035em; margin:0; color:var(--header); }
+  .kapak h1 em { font-style:normal; color:var(--primary-dark); }
+  .kapak p.l { color:var(--muted); max-width:640px; font-size:18px; margin:18px 0 0; }
+  .parca { max-width:1280px; margin:0 auto; padding:56px 16px 24px; scroll-margin-top:56px; }
+  .bas { display:flex; align-items:baseline; gap:16px; border-top:1px solid var(--line); padding-top:24px; margin-bottom:20px; }
+  .no { font-weight:800; color:var(--primary-dark); font-size:15px; min-width:28px; }
+  .bas h2 { margin:0; font-size:clamp(22px,3vw,30px); letter-spacing:-.025em; color:var(--header); }
+  .bas p { margin:6px 0 0; color:var(--muted); max-width:720px; }
+  .kutu { background:#fff; border-radius:18px; box-shadow:0 1px 0 var(--line), 0 18px 40px -28px rgba(24,24,27,.3); overflow:hidden; }
+  iframe { display:block; width:100%; height:520px; border:0; }
+  footer { max-width:1280px; margin:0 auto; padding:48px 16px 64px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <svg viewBox="-8 -6 773 154" fill="currentColor" class="logo" aria-label="alsatbul"><g transform="translate(-4.4 0)"><g><g><path d="M49.1 141.9L49.1 141.9Q39.1 141.9 30.8 138.2Q22.6 134.6 16.7 128.0Q10.7 121.3 7.6 111.7Q4.4 102.0 4.4 90L4.4 90Q4.4 73.9 10 62.2Q15.6 50.6 25.6 44.4Q35.7 38.3 49.1 38.3L49.1 38.3Q57.2 38.3 63.7 40.4Q70.2 42.4 74.8 46.2Q79.4 50 81.9 55L81.9 55L83.3 55L84.4 40L116.5 40L116.5 140L83.5 140L83.0 125L81.5 125Q77.6 132.6 68.9 137.2Q60.2 141.9 49.1 141.9ZM60.6 115.7L60.6 115.7Q67.6 115.7 72.6 112.8Q77.6 109.8 80.1 104.7Q82.6 99.6 82.6 93.1L82.6 93.1L82.6 86.9Q82.6 80.2 80 75.2Q77.4 70.2 72.5 67.3Q67.6 64.4 60.9 64.4L60.9 64.4Q53.7 64.4 48.7 67.5Q43.7 70.6 41.1 76.3Q38.5 82.0 38.5 90L38.5 90Q38.5 98.0 41.0 103.8Q43.5 109.6 48.4 112.7Q53.3 115.7 60.6 115.7Z"></path></g></g></g><g transform="translate(118 0)"><g><g><path d="M43.3 140L9.6 140L9.6 5L43.3 5L43.3 140Z"></path></g></g></g><g transform="translate(167.4 0)"><g><g><path d="M53.3 141.9L53.3 141.9Q41.7 141.9 32.5 139.5Q23.3 137.2 16.9 132.8Q10.6 128.3 7.0 122.2Q3.5 116.1 3.1 108.5L3.1 108.5L36.3 108.5Q36.7 112.6 38.9 115.2Q41.1 117.8 45 119.0Q48.9 120.2 54.3 120.2L54.3 120.2Q61.9 120.2 65.7 118.0Q69.6 115.7 69.6 111.5L69.6 111.5Q69.6 108.0 67.9 106.2Q66.1 104.4 61.9 103.5Q57.8 102.6 50.4 101.9L50.4 101.9Q34.6 100 24.9 96.7Q15.2 93.3 10.6 87.2Q6.1 81.1 6.1 71.1L6.1 71.1Q6.1 61.1 11.9 53.8Q17.8 46.5 28.5 42.3Q39.3 38.1 54.1 38.1L54.1 38.1Q67.6 38.1 77.8 41.9Q88.0 45.7 93.9 52.9Q99.8 60 100.7 69.8L100.7 69.8L68.3 69.8Q68.0 66.5 66.0 64.3Q64.1 62.0 60.9 60.8Q57.8 59.6 53.5 59.6L53.5 59.6Q47.0 59.6 43.1 61.8Q39.3 63.9 39.3 68.1L39.3 68.1Q39.3 71.3 41.4 73.1Q43.5 74.8 48.2 75.8Q53.0 76.9 60.7 77.8L60.7 77.8Q76.1 79.3 85.6 82.7Q95 86.1 99.2 92.3Q103.3 98.5 103.3 108.9L103.3 108.9Q103.3 119.3 97.5 126.6Q91.7 133.9 80.6 137.9Q69.4 141.9 53.3 141.9Z"></path></g></g></g><g transform="translate(270.7 0)"><g><g><path d="M49.1 141.9L49.1 141.9Q39.1 141.9 30.8 138.2Q22.6 134.6 16.7 128.0Q10.7 121.3 7.6 111.7Q4.4 102.0 4.4 90L4.4 90Q4.4 73.9 10 62.2Q15.6 50.6 25.6 44.4Q35.7 38.3 49.1 38.3L49.1 38.3Q57.2 38.3 63.7 40.4Q70.2 42.4 74.8 46.2Q79.4 50 81.9 55L81.9 55L83.3 55L84.4 40L116.5 40L116.5 140L83.5 140L83.0 125L81.5 125Q77.6 132.6 68.9 137.2Q60.2 141.9 49.1 141.9ZM60.6 115.7L60.6 115.7Q67.6 115.7 72.6 112.8Q77.6 109.8 80.1 104.7Q82.6 99.6 82.6 93.1L82.6 93.1L82.6 86.9Q82.6 80.2 80 75.2Q77.4 70.2 72.5 67.3Q67.6 64.4 60.9 64.4L60.9 64.4Q53.7 64.4 48.7 67.5Q43.7 70.6 41.1 76.3Q38.5 82.0 38.5 90L38.5 90Q38.5 98.0 41.0 103.8Q43.5 109.6 48.4 112.7Q53.3 115.7 60.6 115.7Z"></path></g></g></g><g transform="translate(393.1 0)"><g><g><path d="M74.8 140L46.5 140Q33.0 140 26.3 133.3Q19.6 126.7 19.6 113.0L19.6 113.0L19.6 66.1L2.0 66.1L2.0 40L19.6 40L19.6 14.6L53.0 10L53.0 40L74.8 40L74.8 66.1L53.0 66.1L53.0 104.8Q53.0 109.1 55.2 110.6Q57.4 112.2 60.9 112.2L60.9 112.2L74.8 112.2L74.8 140Z"></path></g></g></g><g transform="translate(470 0)"><g><g><path d="M77.0 141.7L77.0 141.7Q68.9 141.7 62.4 139.5Q55.9 137.4 51.3 133.6Q46.7 129.8 44.3 125L44.3 125L42.8 125L41.7 140L9.6 140L9.6 5L43.3 5L43.3 55L44.6 55Q48.5 47.2 57.2 42.7Q65.9 38.1 77.0 38.1L77.0 38.1Q87.2 38.1 95.4 41.7Q103.5 45.2 109.4 51.9Q115.4 58.7 118.5 68.2Q121.7 77.8 121.7 90L121.7 90Q121.7 105.9 116.1 117.6Q110.6 129.3 100.6 135.5Q90.6 141.7 77.0 141.7ZM65.2 115.6L65.2 115.6Q72.4 115.6 77.4 112.5Q82.4 109.4 85 103.6Q87.6 97.8 87.6 90L87.6 90Q87.6 83.9 86.2 79.2Q84.8 74.4 82.0 71.1Q79.3 67.8 75.2 66.0Q71.1 64.3 65.7 64.3L65.7 64.3Q58.5 64.3 53.5 67.2Q48.5 70.2 45.9 75.3Q43.3 80.4 43.3 86.9L43.3 86.9L43.3 93.1Q43.3 99.6 45.9 104.7Q48.5 109.8 53.5 112.7Q58.5 115.6 65.2 115.6Z"></path></g></g></g><g transform="translate(713.7 0)"><g><g><path d="M43.3 140L9.6 140L9.6 5L43.3 5L43.3 140Z"></path></g></g></g><g transform="translate(600.4 0)"><g><path d="M0 66.2L0 86.4A53.6 53.6 0 0 0 107.2 86.4L107.2 66.2L73.5 66.2L73.5 86.4A19.9 19.9 0 0 1 33.7 86.4L33.7 66.2Z"></path><path d="M0 40H33.7V64H0Z M73.5 40H107.2V64H73.5Z" style="fill:var(--primary)"></path></g></g></svg>
+  <nav id="nav"></nav>
+</div></header>
+
+<section class="kapak">
+  <p class="k">Tasarım vitrini</p>
+  <h1>İlanları <em>ters</em> çevirdik.<br>Böyle anlatabiliriz.</h1>
+  <p class="l">Şimdiye kadar denediğimiz tasarımlardan beğendiklerimiz. Hepsi çalışan demo: kutulara yazabilir, tıklayıp deneyebilirsiniz.</p>
+</section>
+
+<main id="parcalar"></main>
+
+<footer>alsatbul · tasarım seçenekleri · Ekim 2026</footer>
+
+<script>
+const PARCALAR = [
+  ["ters-ilan", "Ters ilan", "Önce herkesin bildiği ilan sayfası görünür, sonra kartlar dönüp arkasındaki talepler ortaya çıkar."],
+  ["sohbet", "Sohbet", "Talep yazılır, teklifler mesaj olarak gelir. Nasıl çalıştığını birkaç saniyede gösterir."],
+  ["miknatis", "Mıknatıs", "Yazdıkça teklifler mıknatısa çekilir."],
+  ["araniyor", "SATILIK → ARANIYOR", "Dev \"SATILIK\" yazısı harf harf \"ARANIYOR\" olur. Görsel yok, yalnızca tipografi."],
+  ["iki-kapi", "İki kapı", "Alıcı ve satıcı için iki ayrı giriş: \"Ne lazım? Yaz\" ve \"Elinde var mı?\""],
+  ["kalabalik", "Kalabalık", "Kutuya yazdıkça senin gibi arayanlar yanar: \"3 kişi senin gibi telefon arıyor\"."],
+  ["cumle", "Cümle", "\"Ben ___ arıyorum, bütçem ___ TL.\" Boşluklara yazılır, anahtar satıcı cümlesine çevirir."],
+  ["mobil", "Mobil uygulama planı", "Uygulama ekranları, sitenin bugünkü renkleriyle."],
+];
+const nav = document.getElementById("nav"), kok = document.getElementById("parcalar");
+PARCALAR.forEach(([ad, baslik, aciklama], i) => {
+  nav.insertAdjacentHTML("beforeend", `<a href="#${ad}">${baslik}</a>`);
+  kok.insertAdjacentHTML("beforeend", `<section class="parca" id="${ad}">
+    <div class="bas"><span class="no">${String(i + 1).padStart(2, "0")}</span><div><h2>${baslik}</h2><p>${aciklama}</p></div></div>
+    <div class="kutu"><iframe name="${ad}" src="parca/${ad}.html" title="${baslik}" loading="lazy"></iframe></div>
+  </section>`);
+});
+// Her parça kendi yüksekliğini bildirir; çerçeve içeriğe göre uzar.
+addEventListener("message", (e) => {
+  const d = e.data;
+  if (!d || !d.vitrin || typeof d.h !== "number") return;
+  const f = document.querySelector(`iframe[name="${d.vitrin}"]`);
+  if (f && Math.abs(f.offsetHeight - d.h) > 2) f.style.height = Math.min(d.h, 12000) + "px";
+});
+</script>
+</body>
+</html>

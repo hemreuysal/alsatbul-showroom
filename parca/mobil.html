@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="tr">
+<head><base href="../../mobil/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobil tasarım planı v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+  :root {
+    --cream:#f5f5f4; --navy:#18181b; --teal:#0f3f45; --orange:#f59e0b; --orange-dark:#d97706; --price:#b91c1c;
+    --sand:#e7e5e4; --mint:#f59e0b; --peach:#fde68a; --ice:#cde0e6; --link:#1b5e7a; --purple:#6a4cc8; --green:#1f5546;
+    --text:#1d2b36; --muted:#6a737c; --card-line:#f0efed; --chip:#f0efed; --peach-soft:#fffbeb;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f0efed; color:var(--text); font:15px/1.55 "Plus Jakarta Sans", system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  main { max-width:1240px; margin:0 auto; padding:44px 20px 96px; }
+  .hand { font-family:Caveat, cursive; font-weight:600; }
+  .doc h1 { font-size:34px; letter-spacing:-.03em; margin:0 0 8px; line-height:1.15; color:var(--navy); }
+  .doc h1 em { font-style:normal; color:var(--orange); }
+  .doc h2 { font-size:23px; letter-spacing:-.02em; margin:60px 0 8px; padding-top:22px; border-top:1px solid #e7e5e4; color:var(--navy); }
+  .doc h3 { font-size:16px; margin:18px 0 6px; color:var(--navy); }
+  .lead { color:#4f5a63; max-width:800px; margin:0 0 10px; }
+  ul.t { margin:6px 0; padding-left:20px; } ul.t li { margin:4px 0; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .box { background:#fff; border-radius:20px; padding:18px 20px; box-shadow:0 1px 0 #e7e5e4; }
+  .box h3 { margin-top:0; }
+  @media (max-width:880px) { .grid3, .grid2 { grid-template-columns:1fr; } }
+  .sw { display:flex; gap:10px; flex-wrap:wrap; }
+  .sw div { width:116px; font-size:12px; color:var(--muted); }
+  .sw b { display:block; height:54px; border-radius:14px; margin-bottom:6px; border:1px solid rgba(0,0,0,.05); }
+  .icons { display:flex; gap:22px; flex-wrap:wrap; align-items:flex-end; }
+  .icons figure { margin:0; text-align:center; font-size:13px; color:var(--muted); }
+  .icons img { width:132px; height:132px; border-radius:30px; display:block; margin-bottom:8px; box-shadow:0 6px 16px -10px rgba(0,0,0,.4); }
+  .icons .sm img { width:60px; height:60px; border-radius:14px; }
+  .pick { color:var(--orange-dark); font-weight:700; }
+
+  /* ---------- telefon ---------- */
+  .phones { display:flex; gap:26px; flex-wrap:wrap; margin-top:18px; }
+  .ph { margin:0; flex:none; }
+  .ph figcaption { font-size:13px; color:#4f5a63; margin-top:10px; max-width:300px; line-height:1.5; }
+  .ph figcaption b { color:var(--navy); }
+  .scr { width:300px; height:640px; border-radius:42px; background:var(--cream); border:9px solid #0d0d0f; position:relative; overflow:hidden; box-shadow:0 22px 44px -22px rgba(0,0,0,.45); font-size:13px; }
+  .sb { height:32px; display:flex; justify-content:space-between; align-items:center; padding:0 22px 0 28px; font-size:12px; font-weight:700; position:relative; z-index:3; }
+  .sb.light { color:#fff; }
+  .sb::after { content:""; width:38px; height:11px; background:linear-gradient(90deg,currentColor 0 22px,transparent 22px 26px,currentColor 26px) ; border-radius:3px; opacity:.85; }
+  .body { position:absolute; inset:32px 0 0 0; overflow:hidden; }
+  svg.i { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; display:block; }
+  .hdr { display:flex; align-items:center; justify-content:space-between; padding:4px 14px 8px; }
+  .hdr img { height:22px; }
+  .hdr .asst { font-size:12px; font-weight:700; color:var(--navy); display:flex; align-items:center; gap:4px; }
+  .hdr .asst i { color:var(--orange); font-style:normal; }
+  .srch { margin:0 12px 10px; background:#f0efed; border-radius:14px; padding:9px 12px; display:flex; gap:8px; align-items:center; color:#8a9298; font-size:12px; }
+  .tabs { position:absolute; left:0; right:0; bottom:0; height:74px; background:#fff; border-top:1px solid var(--card-line); display:flex; justify-content:space-around; padding-top:9px; z-index:4; }
+  .tab { display:flex; flex-direction:column; align-items:center; gap:3px; font-size:9.5px; color:#7b848b; width:56px; font-weight:500; }
+  .tab.on { color:var(--navy); font-weight:700; }
+  .tab.plus .pl { width:44px; height:44px; border-radius:99px; background:var(--orange); color:#fff; display:grid; place-items:center; margin-top:-20px; box-shadow:0 6px 14px -4px rgba(47,115,201,.55); border:3px solid #fff; }
+  .tab.plus .pl svg { stroke-width:2.6; }
+
+  /* ters çevirdik girişi */
+  .flip { margin:0 12px; background:#fff; border-radius:20px; padding:14px 0 14px 14px; }
+  .flip h4 { margin:0; font-size:20px; line-height:1.12; letter-spacing:-.03em; color:var(--navy); font-weight:800; }
+  .flip h4 em { font-style:normal; color:var(--orange); }
+  .flip p { margin:6px 14px 10px 0; font-size:11px; color:var(--muted); }
+  .flip p b { color:var(--text); }
+  .flip .act { display:flex; align-items:center; gap:10px; }
+  .btn { background:var(--orange); color:#fff; font-weight:700; font-size:12px; padding:9px 14px; border-radius:12px; display:inline-flex; gap:6px; align-items:center; white-space:nowrap; }
+  .tog { width:36px; height:20px; border-radius:99px; background:var(--orange); position:relative; }
+  .tog::after { content:""; position:absolute; right:3px; top:3px; width:14px; height:14px; border-radius:99px; background:#fff; }
+  .tog.off { background:#d6d3d1; } .tog.off::after { right:auto; left:3px; }
+  .strip { display:flex; gap:8px; overflow:hidden; margin-top:12px; }
+  .aranan { flex:none; width:150px; border:1.5px solid var(--peach); background:var(--peach-soft); border-radius:14px; padding:9px 10px; }
+  .aranan .tag { display:inline-block; background:var(--orange); color:#fff; font-size:8.5px; font-weight:800; letter-spacing:.08em; padding:2px 6px; border-radius:5px; }
+  .aranan b { display:block; font-size:11.5px; line-height:1.3; margin:6px 0 4px; color:var(--text); }
+  .aranan .pr { font-size:11px; font-weight:800; color:var(--price); }
+  .aranan .ft { border-top:1px solid #fde68a; margin-top:8px; padding-top:6px; font-size:9.5px; color:var(--muted); display:flex; justify-content:space-between; }
+  .aranan .ft i { color:var(--orange); font-style:normal; }
+
+  .seller { margin:12px 12px 0; border-radius:20px; overflow:hidden; position:relative; height:150px; background:linear-gradient(105deg,#1b4f72 0%,#2a6d93 55%,#3c86ad 100%); color:#fff; }
+  .seller img { position:absolute; right:-14px; bottom:0; height:150px; width:150px; object-fit:cover; object-position:center top; -webkit-mask-image:linear-gradient(90deg,transparent,#000 40%); mask-image:linear-gradient(90deg,transparent,#000 40%); }
+  .seller .in { position:relative; padding:12px 14px; width:72%; }
+  .seller .now { display:inline-flex; align-items:center; gap:5px; background:rgba(255,255,255,.18); font-size:9.5px; padding:3px 8px; border-radius:99px; }
+  .seller .now::before { content:""; width:5px; height:5px; border-radius:9px; background:#fff; }
+  .seller h5 { margin:6px 0 2px; font-size:19px; letter-spacing:-.02em; }
+  .seller p { margin:0 0 9px; font-size:10.5px; line-height:1.35; opacity:.9; }
+  .seller .w { background:#fff; color:var(--navy); font-weight:700; font-size:11px; padding:7px 12px; border-radius:99px; display:inline-block; }
+
+  .sec { display:flex; align-items:center; gap:6px; margin:14px 14px 8px; }
+  .sec h4 { margin:0; font-size:15px; letter-spacing:-.02em; color:var(--navy); font-weight:800; }
+  .sec .fire { color:var(--orange); }
+  .sec small { color:var(--muted); font-size:10.5px; margin-left:4px; }
+  .sec a { margin-left:auto; font-size:11px; font-weight:700; color:var(--link); }
+
+  .cards { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0 10px; }
+  .card { background:#fff; border-radius:18px; padding:6px 6px 8px; }
+  .card .im { height:92px; border-radius:13px; background:#ddd center/cover; position:relative; }
+  .card .late { position:absolute; left:6px; top:6px; background:var(--purple); color:#fff; font-size:8.5px; font-weight:700; padding:2px 7px; border-radius:99px; }
+  .card .cat { position:absolute; left:6px; bottom:6px; background:#fff; color:var(--text); font-size:8.5px; font-weight:600; padding:2px 7px; border-radius:99px; }
+  .card .hrt { position:absolute; right:6px; top:6px; width:22px; height:22px; border-radius:99px; background:#fff; display:grid; place-items:center; color:var(--text); }
+  .card .hrt svg { width:12px; height:12px; }
+  .card h6 { margin:7px 4px 3px; font-size:11.5px; line-height:1.3; font-weight:700; color:var(--text); }
+  .card .bud { margin:0 4px; font-size:10.5px; color:var(--muted); }
+  .card .bud b { color:var(--price); font-weight:800; }
+  .card .who { margin:7px 4px 0; padding-top:6px; border-top:1px dashed var(--sand); font-size:9px; color:var(--muted); display:flex; gap:5px; align-items:center; line-height:1.25; }
+  .av { flex:none; width:17px; height:17px; border-radius:99px; background:#e8eef6; color:var(--navy); font-weight:800; font-size:8.5px; display:grid; place-items:center; }
+
+  .circles { display:flex; gap:10px; padding:0 14px; }
+  .circ { width:58px; text-align:center; font-size:9.5px; font-weight:600; color:var(--text); line-height:1.25; }
+  .circ .c { width:52px; height:52px; border-radius:99px; background:#ddd center/cover; margin:0 auto 4px; border:2px solid #fff; box-shadow:0 0 0 1px var(--sand); }
+  .circ .c.navy { background:var(--navy); display:grid; place-items:center; color:#fff; }
+  .circ small { display:block; color:var(--muted); font-weight:500; font-size:8.5px; }
+  .chips { display:flex; gap:6px; padding:0 12px 10px; overflow:hidden; }
+  .chip { flex:none; background:#fff; border:1px solid var(--sand); border-radius:99px; padding:5px 11px; font-size:11px; font-weight:600; white-space:nowrap; }
+  .chip small { color:var(--muted); font-weight:500; margin-left:3px; }
+  .chip.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+
+  /* detay */
+  .hero-img { height:236px; background:#ccc center/cover; position:relative; }
+  .hero-img .ov { position:absolute; top:40px; left:12px; right:12px; display:flex; justify-content:space-between; }
+  .rb { width:32px; height:32px; border-radius:99px; background:rgba(255,255,255,.95); display:grid; place-items:center; color:var(--text); }
+  .rb + .rb { margin-left:6px; }
+  .hero-img .dots { position:absolute; bottom:22px; left:0; right:0; display:flex; justify-content:center; gap:4px; }
+  .hero-img .dots i { width:5px; height:5px; border-radius:9px; background:rgba(255,255,255,.6); } .hero-img .dots i:first-child { background:#fff; width:14px; }
+  .sheet { position:absolute; top:220px; left:0; right:0; bottom:0; background:var(--cream); border-radius:22px 22px 0 0; padding:14px 14px 0; }
+  .badges { display:flex; gap:6px; }
+  .badges span { font-size:9.5px; font-weight:700; padding:3px 8px; border-radius:99px; background:var(--purple); color:#fff; }
+  .badges span.c { background:#fff; color:var(--text); border:1px solid var(--sand); font-weight:600; }
+  .sheet h3 { margin:8px 0 4px; font-size:18px; line-height:1.25; letter-spacing:-.02em; color:var(--navy); }
+  .sheet .big { font-size:12px; color:var(--muted); }
+  .sheet .big b { font-size:18px; color:var(--price); letter-spacing:-.02em; }
+  .note { margin-top:10px; background:#fff; border-radius:16px; padding:10px 12px; }
+  .note .hand { color:var(--orange-dark); font-size:17px; line-height:1; }
+  .note p { margin:4px 0 0; font-size:11.5px; line-height:1.45; }
+  .facts { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-top:8px; }
+  .facts div { background:#fff; border-radius:12px; padding:7px 8px; font-size:9.5px; color:var(--muted); }
+  .facts b { display:block; font-size:12px; color:var(--text); }
+  .buyer { display:flex; align-items:center; gap:8px; margin-top:10px; font-size:11px; color:var(--muted); }
+  .buyer .av { width:26px; height:26px; font-size:11px; }
+  .buyer b { color:var(--text); display:block; font-size:11.5px; }
+  .stick { position:absolute; left:0; right:0; bottom:0; padding:10px 12px 24px; background:#fff; border-top:1px solid var(--card-line); display:flex; gap:8px; z-index:4; }
+  .stick .o { flex:1; text-align:center; border:1.5px solid var(--navy); color:var(--navy); border-radius:14px; padding:11px; font-weight:700; font-size:13px; }
+  .stick .f { flex:1.6; text-align:center; background:var(--orange); color:#fff; border-radius:14px; padding:12px; font-weight:800; font-size:13px; }
+
+  /* talep ver */
+  .ptop { display:flex; align-items:center; justify-content:space-between; padding:4px 14px; font-size:12px; font-weight:700; color:var(--navy); }
+  .prog { margin:6px 14px 0; height:5px; border-radius:9px; background:#e7e5e4; overflow:hidden; }
+  .prog i { display:block; height:100%; width:60%; background:var(--orange); border-radius:9px; }
+  .q { margin:16px 14px 2px; font-size:22px; line-height:1.15; font-weight:800; letter-spacing:-.03em; color:var(--navy); }
+  .qs { margin:0 14px; font-size:11.5px; color:var(--muted); }
+  .bwrap { margin:14px 12px 0; background:#fff; border-radius:18px; padding:12px; }
+  .bgrid { display:flex; gap:8px; }
+  .bgrid div { flex:1; border:1.5px solid var(--sand); border-radius:13px; padding:8px 10px; }
+  .bgrid div.on { border-color:var(--orange); }
+  .bgrid small { display:block; font-size:9.5px; color:var(--muted); }
+  .bgrid b { font-size:18px; letter-spacing:-.03em; color:var(--text); }
+  .range { height:30px; position:relative; margin-top:10px; }
+  .range .r0 { position:absolute; top:12px; left:0; right:0; height:6px; border-radius:9px; background:#f0efed; }
+  .range .r1 { position:absolute; top:12px; left:22%; right:34%; height:6px; border-radius:9px; background:var(--orange); }
+  .range .k { position:absolute; top:6px; width:18px; height:18px; border-radius:99px; background:#fff; border:2px solid var(--orange); }
+  .tip { margin:10px 12px 0; background:var(--peach-soft); border:1px solid #fde68a; border-radius:14px; padding:9px 11px; font-size:11px; line-height:1.45; display:flex; gap:8px; }
+  .tip b { color:var(--orange-dark); }
+  .sug { margin:10px 12px 0; display:flex; flex-wrap:wrap; gap:6px; }
+  .cta { position:absolute; left:12px; right:12px; bottom:24px; background:var(--orange); color:#fff; text-align:center; border-radius:15px; padding:13px; font-weight:800; font-size:14px; }
+
+  /* satıcı */
+  .navyhead { background:var(--navy); color:#fff; padding:6px 14px 46px; position:relative; }
+  .navyhead .hdr { padding:0 0 10px; }
+  .navyhead h4 { margin:0; font-size:18px; letter-spacing:-.02em; line-height:1.25; font-weight:800; }
+  .navyhead h4 em { font-style:normal; color:var(--mint); }
+  .navyhead p { margin:4px 0 0; font-size:11px; color:var(--ice); }
+  .mode { display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; }
+  .mode .tog { width:32px; height:18px; } .mode .tog::after { width:12px; height:12px; }
+  .stats { margin:-34px 12px 0; position:relative; display:grid; grid-template-columns:repeat(3,1fr); background:#fff; border-radius:18px; box-shadow:0 8px 20px -12px rgba(46,53,80,.35); }
+  .stats div { padding:10px; border-right:1px solid var(--card-line); }
+  .stats div:last-child { border:0; }
+  .stats b { display:block; font-size:19px; letter-spacing:-.03em; color:var(--navy); }
+  .stats span { font-size:9.5px; color:var(--muted); }
+  .row { margin:0 12px 8px; background:#fff; border-radius:16px; padding:8px; display:flex; gap:10px; }
+  .row .im { width:70px; height:70px; border-radius:12px; background:#ddd center/cover; flex:none; position:relative; }
+  .row .tx { flex:1; min-width:0; }
+  .row h6 { margin:2px 0 3px; font-size:12px; line-height:1.3; color:var(--text); }
+  .row .bud { font-size:10.5px; color:var(--muted); } .row .bud b { color:var(--price); }
+  .row .meta { font-size:9.5px; color:var(--muted); margin-top:3px; }
+  .row .first { font-family:Caveat, cursive; font-weight:600; color:var(--orange-dark); font-size:15px; line-height:1; margin-top:2px; }
+  .row .mine { font-size:9.5px; font-weight:700; color:var(--green); margin-top:3px; }
+
+  /* mesaj */
+  .chead { display:flex; align-items:center; gap:8px; padding:4px 12px 8px; background:var(--cream); }
+  .chead b { font-size:13px; color:var(--navy); display:block; } .chead small { font-size:10px; color:var(--green); }
+  .ctx { margin:0 12px; background:#fff; border-radius:14px; padding:7px; display:flex; gap:8px; align-items:center; }
+  .ctx .im { width:38px; height:38px; border-radius:10px; background:#ddd center/cover; flex:none; }
+  .ctx b { font-size:11px; display:block; } .ctx span { font-size:10px; color:var(--price); font-weight:700; }
+  .safety { margin:8px 12px 0; background:#fff7e8; border:1px solid #f3dfb8; border-radius:12px; padding:7px 9px; font-size:10px; line-height:1.4; color:#6b5a32; }
+  .chat { padding:10px 12px; display:flex; flex-direction:column; gap:7px; }
+  .msg { max-width:78%; padding:8px 11px; border-radius:16px; font-size:11.5px; line-height:1.4; }
+  .msg.in { background:#fff; border-bottom-left-radius:5px; }
+  .msg.out { background:var(--navy); color:#fff; margin-left:auto; border-bottom-right-radius:5px; }
+  .msg.offer { background:#fff; border:2px solid var(--orange); }
+  .msg.offer small { font-size:9.5px; font-weight:800; letter-spacing:.06em; color:var(--orange); display:block; }
+  .msg.offer b { font-size:17px; color:var(--text); letter-spacing:-.02em; display:block; }
+  .composer { position:absolute; left:0; right:0; bottom:0; padding:9px 10px 24px; background:#fff; border-top:1px solid var(--card-line); display:flex; gap:8px; align-items:center; }
+  .composer div { flex:1; background:#f5f5f4; border-radius:99px; padding:9px 13px; color:#99a0a6; font-size:11.5px; }
+  .composer b { width:36px; height:36px; border-radius:99px; background:var(--orange); color:#fff; display:grid; place-items:center; }
+
+  /* bana özel */
+  .me { background:var(--navy); color:#fff; padding:10px 14px 50px; }
+  .me .top { display:flex; align-items:center; gap:10px; }
+  .me .big-av { width:46px; height:46px; border-radius:99px; background:var(--orange); display:grid; place-items:center; font-weight:800; font-size:18px; }
+  .me b { font-size:16px; display:block; } .me small { color:var(--ice); font-size:10.5px; }
+  .menu { margin:10px 12px 0; background:#fff; border-radius:18px; overflow:hidden; }
+  .menu div { display:flex; align-items:center; gap:10px; padding:11px 12px; border-bottom:1px solid var(--card-line); font-size:12px; font-weight:600; }
+  .menu div:last-child { border:0; }
+  .menu .ic { width:28px; height:28px; border-radius:9px; background:#f5f5f4; display:grid; place-items:center; color:var(--navy); }
+  .menu .ic svg { width:15px; height:15px; }
+  .menu em { margin-left:auto; font-style:normal; font-size:10.5px; color:var(--muted); font-weight:500; }
+  .menu em.n { background:var(--orange); color:#fff; padding:1px 7px; border-radius:99px; font-weight:700; }
+
+  /* açılış */
+  .splash { position:absolute; inset:0; background:var(--cream); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .splash img { width:200px; }
+  .splash p { margin:14px 0 0; font-size:22px; color:var(--orange-dark); }
+  .splash .foot { position:absolute; bottom:40px; font-size:10px; color:var(--muted); }
+
+  table.plan { width:100%; border-collapse:collapse; background:#fff; border-radius:16px; overflow:hidden; margin-top:10px; font-size:14px; }
+  table.plan th, table.plan td { padding:10px 12px; border-bottom:1px solid #f0efed; text-align:left; vertical-align:top; }
+  table.plan th { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; background:#fafaf9; }
+  table.plan td:first-child { font-weight:700; white-space:nowrap; color:var(--navy); }
+</style>
+<style>
+:root{--cream:#f5f5f4;--navy:#18181b;--teal:#2a2a2f;--orange:#f59e0b;--orange-dark:#d97706;--price:#b91c1c;
+--sand:#e7e5e4;--peach:#fde68a;--peach-soft:#fffbeb;--link:#b45309;--green:#18181b;--card-line:#f0efed;--chip:#f0efed;--text:#18181b;--muted:#71717a}
+body{background:#f5f5f4!important}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.6"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.6"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.6"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24"><path d="M20 12a7.5 7.5 0 0 1-11 6.6L4 20l1.4-4.6A7.5 7.5 0 1 1 20 12z"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.2-3.6 4-5.2 7.5-5.2s6.3 1.6 7.5 5.2"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.6 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10z"/></symbol>
+  <symbol id="back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><path d="M12 4v11M7.5 8.5 12 4l4.5 4.5M5 13v6h14v-6"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r=".6"/><circle cx="4.5" cy="12" r=".6"/><circle cx="4.5" cy="18" r=".6"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></symbol>
+  <symbol id="card" viewBox="0 0 24 24"><rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="M3.5 10h17"/></symbol>
+  <symbol id="cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M6 18l1.6-1.6M16.4 7.6 18 6"/></symbol>
+  <symbol id="tag" viewBox="0 0 24 24"><path d="M4 12.5V5h7.5l8.5 8.5-7.5 7.5z"/><circle cx="8" cy="9" r="1.2"/></symbol>
+  <symbol id="fire" viewBox="0 0 24 24"><path d="M12 21c-3.6 0-6-2.5-6-5.8 0-3.6 3-5.4 3.6-9.2 2.4 1.4 3.6 3.5 3.6 5.6.8-.6 1.4-1.6 1.6-2.8C17 10.6 18 12.8 18 15.2 18 18.5 15.6 21 12 21z" fill="currentColor" stroke="none"/></symbol>
+</svg>
+<main class="doc">
+
+<h1>alsatbul mobil: tasarım planı <em>v2</em></h1>
+<p class="lead">26 Ekim 2026. Temel artık demo sitesi: koyu üst bant ve başlıklar, amber vurgulu logo, amber düğmeler, fotoğraflı beyaz kartlar, "İlanları ters çevirdik." girişi ve "Satıcı mısın?" kartı. Uygulama bu dili birebir taşıyor ve üstüne telefona özgü hareket ve özellikler ekliyor. Ekranlardaki talepler canlı sitedeki gerçek talepler; fotoğraflar demodaki lisanslı kategori fotoğrafları.</p>
+
+<h2>1. Renkler ve ikon</h2>
+<div class="grid2">
+  <div>
+    <h3>Ana renkler (sitenin bugünkü renkleri)</h3>
+    <div class="sw">
+      <div><b style="background:#18181b"></b>Koyu #18181b<br>üst bant, logo, başlık</div>
+      <div><b style="background:#f59e0b"></b>Amber #f59e0b<br>ana düğme, logo vurgusu</div>
+      <div><b style="background:#d97706"></b>Koyu amber #d97706<br>düğme üstüne gelince</div>
+      <div><b style="background:#b45309"></b>Bağlantı #b45309<br>link</div>
+      <div><b style="background:#b91c1c"></b>Bütçe #b91c1c<br>fiyat yazısı</div>
+      <div><b style="background:#f5f5f4"></b>Taş #f5f5f4<br>zemin</div>
+      <div><b style="background:#e7e5e4"></b>Çizgi #e7e5e4<br>çizgiler</div>
+      <div><b style="background:#fff"></b>Beyaz<br>kartlar</div>
+    </div>
+    <p class="lead" style="margin-top:10px">Yazı tipi Plus Jakarta Sans, kısa vurgular için Caveat; ikisi de demodakiyle aynı. Kartlar beyaz ve 18–20 px yuvarlak köşeli. Renkler tek dosyada (Theme.swift / Theme.kt) toplanacak, istenirse demodaki diğer paletlere geçilebilecek.</p>
+  </div>
+  <div>
+    <h3>Uygulama ikonu ("bul")</h3>
+    <div class="icons">
+      <figure><img src="../showroom/parca/bul-lacivert.svg" alt=""><span class="pick">Koyu (önerim)</span></figure>
+      <figure><img src="../showroom/parca/bul-turuncu.svg" alt="">Amber</figure>
+      <figure><img src="../showroom/parca/bul-krem.svg" alt="">Açık</figure>
+      <figure class="sm"><img src="../showroom/parca/bul-lacivert.svg" alt="">gerçek boy</figure>
+    </div>
+    <p class="lead" style="margin-top:10px">Koyu zemini öneriyorum: sitenin üst bandıyla aynı renk, amber vurgu logodan geliyor. Telefon ekranında rakip uygulamaların arasında ayrışıyor.</p>
+  </div>
+</div>
+
+<h2>2. Ekranlar</h2>
+<div class="phones">
+
+  <!-- 1 açılış -->
+  <figure class="ph"><div class="scr"><div class="splash">
+    <img src="../showroom/parca/logo-lacivert.svg" alt="">
+    <p class="hand">aradığını söyle, satıcı seni bulsun</p>
+    <div class="foot">alsatbul.com</div>
+  </div></div>
+  <figcaption><b>Açılış.</b> Demodaki giriş animasyonunun aynısı: önce mıknatıs gelir, b ve l çekilip yaylanarak yerine oturur, ardından "alsat" belirir. Altında Caveat ile kısa bir slogan var. Toplam en fazla 1,2 saniye.</figcaption></figure>
+
+  <!-- 2 vitrin -->
+  <figure class="ph"><div class="scr"><div class="sb">9:41</div><div class="body">
+    <div class="hdr"><img src="../showroom/parca/logo-lacivert.svg" alt=""><span class="asst"><i>✦</i> Asistan</span></div>
+    <div class="srch"><svg class="i" style="width:15px;height:15px"><use href="#search"/></svg>Kelime veya kategori ile talep ara…</div>
+    <div class="flip">
+      <h4>İlanları <em>ters</em><br>çevirdik.</h4>
+      <p>Burada <b>alıcılar ne istediğini yazar</b>, satıcılar teklifle gelir.</p>
+      <div class="act"><span class="btn">Ücretsiz talep ver <svg class="i" style="width:13px;height:13px"><use href="#arrow"/></svg></span><span class="tog"></span></div>
+      <div class="strip">
+        <div class="aranan"><span class="tag">ARANIYOR</span><b>"Nintendo Switch OLED + 3 oyun"</b><span class="pr">12.000 – 17.000 TL</span><div class="ft">İstanbul · 2 gün önce <i>→</i></div></div>
+        <div class="aranan"><span class="tag">ARANIYOR</span><b>"Koşu ayakkabısı, 43 numara"</b><span class="pr">3.500 – 6.500 TL</span><div class="ft">Ankara · 3 gün önce <i>→</i></div></div>
+      </div>
+    </div>
+    <div class="seller"><img src="foto/satici-kiz.webp" alt=""><div class="in"><span class="now">Şu an</span><h5>Satıcı mısın?</h5><p>Şu an <b>33 açık talep</b> teklif bekliyor. Müşterin seni arıyor.</p><span class="w">Taleplere teklif ver →</span></div></div>
+    <div class="sec"><span class="fire"><svg class="i" style="width:15px;height:15px"><use href="#fire"/></svg></span><h4>Yeni Talepler</h4></div>
+    <div class="tabs"><div class="tab on"><svg class="i"><use href="#home"/></svg>Vitrin</div><div class="tab"><svg class="i"><use href="#grid"/></svg>Kategoriler</div><div class="tab plus"><span class="pl"><svg class="i"><use href="#plus"/></svg></span>Talep Ver</div><div class="tab"><svg class="i"><use href="#chat"/></svg>Mesajlar</div><div class="tab"><svg class="i"><use href="#user"/></svg>Bana Özel</div></div>
+  </div></div>
+  <figcaption><b>Vitrin (üst kısım).</b> Demodaki giriş, uygulamaya taşınmış hali. Açılınca önce "SATILIK" kartları görünür, sonra kartlar <b>sırayla dönüp</b> arkalarından alıcıların talepleri çıkar; her dönüşte hafif bir titreşim olur. Anahtar iki yüz arasında geçiş yapar. Altında gerçek sayıyla "Satıcı mısın?" kartı var.</figcaption></figure>
+
+  <!-- 3 vitrin akış -->
+  <figure class="ph"><div class="scr"><div class="sb">9:41</div><div class="body">
+    <div class="hdr"><img src="../showroom/parca/logo-lacivert.svg" alt=""><span class="asst"><i>✦</i> Asistan</span></div>
+    <div class="sec" style="margin-top:4px"><span class="fire"><svg class="i" style="width:15px;height:15px"><use href="#fire"/></svg></span><h4>Yeni Talepler</h4><a>Tümü</a></div>
+    <div class="cards">
+      <div class="card"><div class="im" style="background-image:url(foto/oyun-konsol.webp)"><span class="cat">Oyun Konsolu</span><span class="hrt"><svg class="i"><use href="#heart"/></svg></span></div><h6>Nintendo Switch OLED + 3 oyun</h6><div class="bud">Bütçem: <b>12.000 – 17.000 TL</b></div><div class="who"><span class="av">İ</span>İstanbul'dan bir alıcı · 2 gün önce</div></div>
+      <div class="card"><div class="im" style="background-image:url(foto/ayakkabi-canta.webp)"><span class="late">Son günler</span><span class="cat">Ayakkabı</span><span class="hrt"><svg class="i"><use href="#heart"/></svg></span></div><h6>Koşu ayakkabısı, 43 numara</h6><div class="bud">Bütçem: <b>3.500 – 6.500 TL</b></div><div class="who"><span class="av">A</span>Ankara'dan bir alıcı · 3 gün önce</div></div>
+      <div class="card"><div class="im" style="background-image:url(foto/cocuk-giyim.webp)"><span class="cat">Çocuk Giyim</span><span class="hrt"><svg class="i"><use href="#heart"/></svg></span></div><h6>Bebek kışlık mont, 12-18 ay</h6><div class="bud">Bütçem: <b>800 – 2.000 TL</b></div><div class="who"><span class="av">İ</span>İstanbul'dan bir alıcı · 4 gün önce</div></div>
+      <div class="card"><div class="im" style="background-image:url(foto/ev-tekstili.webp)"><span class="cat">Ev Tekstili</span><span class="hrt"><svg class="i"><use href="#heart"/></svg></span></div><h6>Salon için blackout perde, 4 kanat</h6><div class="bud">Bütçem: <b>5.000 – 12.000 TL</b></div><div class="who"><span class="av">K</span>Kayseri'den bir alıcı · 5 gün önce</div></div>
+    </div>
+    <div class="sec"><h4>Kategorilere göz at</h4></div>
+    <div class="circles">
+      <div class="circ"><div class="c navy"><svg class="i"><use href="#list"/></svg></div>Tüm Talepler<small>33 talep</small></div>
+      <div class="circ"><div class="c" style="background-image:url(foto/cep-telefonu.webp)"></div>Cep Telefonu<small>4 talep</small></div>
+      <div class="circ"><div class="c" style="background-image:url(foto/beyaz-esya.webp)"></div>Beyaz Eşya<small>4 talep</small></div>
+      <div class="circ"><div class="c" style="background-image:url(foto/kadin-giyim.webp)"></div>Kadın Giyim<small>4 talep</small></div>
+    </div>
+    <div class="tabs"><div class="tab on"><svg class="i"><use href="#home"/></svg>Vitrin</div><div class="tab"><svg class="i"><use href="#grid"/></svg>Kategoriler</div><div class="tab plus"><span class="pl"><svg class="i"><use href="#plus"/></svg></span>Talep Ver</div><div class="tab"><svg class="i"><use href="#chat"/></svg>Mesajlar</div><div class="tab"><svg class="i"><use href="#user"/></svg>Bana Özel</div></div>
+  </div></div>
+  <figcaption><b>Vitrin (aşağı kaydırınca).</b> Demodaki fotoğraflı talep kartları iki sütun halinde: kategori etiketi, kalp, "Bütçem: …" ve "İstanbul'dan bir alıcı". Alıcı fotoğraf yüklediyse onun fotoğrafı, yüklemediyse kategori fotoğrafı görünür. Aşağı çekince liste yenilenir, kalbe dokununca kalp küçük bir zıplamayla dolar.</figcaption></figure>
+
+  <!-- 4 kategoriler -->
+  <figure class="ph"><div class="scr"><div class="sb">9:41</div><div class="body">
+    <div class="hdr" style="padding-bottom:4px"><span style="font-size:20px;font-weight:800;color:var(--navy);letter-spacing:-.03em">Kategoriler</span><svg class="i" style="color:var(--navy)"><use href="#search"/></svg></div>
+    <div class="chips" style="padding-top:6px"><span class="chip on">Tümü</span><span class="chip">Elektronik<small>16</small></span><span class="chip">Moda<small>11</small></span><span class="chip">Ev<small>6</small></span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px 4px;padding:6px 10px">
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/cep-telefonu.webp)"></div>Cep Telefonu<small>4 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/bilgisayar.webp)"></div>Bilgisayar<small>3 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/tablet.webp)"></div>Tablet<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/tv-ses-sistemleri.webp)"></div>TV & Ses<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/giyilebilir-teknoloji.webp)"></div>Giyilebilir<small>1 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/oyun-konsol.webp)"></div>Oyun Konsolu<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/kadin-giyim.webp)"></div>Kadın Giyim<small>4 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/erkek-giyim.webp)"></div>Erkek Giyim<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/ayakkabi-canta.webp)"></div>Ayakkabı & Çanta<small>3 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/cocuk-giyim.webp)"></div>Çocuk Giyim<small>1 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/beyaz-esya.webp)"></div>Beyaz Eşya<small>4 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/ev-tekstili.webp)"></div>Ev Tekstili<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/cilt-bakimi.webp)"></div>Cilt Bakımı<small>2 talep</small></div>
+      <div class="circ" style="width:auto"><div class="c" style="background-image:url(foto/parfum-deodorant.webp)"></div>Parfüm<small>2 talep</small></div>
+    </div>
+    <div class="tabs"><div class="tab"><svg class="i"><use href="#home"/></svg>Vitrin</div><div class="tab on"><svg class="i"><use href="#grid"/></svg>Kategoriler</div><div class="tab plus"><span class="pl"><svg class="i"><use href="#plus"/></svg></span>Talep Ver</div><div class="tab"><svg class="i"><use href="#chat"/></svg>Mesajlar</div><div class="tab"><svg class="i"><use href="#user"/></svg>Bana Özel</div></div>
+  </div></div>
+  <figcaption><b>Kategoriler.</b> Trendyol'daki gibi fotoğraflı yuvarlaklar, her birinin altında açık talep sayısı. Üstteki çiplerle ana gruplar arasında geçilir. Bugünkü uygulamadaki yazı listesinin yerini alıyor.</figcaption></figure>
+
+  <!-- 5 detay -->
+  <figure class="ph"><div class="scr"><div class="sb light">9:41</div><div class="body" style="inset:0">
+    <div class="hero-img" style="background-image:url(foto/oyun-konsol.webp)"><div class="ov"><span class="rb"><svg class="i"><use href="#back"/></svg></span><span style="display:flex"><span class="rb"><svg class="i"><use href="#share"/></svg></span><span class="rb"><svg class="i"><use href="#heart"/></svg></span></span></div><div class="dots"><i></i><i></i><i></i></div></div>
+    <div class="sheet">
+      <div class="badges"><span>Son günler</span><span class="c">Oyun Konsolu</span><span class="c">İstanbul</span></div>
+      <h3>Nintendo Switch OLED + 3 oyun</h3>
+      <div class="big">Bütçem: <b>12.000 – 17.000 TL</b></div>
+      <div class="note"><span class="hand">alıcının notu</span><p>Kutulu ve faturalı olsun. Mario Kart varsa çok iyi olur, kargo da olur elden de.</p></div>
+      <div class="facts"><div><b>3</b>teklif geldi</div><div><b>12 gün</b>kaldı</div><div><b>48</b>satıcı gördü</div></div>
+      <div class="buyer"><span class="av">İ</span><span><b>İstanbul'dan bir alıcı</b>Ekim 2026'dan beri üye · 4 talep açtı</span></div>
+    </div>
+    <div class="stick"><span class="o">Mesaj</span><span class="f">Teklif ver</span></div>
+  </div></div>
+  <figcaption><b>Talep detayı.</b> Fotoğraf ekranın tepesine kadar uzanır, alıcı birden fazla fotoğraf yüklediyse yana kaydırılır. İçerik, altından yukarı açılan krem bir sayfada durur. "Alıcının notu" Caveat ile yazılır. Altta sabit iki düğme var: <b>Teklif ver</b> ve Mesaj. Talep sahibinin kendisi bakıyorsa bu düğmelerin yerinde gelen teklifler görünür.</figcaption></figure>
+
+  <!-- 6 talep ver -->
+  <figure class="ph"><div class="scr"><div class="sb">9:41</div><div class="body">
+    <div class="ptop"><svg class="i"><use href="#back"/></svg><span>Talep Ver</span><span style="color:var(--muted);font-weight:600">3 / 5</span></div>
+    <div class="prog"><i></i></div>
+    <div class="q">Bütçen ne kadar?</div>
+    <div class="qs">Koşu ayakkabısı, 43 numara · Ayakkabı</div>
+    <div class="bwrap">
+      <div class="bgrid"><div><small>En az</small><b>3.500</b> TL</div><div class="on"><small>En çok</small><b>6.500</b> TL</div></div>
+      <div class="range"><div class="r0"></div><div class="r1"></div><span class="k" style="left:20%"></span><span class="k" style="right:32%"></span></div>
+    </div>
+    <div class="tip"><span>💡</span><span><b>Bu kategoride talepler genelde 2.500 – 7.000 TL.</b> Gerçekçi bütçe daha çok teklif getirir.</span></div>
+    <div style="margin:14px 14px 0;font-size:11px;color:var(--muted);font-weight:600">Hızlı seç</div>
+    <div class="sug"><span class="chip">2.000 TL'ye kadar</span><span class="chip">5.000 TL'ye kadar</span><span class="chip on">3.500 – 6.500 TL</span><span class="chip">Teklife açığım</span></div>
+    <div class="cta">Devam</div>
+  </div></div>
+  <figcaption><b>Talep Ver, adım adım.</b> Armut'tan alındı: turuncu ilerleme çubuğu ve her ekranda tek soru. Adımlar: ne arıyorsun, kategori (fotoğraflı yuvarlaklarla), bütçe, ayrıntılar ve fotoğraf, şehir ve özet. Vitrindeki "Ücretsiz talep ver" düğmesi bu akışı açar. Bütçe ipucu API ekiyle gelir.</figcaption></figure>
+
+  <!-- 7 satıcı modu -->
+  <figure class="ph"><div class="scr" style="background:var(--cream)"><div class="sb light" style="background:var(--navy)">9:41</div><div class="body">
+    <div class="navyhead">
+      <div class="hdr"><img src="../showroom/parca/logo-krem.svg" alt=""><span class="mode">Satıcı <span class="tog"></span></span></div>
+      <h4>Bugün sana uygun<br><em>12 talep</em> var</h4>
+      <p>İlgi alanların: Elektronik, Oyun Konsolu · İstanbul</p>
+    </div>
+    <div class="stats"><div><b>4</b><span>teklifin bekliyor</span></div><div><b>2</b><span>yeni mesaj</span></div><div><b>1</b><span>kabul edildi</span></div></div>
+    <div class="chips" style="padding-top:12px"><span class="chip on">Hepsi</span><span class="chip">Teklifsiz<small>5</small></span><span class="chip">Son günler<small>2</small></span><span class="chip">Yüksek bütçe</span></div>
+    <div class="row"><div class="im" style="background-image:url(foto/bilgisayar.webp)"></div><div class="tx"><h6>Ofis için 10 adet masaüstü bilgisayar</h6><div class="bud">Bütçem: <b>180.000 – 250.000 TL</b></div><div class="meta">Kocaeli · 2 saat önce</div><div class="first">ilk teklifi sen ver →</div></div></div>
+    <div class="row"><div class="im" style="background-image:url(foto/tablet.webp)"></div><div class="tx"><h6>Çocuk için dayanıklı Android tablet</h6><div class="bud">Bütçem: <b>4.000 – 8.000 TL</b></div><div class="meta">İstanbul · dün · 2 teklif</div><div class="mine">✓ Teklifin: 6.900 TL</div></div></div>
+    <div class="row"><div class="im" style="background-image:url(foto/tv-ses-sistemleri.webp)"></div><div class="tx"><h6>Soundbar + subwoofer seti</h6><div class="bud">Bütçem: <b>15.000 – 30.000 TL</b></div><div class="meta">İstanbul · 3 gün önce</div></div></div>
+    <div class="tabs"><div class="tab on"><svg class="i"><use href="#home"/></svg>Vitrin</div><div class="tab"><svg class="i"><use href="#grid"/></svg>Kategoriler</div><div class="tab plus"><span class="pl"><svg class="i"><use href="#tag"/></svg></span>Teklifler</div><div class="tab"><svg class="i"><use href="#chat"/></svg>Mesajlar</div><div class="tab"><svg class="i"><use href="#user"/></svg>Bana Özel</div></div>
+  </div></div>
+  <figcaption><b>Satıcı modu.</b> Vitrindeki anahtarın satıcı hesabında karşılığı. Açılınca Vitrin <b>ters döner</b>: lacivert başlık, kişiye özel sayılar ve sana uygun talepler gelir. Teklifsiz talepte Caveat ile "ilk teklifi sen ver" yazar, teklif verdiysen kendi fiyatın görünür. Ortadaki turuncu düğme "Teklifler" olur.</figcaption></figure>
+
+  <!-- 8 mesaj -->
+  <figure class="ph"><div class="scr"><div class="sb">9:41</div><div class="body">
+    <div class="chead"><svg class="i" style="color:var(--navy)"><use href="#back"/></svg><span class="av" style="width:30px;height:30px;font-size:12px;background:var(--orange);color:#fff">O</span><span><b>OyunEvi</b><small>● doğrulanmış satıcı</small></span></div>
+    <div class="ctx"><div class="im" style="background-image:url(foto/oyun-konsol.webp)"></div><span><b>Nintendo Switch OLED + 3 oyun</b><span>Bütçe 12.000 – 17.000 TL</span></span></div>
+    <div class="safety"><b>Güvenli alışveriş:</b> kapora ya da "önce gönder" diyerek para isteyenlere dikkat. Ürünü görmeden ödeme yapma.</div>
+    <div class="chat">
+      <div class="msg in offer"><small>TEKLİF</small><b>15.400 TL</b>Mario Kart dahil, faturalı. Yarın kargoya verebilirim.</div>
+      <div class="msg out">Merhaba, kutu hiç açıldı mı?</div>
+      <div class="msg in">3 hafta kullanıldı, ekran koruyucusu var.</div>
+      <div class="msg out">Fotoğraf atabilir misiniz? 📷</div>
+    </div>
+    <div class="composer"><div>Mesaj yaz…</div><b><svg class="i"><use href="#send"/></svg></b></div>
+  </div></div>
+  <figcaption><b>Mesajlar.</b> Konuşmanın tepesinde hangi talep için yazışıldığı fotoğrafıyla görünür. Teklif, turuncu çerçeveli bir balon olarak durur. Güvenlik notu sakin, krem-sarı bir kutu.</figcaption></figure>
+
+  <!-- 9 bana özel -->
+  <figure class="ph"><div class="scr"><div class="sb light" style="background:var(--navy)">9:41</div><div class="body">
+    <div class="me"><div class="top"><span class="big-av">E</span><span><b>Merhaba Elif</b><small>Ekim 2026'dan beri üye</small></span><svg class="i" style="margin-left:auto"><use href="#bell"/></svg></div></div>
+    <div class="stats" style="margin-top:-38px"><div><b>3</b><span>açık talep</span></div><div><b>7</b><span>gelen teklif</span></div><div><b>5</b><span>favori</span></div></div>
+    <div class="menu">
+      <div><span class="ic"><svg class="i"><use href="#list"/></svg></span>Taleplerim<em class="n">2 yeni teklif</em></div>
+      <div><span class="ic"><svg class="i"><use href="#heart"/></svg></span>Favoriler<em>5</em></div>
+      <div><span class="ic"><svg class="i"><use href="#bell"/></svg></span>Bildirimler<em>›</em></div>
+      <div><span class="ic"><svg class="i"><use href="#card"/></svg></span>Abonelik<em>›</em></div>
+    </div>
+    <div class="seller" style="height:118px"><img src="foto/satici-esnaf.webp" alt="" style="height:118px;width:120px"><div class="in"><h5 style="margin-top:2px">Satıcı mısın?</h5><p>Bugün 33 kişi bir şey arıyor.</p><span class="w">Satıcı ol →</span></div></div>
+    <div class="menu"><div><span class="ic"><svg class="i"><use href="#cog"/></svg></span>Ayarlar<em>›</em></div></div>
+    <div class="tabs"><div class="tab"><svg class="i"><use href="#home"/></svg>Vitrin</div><div class="tab"><svg class="i"><use href="#grid"/></svg>Kategoriler</div><div class="tab plus"><span class="pl"><svg class="i"><use href="#plus"/></svg></span>Talep Ver</div><div class="tab"><svg class="i"><use href="#chat"/></svg>Mesajlar</div><div class="tab on"><svg class="i"><use href="#user"/></svg>Bana Özel</div></div>
+  </div></div>
+  <figcaption><b>Bana Özel.</b> Lacivert başlık, üstüne binen sayı kartı, ikonlu menü. Satıcı olmayan kullanıcı demodaki "Satıcı mısın?" kartının küçük halini görür.</figcaption></figure>
+
+</div>
+
+<h2>3. Telefona özgü dokunuşlar</h2>
+<div class="grid3">
+  <div class="box"><h3>Ters çevirme hareketi</h3>Vitrindeki SATILIK kartları gerçek bir 3D dönüşle ARANIYOR'a çevrilir, her kartta hafif bir titreşim olur. Satıcı modu açılınca bütün Vitrin aynı hareketle döner. Demonun "İlanları ters çevirdik" fikri uygulamanın imzası oluyor.</div>
+  <div class="box"><h3>Mıknatıs</h3>Açılışta logo animasyonu var. Aşağı çekip yenilemede yükleniyor göstergesi mıknatıs olur ve b ile l çekilir. Yeni teklif geldiğinde teklif satırı mıknatısa çekilir gibi yaylanarak yerine oturur.</div>
+  <div class="box"><h3>Yerli davranış</h3>Kaydırarak geri dönme, uzun basınca talep önizlemesi, paylaşım menüsü. Ana ekran simgesine uzun basınca "Talep ver" ve "Mesajlar" kısayolları çıkar. "Hareketi azalt" ayarı açık olan kullanıcıda animasyon olmaz.</div>
+</div>
+
+<h2>4. Uygulama planı</h2>
+<p class="lead">iOS (SwiftUI) ve Android (Compose) aynı anda ilerler. Her aşamanın sonunda iki uygulama derlenir, simülatörde canlı veriyle ekran görüntüsü alınır ve <code>gelistirme</code>'ye alınır. 1–4. aşamalar yalnızca arayüz değişikliği. Kategori fotoğrafları (Unsplash lisanslı, KAYNAKLAR.md'de) uygulamaya gömülür.</p>
+<table class="plan">
+  <tr><th>Aşama</th><th>Ne değişir</th></tr>
+  <tr><td>1. Temel</td><td>Krem / lacivert / turuncu renk dosyası, Plus Jakarta Sans + Caveat, "bul" ikonu, logo ve açılış animasyonu, turuncu ortalı yeni sekme çubuğu (Vitrin · Kategoriler · Talep Ver · Mesajlar · Bana Özel)</td></tr>
+  <tr><td>2. Vitrin ve kartlar</td><td>Fotoğraflı talep kartı (iki sütun), "İlanları ters çevirdik" girişi ve ters çevirme hareketi, "Satıcı mısın?" kartı, fotoğraflı kategori yuvarlakları</td></tr>
+  <tr><td>3. Detay ve mesaj</td><td>Tam ekran fotoğraflı talep detayı, alıcının notu, sabit Teklif ver / Mesaj düğmeleri, teklif balonu, güvenlik notu, Bana Özel</td></tr>
+  <tr><td>4. Talep Ver ve satıcı modu</td><td>Adım adım talep verme, satıcı anahtarı ve lacivert satıcı vitrini</td></tr>
+  <tr><td>5. API ekleri</td><td>Kategoriye göre bütçe aralığı, "kaç satıcı gördü", alıcı hakkında sayılar</td></tr>
+  <tr><td>Sonra</td><td>Anlık bildirim (push), puanlama sistemi</td></tr>
+</table>
+<p class="lead" style="margin-top:14px">Bir önceki sade taslak <a href="v1/tasarim-plani.html">v1</a> klasöründe duruyor.</p>
+</main>
+<script>(function(){
+var keep=[];
+var K=keep.map(function(s){return document.querySelector(s)}).filter(Boolean);
+function gez(n){[].slice.call(n.children).forEach(function(c){
+  if(K.indexOf(c)>=0)return;
+  if(K.some(function(k){return c.contains(k)})){gez(c);return}
+  if(/^(SCRIPT|STYLE|LINK|svg)$/i.test(c.tagName))return;
+  c.style.setProperty('display','none','important');
+})}
+if(K.length){gez(document.body);K[0].style.margin='0 auto';document.body.style.padding='24px 0';document.body.style.margin='0'}
+function boy(){var b=document.body,h=Math.ceil(b.getBoundingClientRect().height+parseFloat(getComputedStyle(b).marginTop)+parseFloat(getComputedStyle(b).marginBottom));
+parent.postMessage({vitrin:window.name,h:h},'*')}
+new ResizeObserver(boy).observe(document.body);addEventListener('load',boy);setTimeout(boy,800);
+})();</script></body>
+</html>

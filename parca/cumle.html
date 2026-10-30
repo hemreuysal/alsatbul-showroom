@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="tr">
+<head><base href="../../giris-uc-yon/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giriş: üç yeni yön</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#18181b;--a:#f59e0b;--ad:#b45309;--m:#71717a;--l:#e7e5e4;--bg:#fafaf9;--blue:#1e3a8a}
+*{box-sizing:border-box;margin:0}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:#f4f4f5;color:var(--g)}
+.nav{position:sticky;top:0;z-index:9;display:flex;gap:8px;align-items:center;padding:10px 20px;background:#fff;border-bottom:1px solid var(--l);font-size:13px}
+.nav b{margin-right:8px}
+.nav a{padding:6px 12px;border-radius:99px;border:1px solid var(--l);color:var(--g);text-decoration:none;font-weight:600}
+.nav a:hover{border-color:var(--g)}
+.opt{max-width:1240px;margin:28px auto 40px;padding:0 20px}
+.opt h2{font-size:15px;font-weight:800;margin-bottom:4px}
+.opt h2 span{color:var(--ad)}
+.opt .why{font-size:13px;color:var(--m);margin-bottom:12px;max-width:780px;line-height:1.5}
+.frame{background:#fff;border:1px solid var(--l);border-radius:12px;overflow:hidden}
+.hdr{display:flex;align-items:center;gap:18px;height:56px;padding:0 22px;background:var(--g);color:#fff}
+.hdr .logo{font-weight:800;font-size:22px;letter-spacing:-.8px}.hdr .logo i{font-style:normal;color:var(--a)}
+.hdr .s{flex:1;max-width:460px;height:36px;border-radius:8px;background:#2a2a2f;color:#8b8b93;font-size:13px;display:flex;align-items:center;padding:0 14px}
+.hdr .r{margin-left:auto;font-size:13px;color:#d4d4d8}
+.replay{float:right;font:600 12px inherit;font-family:inherit;padding:5px 10px;border-radius:99px;border:1px solid var(--l);background:#fff;cursor:pointer}
+
+/* ---------- A: Kalabalık ---------- */
+.A{position:relative;padding:34px 0 30px;background:var(--bg);overflow:hidden}
+.rows{display:flex;flex-direction:column;gap:6px;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.row{display:flex;width:max-content;animation:mq 70s linear infinite}
+.row.rev{animation-direction:reverse;animation-duration:85s}
+.row.slow{animation-duration:100s}
+.rows:hover .row{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.it{display:inline-flex;align-items:baseline;gap:10px;padding:0 22px;font-size:40px;font-weight:800;letter-spacing:-1.4px;color:#d6d3d1;white-space:nowrap;cursor:pointer;transition:color .25s}
+.it small{font-size:14px;font-weight:700;letter-spacing:0;color:transparent;transition:color .25s}
+.it::after{content:"·";color:#e7e5e4;margin-left:22px}
+.it.on,.it:hover{color:var(--g)}.it.on small,.it:hover small{color:var(--ad)}
+.A .ask{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin:30px 40px 0}
+.A h1{font-size:46px;line-height:1;letter-spacing:-1.8px;font-weight:800}
+.A h1 em{font-style:normal;color:var(--ad)}
+.A p{margin-top:10px;color:var(--m);font-size:15px}
+.box{display:flex;width:480px;height:52px;border:1.5px solid var(--g);border-radius:12px;background:#fff;flex:none}
+.box input{flex:1;min-width:0;border:0;background:none;padding:0 16px;font:500 15px inherit;font-family:inherit;outline:none}
+.box button{margin:5px;padding:0 18px;border:0;border-radius:8px;background:var(--g);color:#fff;font:700 14px inherit;font-family:inherit;cursor:pointer}
+.box button:hover{background:#000}
+
+/* ---------- B: Cümle ---------- */
+.B{padding:56px 40px 40px;background:#fff;text-align:center}
+.B .k{font-size:13px;color:var(--m)}.B .k b{color:var(--g)}
+.sent{margin:18px auto 0;max-width:1000px;font-size:50px;line-height:1.25;font-weight:800;letter-spacing:-1.8px}
+.blank{display:inline-block;position:relative;min-width:2ch;color:var(--ad);border-bottom:3px solid var(--a);padding:0 4px;text-align:left}
+.blank .caret{display:inline-block;width:3px;height:.9em;margin-left:2px;background:var(--a);vertical-align:-.08em;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.digits{display:inline-flex;overflow:hidden;height:1.2em;vertical-align:bottom}
+.digits span{display:inline-block;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.B .go{margin-top:28px;display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 26px;border-radius:12px;background:var(--g);color:#fff;font-weight:700;font-size:15px;text-decoration:none}
+.B .go:hover{background:#000}
+.feed{margin:34px auto 0;max-width:760px;border-top:1px solid var(--l);display:flex;justify-content:space-between;align-items:center;padding-top:14px;font-size:13px;color:var(--m);height:44px;overflow:hidden}
+.feed .now{display:flex;gap:8px;align-items:center}
+.feed .now i{width:6px;height:6px;border-radius:50%;background:var(--a)}
+.feed .t{display:block;animation:up .6s cubic-bezier(.16,1,.3,1) both;color:var(--g);font-weight:600}
+.feed .t small{color:var(--ad);font-weight:700;margin-left:8px;font-size:13px}
+@keyframes up{from{transform:translateY(120%);opacity:0}}
+
+/* ---------- C: Vitrin camı ---------- */
+.C{display:grid;grid-template-columns:400px 1fr;height:380px;background:#fff}
+.C .ttl{display:flex;flex-direction:column;padding:34px 34px 30px;border-right:1px solid var(--l)}
+.C .ttl .k{font-size:12px;color:var(--m)}
+.C h1{margin-top:10px;font-size:44px;line-height:1.02;letter-spacing:-1.7px;font-weight:800}
+.C h1 em{font-style:normal;color:var(--ad)}
+.C .ttl p{margin-top:12px;color:var(--m);font-size:14.5px;line-height:1.5}
+.C .box{width:auto;margin-top:auto}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:1fr 1fr;gap:2px;background:var(--l)}
+.tile{position:relative;overflow:hidden;background:#f4f4f5;color:#fff;text-decoration:none}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.tile::after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.72))}
+.tile .cap{position:absolute;z-index:1;left:12px;right:12px;bottom:10px}
+.tile .cap b{display:block;font-size:13.5px;line-height:1.25;font-weight:700}
+.tile .cap small{display:block;margin-top:3px;font-size:12px;font-weight:700;color:#fcd34d}
+.tile .tv{position:absolute;z-index:1;top:10px;right:10px;padding:5px 10px;border-radius:99px;background:#fff;color:var(--g);font-size:11.5px;font-weight:700;opacity:0;transform:translateY(-4px);transition:.25s}
+.tile:hover img{transform:scale(1.06)}
+.tile:hover .tv{opacity:1;transform:none}
+.tile.in{animation:wipe 1s cubic-bezier(.77,0,.18,1) both}
+@keyframes wipe{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
+.tile .new{position:absolute;inset:0;animation:wipe .9s cubic-bezier(.77,0,.18,1) both}
+.tile .new img{animation:zo 1.6s cubic-bezier(.16,1,.3,1) both}
+@keyframes zo{from{transform:scale(1.2)}}
+/* A ekleri */
+.rows.hold .row{animation-play-state:paused}
+.it.dim{color:#efedeb}.it.hit{color:var(--g)}.it.hit small{color:var(--ad)}
+.it.mine{color:var(--ad)}.it.mine small{color:var(--g)}
+.it.mine{animation:pop .8s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes pop{from{transform:translateY(-40px) scale(.6);opacity:0}}
+#aMsg b{color:var(--g)}
+/* B ekleri */
+.sw{position:relative;display:inline-flex;padding:4px;border-radius:99px;background:#f4f4f5;margin-bottom:6px}
+.sw button{position:relative;z-index:1;border:0;background:none;font:700 13px inherit;font-family:inherit;padding:8px 18px;border-radius:99px;cursor:pointer;color:var(--m);transition:color .3s}
+.sw button.on{color:#fff}
+.sw i{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:99px;background:var(--g);transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+.sw.sat i{transform:translateX(100%);background:var(--blue)}
+.sent .ch{display:inline-block;transform-origin:50% 60%;animation:flip .5s cubic-bezier(.3,.7,.2,1.2) both}
+@keyframes flip{from{transform:rotateX(-100deg);opacity:0}}
+.sent.out .ch{animation:flipout .3s ease-in both}
+@keyframes flipout{to{transform:rotateX(100deg);opacity:0}}
+.B.sat .blank{color:var(--blue);border-color:#93c5fd}.B.sat .caret{background:var(--blue)}
+.B.sat .go{background:var(--blue)}
+.blank[contenteditable]{outline:none;cursor:text}
+.scrub{cursor:ew-resize;user-select:none}
+.hint{margin-top:10px;font-size:12px;color:#a1a1aa}
+/* C ekleri */
+.tile{transition:filter .4s,opacity .4s}
+.tile.dim{filter:grayscale(1);opacity:.35}
+.tile img{will-change:transform}
+.tile.mine .pv{position:absolute;z-index:1;top:10px;left:10px;padding:4px 9px;border-radius:99px;background:var(--a);color:var(--g);font-size:11px;font-weight:800}
+.tile.mine{outline:3px solid var(--a);outline-offset:-3px}
+.tile .ph{position:absolute;inset:0;display:grid;place-items:center;background:#27272a;color:#52525b;font-size:72px;font-weight:800}
+#cMsg{margin-top:8px;font-size:12.5px;color:var(--ad);font-weight:600;min-height:18px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="nav"><b>Giriş · üç yeni yön</b><a href="#A">A · Kalabalık</a><a href="#B">B · Cümle</a><a href="#C">C · Vitrin camı</a><a href="#D">D · Şu anki siteye uyarlanmış</a></div>
+
+<section class="opt" id="A">
+  <h2>A · Kalabalık <span>(önerim)</span></h2>
+  <p class="why"><b>Yeni:</b> kutuya yazdıkça kalabalıkta senin gibi arayanlar yanıyor, gerisi siliniyor ve "3 kişi senin gibi telefon arıyor" diyor. Talep verince yazdığın şey turuncu olarak kalabalığın içine katılıyor. İmlecin yanındaki talepler fener tutulmuş gibi koyulaşıyor.<br>Koyu bant ve kart yok. Girişin kendisi gerçek taleplerden oluşan, kayan büyük yazı satırları. Her birkaç saniyede biri koyulaşıyor ve bütçesi beliriyor. Fare üstündeyken satırlar duruyor, üzerine gelinen talep okunuyor. Mesaj tek bakışta anlaşılıyor: burada insanlar bir şey arıyor.</p>
+  <div class="frame">
+    <div class="hdr"><span class="logo">alsat<i>bul</i></span><span class="s">Ne arıyorsun?</span><span class="r">Giriş yap · Hesap oluştur</span></div>
+    <div class="A">
+      <div class="rows" id="rows"></div>
+      <div class="ask">
+        <div><h1>Herkes bir şey <em>arıyor.</em></h1><p id="aMsg">Burada ilan yok. Sen ne istediğini yaz, satıcılar teklifle gelsin.</p></div>
+        <form class="box" id="aForm"><input id="aIn" placeholder="Sen ne arıyorsun? Yazmayı dene: telefon" autocomplete="off"><button>Talep ver</button></form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opt" id="B">
+  <h2>B · Cümle <button class="replay" onclick="startB()">baştan oynat</button></h2>
+  <p class="why"><b>Yeni:</b> üstteki anahtar "Satıyorum"a geçince cümle harf harf ters dönüp satıcı cümlesine dönüşüyor: "Elimde ___ var, ___ kişi bunu arıyor." Sayı gerçek taleplerden hesaplanıyor. Boşluğa tıklayıp kendin yazabilirsin, bütçe rakamını fareyle sağa sola sürükleyince sayaç gibi değişiyor.<br>Arama motoru sadeliği. Sayfanın ortasında tek bir cümle: "Ben ___ arıyorum, bütçem ___ TL." Boşluklara gerçek talepler kendiliğinden yazılıp siliniyor, bütçe rakamları sayaç gibi dönüyor. Ziyaretçi tıklayınca boşluğa kendi isteğini yazar. Altta son talepler tek satırda akıyor.</p>
+  <div class="frame">
+    <div class="hdr"><span class="logo">alsat<i>bul</i></span><span class="s">Ne arıyorsun?</span><span class="r">Giriş yap · Hesap oluştur</span></div>
+    <div class="B">
+      <div class="sw" id="sw"><button class="on" data-m="al">Alıyorum</button><button data-m="sat">Satıyorum</button><i></i></div>
+      <p class="sent" id="sent">Ben <span class="blank" id="bt"></span> arıyorum,<br>bütçem <span class="blank scrub" id="bb"></span> TL.</p>
+      <p class="hint" id="hint">Boşluğa tıkla, kendin yaz · rakamı sağa sola sürükle</p>
+      <a class="go" id="bgo" href="#B">Satıcılar bana gelsin →</a>
+      <div class="feed"><span class="now"><i></i>Son talep</span><span id="feed"></span></div>
+    </div>
+  </div>
+</section>
+
+<section class="opt" id="C">
+  <h2>C · Vitrin camı <button class="replay" onclick="startC()">baştan oynat</button></h2>
+  <p class="why"><b>Yeni:</b> kutuya yazdıkça vitrinin ilk camında senin talebin canlı önizleme olarak beliriyor; ne yazdığına göre fotoğrafı da kendisi seçiyor. Benzer talepler renkli kalıyor, gerisi griye dönüyor ve altta "2 kişi daha buna benzer bir şey arıyor" yazıyor. Fare camların üstünde gezinince fotoğraflar hafifçe imlece doğru kayıyor (derinlik).<br>Senin gönderdiğin görseldeki fotoğraf sıcaklığı, ama süssüz. Solda düz beyaz bir başlık alanı, sağda dükkân camı gibi aranan şeylerin fotoğrafları. Fotoğraflar sırayla perde gibi açılıyor, sonra birkaç saniyede bir biri yeni bir taleple değişiyor. Üzerine gelince "Teklif ver" çıkıyor. El yazısı, yıldız ve eğik kart yok.</p>
+  <div class="frame">
+    <div class="hdr"><span class="logo">alsat<i>bul</i></span><span class="s">Ne arıyorsun?</span><span class="r">Giriş yap · Hesap oluştur</span></div>
+    <div class="C" id="Cw">
+      <div class="ttl">
+        <span class="k">Bu sitede 0 ilan var · 21 kişi ne istediğini yazdı</span>
+        <h1>İlanları<br><em>ters</em> çevirdik.</h1>
+        <p>Satıcılar ilan vermez. Sen ne istediğini yaz, satıcılar teklifle gelsin.</p>
+        <p id="cMsg"></p><form class="box" onsubmit="return false"><input id="cIn" placeholder="Ne arıyorsun? Yazmayı dene: parfüm" autocomplete="off"><button>Talep ver</button></form>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Canlı sitedeki gerçek talepler (api.alsatbul.com, 2026-10-29). Fotoğraflar sitenin kategori görselleri.
+const R=[["iPhone 16 Pro Max, sıfır kapalı kutu",85000,95000,"cep-telefonu"],["Tesettür elbise toptan, karışık beden seri",80000,140000,"kadin-giyim"],["Akıllı bileklik, uyku takibi olan",1000,2500,"giyilebilir-teknoloji"],["Ofis için 10 adet masaüstü bilgisayar",180000,250000,"bilgisayar"],["Bebek kışlık mont, 12-18 ay",800,2000,"cocuk-giyim"],["Kadın parfümü, çiçeksi notalar, 50 ml",2500,5000,"parfum-deodorant"],["Çocuk için dayanıklı Android tablet",4000,8000,"tablet"],["Koşu ayakkabısı, 43 numara",3500,6500,"ayakkabi-canta"],["Orijinal ruj ve far paleti seti",2000,5000,"makyaj"],["Annem için kullanımı kolay akıllı telefon",7000,12000,"cep-telefonu-2"],["Takım elbise, damatlık, 50 beden",8000,18000,"erkek-giyim"],["Soundbar + subwoofer seti",15000,30000,"tv-ses-sistemleri"],["Salon için blackout perde, 4 kanat",5000,12000,"ev-tekstili"],["Nintendo Switch OLED + 3 oyun",12000,17000,"oyun-konsol"],["Eczane markası anti-aging serum",600,1800,"cilt-bakimi"],["Ofis için kumaş pantolon ve gömlek",3000,6000,"erkek-giyim-2"],["Espresso makinesi, öğütücülü",15000,30000,"kucuk-ev-aletleri"],["Sakal bakım seti ve yağ",500,1500,"erkek-bakim"],["Oyun bilgisayarı, RTX 4070 ve üzeri",50000,75000,"bilgisayar-2"],["Denim kumaş toptan, 2000 metre",300000,450000,"kumas-iplik"],["Tıraş makinesi ve epilatör",3000,6000,"kisisel-bakim"]];
+const tl=n=>n.toLocaleString("tr-TR");
+const short=t=>t.split(",")[0];
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// A: üç satır, her satır iki kez yazılır (kesintisiz kayma için)
+(function(){
+  const rows=document.getElementById("rows");
+  const parts=[R.slice(0,7),R.slice(7,14),R.slice(14)];
+  parts.forEach((p,k)=>{
+    const row=document.createElement("div");
+    row.className="row"+(k===1?" rev":k===2?" slow":"");
+    const html=p.map(r=>`<span class="it">${short(r[0])}<small>${tl(r[1])}–${tl(r[2])} TL</small></span>`).join("");
+    row.innerHTML=html+html;rows.appendChild(row);
+  });
+  const all=[...rows.querySelectorAll(".it")];
+  if(reduce)return;
+  setInterval(()=>{
+    all.forEach(e=>e.classList.remove("on"));
+    const vis=all.filter(e=>{const b=e.getBoundingClientRect(),w=rows.getBoundingClientRect();return b.left>w.left+80&&b.right<w.right-80});
+    for(let i=0;i<2&&vis.length;i++)vis.splice(Math.random()*vis.length|0,1)[0].classList.add("on");
+  },2600);
+})();
+
+// B: daktilo + dönen rakamlar
+let bTimer=[];
+function startB(){
+  bTimer.forEach(clearTimeout);bTimer=[];
+  const bt=document.getElementById("bt"),bb=document.getElementById("bb"),feed=document.getElementById("feed");
+  const later=(f,ms)=>bTimer.push(setTimeout(f,ms));
+  const digits=n=>{const s=tl(n);bb.innerHTML=[...s].map(ch=>/\d/.test(ch)?`<span class="digits"><span style="transform:translateY(${Math.random()<.5?"-":""}100%)">${ch}</span></span>`:ch).join("");requestAnimationFrame(()=>requestAnimationFrame(()=>bb.querySelectorAll(".digits span").forEach((d,i)=>{d.style.transitionDelay=i*40+"ms";d.style.transform="none"})))};
+  let n=0;
+  const type=(txt,i,done)=>{bt.innerHTML=txt.slice(0,i)+'<span class="caret"></span>';if(i<txt.length)later(()=>type(txt,i+1,done),38+Math.random()*50);else done()};
+  const erase=(txt,i,done)=>{bt.innerHTML=txt.slice(0,i)+'<span class="caret"></span>';if(i>0)later(()=>erase(txt,i-1,done),18);else done()};
+  const step=()=>{const r=R[n++%R.length],t=short(r[0]).toLocaleLowerCase("tr-TR");
+    feed.innerHTML=`<span class="t">${r[0]}<small>${tl(r[1])}–${tl(r[2])} TL</small></span>`;
+    type(t,0,()=>{digits(r[2]);later(()=>erase(t,t.length,step),2600)})};
+  if(reduce){const r=R[0];bt.textContent=short(r[0]).toLocaleLowerCase("tr-TR");bb.textContent=tl(r[2]);return}
+  step();
+}
+startB();
+
+// C: 8 karo sırayla açılır, sonra rastgele biri yeni taleple değişir
+let cTimer;
+function tile(r){return `<img src="img/${r[3]}.webp" alt=""><span class="tv">Teklif ver</span><span class="cap"><b>${r[0]}</b><small>${tl(r[1])} – ${tl(r[2])} TL</small></span>`}
+function startC(){
+  clearInterval(cTimer);
+  const g=document.getElementById("grid");g.innerHTML="";
+  let next=8;
+  R.slice(0,8).forEach((r,i)=>{const a=document.createElement("a");a.className="tile in";a.href="#C";a.style.animationDelay=(i%4)*90+(i>3?160:0)+"ms";a.innerHTML=tile(r);g.appendChild(a)});
+  if(reduce)return;
+  let last=-1;
+  cTimer=setInterval(()=>{
+    let k;do{k=Math.random()*8|0}while(k===last);last=k;
+    const a=g.children[k],r=R[next++%R.length];
+    const n=document.createElement("span");n.className="new";n.innerHTML=tile(r);a.appendChild(n);
+    setTimeout(()=>{a.innerHTML=tile(r)},1700);
+  },2800);
+}
+startC();
+
+// ---- ortak: Türkçe küçük harf + basit eşleşme (eş anlamlılar kategori üzerinden)
+const low=s=>s.toLocaleLowerCase("tr-TR");
+const SYN={"cep-telefonu":"telefon iphone samsung xiaomi","cep-telefonu-2":"telefon akıllı","kadin-giyim":"elbise tesettür kadın giyim","giyilebilir-teknoloji":"saat bileklik akıllı","bilgisayar":"bilgisayar pc laptop","bilgisayar-2":"bilgisayar oyun laptop pc ekran kartı","cocuk-giyim":"bebek çocuk mont","parfum-deodorant":"parfüm koku deodorant","tablet":"tablet ipad","ayakkabi-canta":"ayakkabı spor çanta","makyaj":"ruj makyaj far","erkek-giyim":"takım elbise ceket erkek","erkek-giyim-2":"pantolon gömlek","tv-ses-sistemleri":"tv televizyon soundbar hoparlör","ev-tekstili":"perde nevresim halı","oyun-konsol":"switch playstation ps5 konsol oyun","cilt-bakimi":"serum krem cilt","kucuk-ev-aletleri":"kahve espresso makine süpürge","erkek-bakim":"sakal tıraş","kumas-iplik":"kumaş denim iplik","kisisel-bakim":"tıraş epilatör"};
+const STOP=new Set("için olan adet ile ve veya arıyorum kullanımı kolay sıfır kapalı kutu orijinal seti set toptan karışık beden üzeri".split(" "));
+const words=q=>low(q).split(/[^a-zçğıöşü0-9]+/).filter(w=>w.length>=3&&!STOP.has(w));
+const match=(r,q)=>{const hay=low(r[0])+" "+(SYN[r[3]]||"");return words(q).some(w=>hay.includes(w)||hay.split(" ").some(h=>h.length>=3&&w.startsWith(h)))};
+const guess=q=>{const w=words(q);for(const k in SYN){if(w.some(x=>SYN[k].split(" ").some(s=>s.length>=3&&(x.startsWith(s)||s.startsWith(x)))))return k}return null};
+
+// ---- A: yazdıkça kalabalık süzülür, gönderince talep kalabalığa katılır, imleç feneri
+(function(){
+  const rows=document.getElementById("rows"),inp=document.getElementById("aIn"),msg=document.getElementById("aMsg"),def=msg.innerHTML;
+  const items=()=>[...rows.querySelectorAll(".it:not(.mine)")];
+  inp.addEventListener("input",()=>{
+    const q=inp.value.trim();
+    if(words(q).length===0){rows.classList.remove("hold");items().forEach(e=>e.classList.remove("hit","dim"));msg.innerHTML=def;return}
+    rows.classList.add("hold");
+    const hits=new Set();
+    items().forEach(e=>{const r=R.find(x=>short(x[0])===e.firstChild.textContent);const ok=r&&match(r,q);e.classList.toggle("hit",!!ok);e.classList.toggle("dim",!ok);if(ok)hits.add(r[0])});
+    msg.innerHTML=hits.size?`<b>${hits.size} kişi</b> senin gibi “${q}” arıyor. Bir de sen yaz, satıcılar sana gelsin.`:`“${q}” arayan ilk kişi sen olabilirsin. <b>İlk talep, ilk teklif.</b>`;
+  });
+  document.getElementById("aForm").addEventListener("submit",e=>{
+    e.preventDefault();const q=inp.value.trim();if(!q)return;
+    const row=rows.firstChild,html=`<span class="it mine">${q}<small>senin talebin</small></span>`;
+    // görünür alana düşsün diye satırın şu anki kaymasına göre araya eklenir
+    const vis=[...row.children].find(c=>c.getBoundingClientRect().left>rows.getBoundingClientRect().left+200);
+    (vis||row.firstChild).insertAdjacentHTML("beforebegin",html);
+    inp.value="";inp.dispatchEvent(new Event("input"));
+    msg.innerHTML="<b>Talebin kalabalığa katıldı.</b> Satıcılar artık seni de görüyor.";
+  });
+  // fener: imlecin yakınındaki talepler koyulaşır
+  rows.addEventListener("pointermove",e=>{if(rows.classList.contains("hold"))return;rows.querySelectorAll(".it:not(.mine)").forEach(it=>{const b=it.getBoundingClientRect(),d=Math.hypot(e.clientX-(b.left+b.width/2),e.clientY-(b.top+b.height/2));const k=Math.max(0,1-d/260);it.style.color=k>0?`color-mix(in srgb,#18181b ${k*100|0}%,#d6d3d1)`:""})});
+  rows.addEventListener("pointerleave",()=>rows.querySelectorAll(".it").forEach(it=>it.style.color=""));
+})();
+
+// ---- B: alıcı/satıcı anahtarı, harf harf dönen cümle, kendin yaz, sürüklenen rakam
+(function(){
+  const sw=document.getElementById("sw"),sent=document.getElementById("sent"),B=document.querySelector(".B"),go=document.getElementById("bgo"),hint=document.getElementById("hint");
+  const wrap=html=>html.replace(/(<span class="blank[^>]*>[\s\S]*?<\/span>)|([^<]+)|(<br>)/g,(m,bl,tx,br)=>bl||br||[...tx].map(c=>c===" "?" ":`<span class="ch">${c}</span>`).join(""));
+  const AL='Ben <span class="blank" id="bt"></span> arıyorum,<br>bütçem <span class="blank scrub" id="bb"></span> TL.';
+  const SAT='Elimde <span class="blank" id="bt"></span> var,<br><span class="blank" id="bb"></span> kişi bunu arıyor.';
+  function stagger(){sent.querySelectorAll(".ch").forEach((c,i)=>c.style.animationDelay=i*18+"ms")}
+  sw.addEventListener("click",e=>{
+    const b=e.target.closest("button");if(!b||b.classList.contains("on"))return;
+    sw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    const sat=b.dataset.m==="sat";sw.classList.toggle("sat",sat);
+    sent.classList.add("out");
+    setTimeout(()=>{sent.classList.remove("out");sent.innerHTML=wrap(sat?SAT:AL);stagger();B.classList.toggle("sat",sat);
+      go.textContent=sat?"Bu alıcılara teklif ver →":"Satıcılar bana gelsin →";
+      hint.textContent=sat?"Boşluğa elindeki ürünü yaz, kaç kişinin aradığını gör":"Boşluğa tıkla, kendin yaz · rakamı sağa sola sürükle";
+      mode=sat?"sat":"al";startB()},320);
+  });
+  let mode="al";
+  // startB'yi satıcı kipini de bilecek şekilde sarar
+  const base=startB;
+  window.startB=function(){
+    if(mode==="al"){base();bind();return}
+    bTimer.forEach(clearTimeout);bTimer=[];
+    const bt=document.getElementById("bt"),bb=document.getElementById("bb"),later=(f,ms)=>bTimer.push(setTimeout(f,ms));
+    const cats=["telefon","parfüm","bilgisayar","ayakkabı","konsol","perde"];let n=0;
+    const count=w=>R.filter(r=>match(r,w)).length;
+    const type=(t,i,d)=>{bt.innerHTML=t.slice(0,i)+'<span class="caret"></span>';i<t.length?later(()=>type(t,i+1,d),60):d()};
+    const erase=(t,i,d)=>{bt.innerHTML=t.slice(0,i)+'<span class="caret"></span>';i>0?later(()=>erase(t,i-1,d),25):d()};
+    const step=()=>{const w=cats[n++%cats.length];type(w,0,()=>{bb.textContent=count(w);later(()=>erase(w,w.length,step),2400)})};
+    step();bind();
+  };
+  // kendin yaz: boşluğa tıklayınca daktilo durur
+  function bind(){
+    const bt=document.getElementById("bt"),bb=document.getElementById("bb");
+    bt.onclick=()=>{bTimer.forEach(clearTimeout);bTimer=[];bt.contentEditable="true";bt.textContent="";bt.focus()};
+    bt.oninput=()=>{if(mode==="sat"){bb.textContent=words(bt.textContent).length?R.filter(r=>match(r,bt.textContent)).length:"?"}};
+    if(mode!=="al")return;
+    bb.onpointerdown=e=>{bTimer.forEach(clearTimeout);bTimer=[];const x0=e.clientX,v0=parseInt(bb.textContent.replace(/\D/g,""))||10000;bb.setPointerCapture(e.pointerId);
+      bb.onpointermove=m=>{const v=Math.max(500,Math.round((v0+(m.clientX-x0)*v0/300)/500)*500);bb.textContent=tl(v)};
+      bb.onpointerup=()=>{bb.onpointermove=null}};
+  }
+  sent.innerHTML=wrap(AL);stagger();startB();
+})();
+
+// ---- C: yazdıkça önizleme camı, benzerleri renkli kalır, imleçle derinlik
+(function(){
+  const inp=document.getElementById("cIn"),g=document.getElementById("grid"),msg=document.getElementById("cMsg");
+  let saved=null;
+  inp.addEventListener("input",()=>{
+    const q=inp.value.trim(),tiles=[...g.children];
+    if(!q){saved=null;msg.textContent="";startC();return}
+    clearInterval(cTimer);
+    const k=guess(q),first=g.children[0];
+    if(!saved)saved=first.outerHTML;
+    const html=`${k?`<img src="img/${k}.webp" alt="">`:`<span class="ph">${q[0].toLocaleUpperCase("tr-TR")}</span>`}<span class="pv">Senin talebin · önizleme</span><span class="cap"><b>${q}</b><small>Bütçeyi sen belirle</small></span>`;
+    if(!first.classList.contains("mine")){first.className="tile mine in";first.style.animationDelay="0ms"}
+    if(first.dataset.k!==String(k)){first.dataset.k=k;first.classList.remove("in");void first.offsetWidth;first.classList.add("in")}
+    first.innerHTML=html;
+    let same=0;
+    tiles.slice(1).forEach(t=>{const title=t.querySelector(".cap b")?.textContent||"";const r=R.find(x=>x[0]===title);const ok=r&&match(r,q);t.classList.toggle("dim",!ok);if(ok)same++});
+    msg.textContent=same?`${same} kişi daha buna benzer bir şey arıyor.`:"Bunu arayan ilk kişi sensin. İlk teklifler sana.";
+  });
+  // derinlik: fotoğraflar imlece doğru hafifçe kayar
+  g.addEventListener("pointermove",e=>{g.querySelectorAll(".tile img").forEach(im=>{const b=im.parentElement.getBoundingClientRect(),dx=(e.clientX-b.left)/b.width-.5,dy=(e.clientY-b.top)/b.height-.5;im.style.transform=`scale(1.1) translate(${dx*-10}px,${dy*-10}px)`})});
+  g.addEventListener("pointerleave",()=>g.querySelectorAll(".tile img").forEach(im=>im.style.transform=""));
+})();
+</script>
+<style>
+/* ---------- D: şu anki siteye uyarlanmış hâl ---------- */
+.D{--acc:var(--a);--accd:var(--ad);background:#fff;position:relative;overflow:hidden}
+.D.sat{--acc:#3b82f6;--accd:#1e3a8a}
+.D .hd{display:flex;align-items:center;gap:14px;height:60px;padding:0 22px;background:var(--g);color:#fff;position:relative;z-index:3}
+.D .logo{font-weight:800;font-size:23px;letter-spacing:-.8px}.D .logo i{font-style:normal;color:var(--acc);transition:color .5s}
+.D .srch{position:relative;flex:1;max-width:440px}
+.D .srch input{width:100%;height:38px;border:0;border-radius:8px;background:#2a2a2f;color:#fff;padding:0 14px;font:500 13.5px inherit;font-family:inherit;outline:none}
+.D .srch input:focus{box-shadow:inset 0 0 0 1.5px var(--acc)}
+.dd{position:absolute;top:44px;left:0;right:0;background:#fff;color:var(--g);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.18);overflow:hidden;display:none;font-size:13px}
+.dd.on{display:block;animation:ddin .25s cubic-bezier(.16,1,.3,1)}
+@keyframes ddin{from{opacity:0;transform:translateY(-6px)}}
+.dd a{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;color:inherit;text-decoration:none;border-bottom:1px solid #f4f4f5}
+.dd a:hover{background:#fafaf9}.dd a small{color:var(--ad);font-weight:700;white-space:nowrap}
+.dd .ask{background:#fffbeb;font-weight:600}.dd .ask b{color:var(--ad)}
+.D .hd .sp{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:13px}
+.D .pill{height:34px;padding:0 14px;border-radius:99px;border:1px solid #52525b;display:flex;align-items:center;color:#fff;background:none;font:600 13px inherit;font-family:inherit;cursor:pointer}
+.D .cta{height:36px;padding:0 16px;border-radius:8px;background:var(--acc);color:var(--g);font-weight:700;display:flex;align-items:center;transition:background .5s}
+.D.sat .cta{color:#fff}
+.D .top{display:grid;grid-template-columns:1fr 290px;gap:16px;padding:16px 22px 0}
+.D .band{position:relative;height:250px;border-radius:14px;background:var(--g);color:#fff;padding:22px 30px;overflow:hidden;display:flex;flex-direction:column}
+.D .band .sw{background:#2a2a2f;align-self:flex-start;margin:0}
+.D .band .sw button{color:#a1a1aa}.D .band .sw button.on{color:var(--g)}.D.sat .band .sw button.on{color:#fff}
+.D .band .sw i{background:var(--a)}.D.sat .band .sw i{background:#3b82f6}
+.D .sent{margin:16px 0 0;max-width:none;text-align:left;font-size:40px;line-height:1.2;letter-spacing:-1.4px}
+.D .blank{color:var(--acc);border-color:var(--acc)}.D .caret{background:var(--acc)}
+.D .band .row2{margin-top:auto;display:flex;align-items:center;gap:16px;font-size:13px;color:#a1a1aa}
+.D .band .go{height:42px;padding:0 20px;border-radius:9px;background:var(--acc);color:var(--g);font-weight:700;display:flex;align-items:center;text-decoration:none;transition:background .5s}
+.D.sat .band .go{color:#fff}
+.D .side{border-radius:14px;padding:22px;display:flex;flex-direction:column;color:#fff;background:radial-gradient(120% 90% at 100% 0%,#2563eb,#1e3a8a 70%);transition:background .5s}
+.D.sat .side{background:radial-gradient(120% 90% at 100% 0%,#fbbf24,#f59e0b 70%);color:var(--g)}
+.D .side b{font-size:22px;letter-spacing:-.5px}.D .side .n{font-size:60px;font-weight:800;letter-spacing:-2.5px;line-height:1;margin-top:10px}
+.D .side p{font-size:13px;opacity:.85;margin-top:4px}
+.D .side span.btn{margin-top:auto;align-self:flex-start;height:36px;padding:0 16px;border-radius:99px;background:#fff;color:#1e3a8a;font-weight:700;font-size:13px;display:flex;align-items:center}
+.D .main{display:grid;grid-template-columns:220px 1fr;gap:22px;padding:22px}
+.D .cats{font-size:13px}.D .cats a{display:flex;justify-content:space-between;padding:7px 10px;border-radius:8px;color:var(--g);text-decoration:none}
+.D .cats a:first-child{background:#fffbeb;font-weight:700}.D.sat .cats a:first-child{background:#eff6ff}
+.D .cats a span{color:#a1a1aa}
+.D .vh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.D .vh h3{font-size:16px;font-weight:800}.D .vh small{font-size:12.5px;color:var(--accd);font-weight:600}
+.D .vg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cd{position:relative;border:1px solid var(--l);border-radius:12px;overflow:hidden;background:#fff;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .2s}
+.cd:hover{box-shadow:0 8px 22px rgba(0,0,0,.07)}
+.cd .ph{position:relative;aspect-ratio:4/3;overflow:hidden;background:#f4f4f5}
+.cd .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.cd .bd{padding:10px 12px 12px}
+.cd .bd b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;line-height:1.3;min-height:35px}
+.cd .pr{margin-top:5px;font-size:13.5px;font-weight:800;color:var(--accd)}
+.cd .mt{margin-top:3px;font-size:11.5px;color:var(--m)}
+/* süre çizgisi: kalan gün eridikçe kısalır, son günde kırmızı */
+.cd .life{position:absolute;left:0;right:0;bottom:0;height:3px;background:#f4f4f5}
+.cd .life i{display:block;height:100%;background:var(--acc);transform-origin:left;animation:drain 1.4s cubic-bezier(.16,1,.3,1) both}
+.cd .life i.end{background:#dc2626}
+@keyframes drain{from{transform:scaleX(1)}}
+/* ben de arıyorum */
+.me{position:absolute;top:8px;right:8px;z-index:1;display:flex;align-items:center;gap:5px;height:28px;padding:0 10px;border:0;border-radius:99px;background:rgba(255,255,255,.94);font:700 11.5px inherit;font-family:inherit;color:var(--g);cursor:pointer;transition:transform .15s}
+.me:active{transform:scale(.92)}
+.me.on{background:var(--g);color:#fff}
+.me em{font-style:normal;display:inline-block}
+.me em.bump{animation:bump .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes bump{from{transform:translateY(-10px);opacity:0}}
+.D.sat .me{display:none}
+/* satıcı kipinde kart altı */
+.cd .sel{display:none;margin-top:8px;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--m)}
+.cd .sel span.t{height:28px;padding:0 12px;border-radius:7px;background:#1e3a8a;color:#fff;font-weight:700;display:flex;align-items:center}
+.D.sat .cd .sel{display:flex}.D.sat .cd .mt{display:none}
+/* yeni talep düşer */
+.cd.fresh{animation:drop .9s cubic-bezier(.3,1.3,.5,1) both}
+@keyframes drop{from{transform:translateY(-30px) scale(.94);opacity:0}}
+.cd .now{position:absolute;left:8px;top:8px;z-index:1;padding:3px 8px;border-radius:99px;background:var(--a);color:var(--g);font-size:10.5px;font-weight:800}
+/* kepenk: kip değişirken sayfanın üstünden bir perde iner, kalkar */
+.kep{position:absolute;inset:0;z-index:5;pointer-events:none;background:repeating-linear-gradient(#1e3a8a 0 22px,#1d357d 22px 24px);transform:translateY(-100%)}
+.kep.down{animation:kep 1.1s cubic-bezier(.77,0,.18,1) both}
+.kep.amb{background:repeating-linear-gradient(#f59e0b 0 22px,#e8930a 22px 24px)}
+@keyframes kep{0%{transform:translateY(-100%)}45%,55%{transform:none}100%{transform:translateY(100%)}}
+.ideas{margin:0 0 12px;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:8px 20px;font-size:12.5px;color:var(--m);line-height:1.45}
+.ideas b{color:var(--g)}
+</style>
+
+<section class="opt" id="D">
+  <h2>D · Şu anki siteye uyarlanmış hâli <span>(B + ekstra fikirler)</span></h2>
+  <p class="why">Canlı sitenin grafit başlığı, mavi satıcı kartı, sol kategori listesi ve vitrini aynen duruyor; yalnızca giriş ve kartlar değişti. Aşağıdakilerin hepsi bu kopyada çalışıyor, dene:</p>
+  <ul class="ideas">
+    <li><b>1. Bütün site ters döner.</b> "Satıyorum"a basınca sayfanın üstünden dükkân kepengi iner, kalkınca site satıcı gözüyle açılır: renkler maviye döner, kartlarda "Teklif ver" çıkar, sağdaki kart alıcı kartına dönüşür.</li>
+    <li><b>2. Arama asla boşa çıkmaz.</b> Üstteki arama kutusuna yaz: kaç kişinin aradığını gösterir; bulunamazsa "Bunun için talep ver, satıcılar gelsin" der. Sitede ilan olmadığı için arama = talep.</li>
+    <li><b>3. "Ben de arıyorum".</b> Kartın köşesindeki düğmeyle aynı şeyi arayanlar tek tıkla katılır, sayı zıplayarak artar. Satıcı tarafında "4 kişi bunu arıyor" olarak görünür, teklif vermeye değer olduğu anlaşılır.</li>
+    <li><b>4. Süre çizgisi.</b> Kartın en altında talebin kalan süresi kadar dolu ince bir çizgi; günler geçtikçe erir, son günde kırmızıya döner. Rozet kalabalığı yok.</li>
+    <li><b>5. "Az önce".</b> Yeni bir talep geldiğinde vitrinin başına yukarıdan düşer, diğerleri yer açar. Site yaşıyor hissi; uydurma bildirim yok, yalnızca gerçek yeni talep.</li>
+    <li><b>6. Satıcıya gerçek sayı.</b> Satıcı kipinde her kartta benzer talep sayısı gerçek verilerden hesaplanır: "Benzerini 3 kişi arıyor".</li>
+  </ul>
+  <div class="frame">
+    <div class="D" id="Dw">
+      <div class="kep" id="kep"></div>
+      <div class="hd">
+        <span class="logo">alsat<i>bul</i></span>
+        <div class="srch"><input id="dS" placeholder="Ne arıyorsun? (iPhone, parfüm, mont…)" autocomplete="off"><div class="dd" id="dd"></div></div>
+        <div class="sp"><button class="pill" id="dPill">Satıcı mısın?</button><span>Giriş yap</span><span class="cta" id="dCta">Ücretsiz talep ver</span></div>
+      </div>
+      <div class="top">
+        <div class="band">
+          <div class="sw" id="dSw"><button class="on" data-m="al">Alıyorum</button><button data-m="sat">Satıyorum</button><i></i></div>
+          <p class="sent" id="dSent"></p>
+          <div class="row2"><a class="go" id="dGo" href="#D">Satıcılar bana gelsin →</a><span id="dNote">Ücretsiz · numaran yalnızca abone satıcılara açılır</span></div>
+        </div>
+        <div class="side" id="dSide"></div>
+      </div>
+      <div class="main">
+        <nav class="cats"><a href="#D">Tüm talepler <span>21</span></a><a href="#D">Elektronik <span>8</span></a><a href="#D">Giyim &amp; Aksesuar <span>5</span></a><a href="#D">Kozmetik <span>4</span></a><a href="#D">Ev &amp; Yaşam <span>2</span></a><a href="#D">Toptan <span>2</span></a></nav>
+        <div><div class="vh"><h3 id="dVh">Şu an aranıyor</h3><small>Tüm talepleri gör →</small></div><div class="vg" id="dVg"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const W=document.getElementById("Dw"),vg=document.getElementById("dVg"),sent=document.getElementById("dSent"),side=document.getElementById("dSide");
+  const CITY=["İstanbul","Ankara","İzmir","Bursa","Antalya","Adana","Konya","Kocaeli"];
+  const D=R.map((r,i)=>({r,city:CITY[i%8],days:[5,1,12,3,9,2,14,6][i%8],me:[3,0,1,5,0,2,1,0][i%8],on:false}));
+  let mode="al",shown=D.slice(1,9),pending=D[0];
+  const sim=r=>R.filter(x=>x!==r&&match(x,short(r[0]))).length;
+  function card(d,fresh){
+    const r=d.r,pct=Math.min(100,d.days/14*100);
+    return `<article class="cd${fresh?" fresh":""}"><div class="ph">${fresh?'<span class="now">az önce</span>':""}<img src="img/${r[3]}.webp" alt=""><button class="me${d.on?" on":""}" data-i="${D.indexOf(d)}">Ben de arıyorum <em>${d.me+(d.on?1:0)||""}</em></button></div>
+      <div class="bd"><b>${r[0]}</b><div class="pr">${tl(r[1])} – ${tl(r[2])} TL</div><div class="mt">${d.city} · ${d.days===1?"son gün":d.days+" gün kaldı"}</div>
+      <div class="sel"><span>${d.me+1+sim(r)>1?`Benzerini ${d.me+1+sim(r)} kişi arıyor`:"İlk teklif senin olsun"}</span><span class="t">Teklif ver</span></div></div>
+      <span class="life"><i class="${d.days===1?"end":""}" style="transform:scaleX(${pct/100})"></i></span></article>`;
+  }
+  const draw=()=>vg.innerHTML=shown.map(d=>card(d)).join("");
+  draw();
+  // 5: birkaç saniye sonra gerçek yeni talep başa düşer
+  setTimeout(()=>{if(!pending)return;shown=[pending,...shown.slice(0,7)];vg.insertAdjacentHTML("afterbegin",card(pending,true));vg.lastElementChild.remove();pending=null},3500);
+  // 3: ben de arıyorum
+  vg.addEventListener("click",e=>{const b=e.target.closest(".me");if(!b)return;const d=D[b.dataset.i];d.on=!d.on;b.classList.toggle("on",d.on);const em=b.querySelector("em");em.textContent=d.me+(d.on?1:0)||"";em.classList.remove("bump");void em.offsetWidth;em.classList.add("bump")});
+  // giriş cümlesi: alıcı/satıcı
+  const AL='Ben <span class="blank" id="dT"></span> arıyorum,<br>bütçem <span class="blank" id="dB"></span> TL.';
+  const SAT='Elimde <span class="blank" id="dT"></span> var,<br><span class="blank" id="dB"></span> kişi bunu arıyor.';
+  let tm=[];const later=(f,ms)=>tm.push(setTimeout(f,ms));
+  function loop(){
+    tm.forEach(clearTimeout);tm=[];
+    sent.innerHTML=mode==="al"?AL:SAT;
+    const t=document.getElementById("dT"),b=document.getElementById("dB");
+    const list=mode==="al"?R.map(r=>[low(short(r[0])),tl(r[2])]):["telefon","parfüm","bilgisayar","ayakkabı","konsol"].map(w=>[w,R.filter(r=>match(r,w)).length]);
+    let n=0;
+    const type=(s,i,d)=>{t.innerHTML=s.slice(0,i)+'<span class="caret"></span>';i<s.length?later(()=>type(s,i+1,d),45):d()};
+    const erase=(s,i,d)=>{t.innerHTML=s.slice(0,i)+'<span class="caret"></span>';i>0?later(()=>erase(s,i-1,d),20):d()};
+    const step=()=>{const [w,v]=list[n++%list.length];b.textContent="";type(w,0,()=>{b.textContent=v;later(()=>erase(w,w.length,step),2400)})};
+    step();
+  }
+  function sideCard(){side.innerHTML=mode==="al"
+    ?`<b>Satıcı mısın?</b><div class="n">21</div><p>açık talep şu an teklif bekliyor</p><span class="btn">Teklif ver →</span>`
+    :`<b>Alıcı mısın?</b><div class="n">0</div><p>ilan yok. Ne istediğini yaz, satıcılar gelsin.</p><span class="btn" style="color:#18181b">Talep ver →</span>`}
+  loop();sideCard();
+  // 1: kepenk inip kalkarken bütün site kip değiştirir
+  function setMode(m){
+    if(m===mode)return;mode=m;
+    const sw=document.getElementById("dSw");sw.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.m===m));sw.classList.toggle("sat",m==="sat");
+    const k=document.getElementById("kep");k.className="kep"+(m==="al"?" amb":"");void k.offsetWidth;k.classList.add("down");
+    setTimeout(()=>{W.classList.toggle("sat",m==="sat");loop();sideCard();
+      document.getElementById("dGo").textContent=m==="sat"?"Taleplere teklif ver →":"Satıcılar bana gelsin →";
+      document.getElementById("dNote").textContent=m==="sat"?"Abonelikle tüm taleplere teklif verebilirsin":"Ücretsiz · numaran yalnızca abone satıcılara açılır";
+      document.getElementById("dVh").textContent=m==="sat"?"Sana düşebilecek talepler":"Şu an aranıyor";
+      document.getElementById("dCta").textContent=m==="sat"?"Abone ol":"Ücretsiz talep ver";
+      document.getElementById("dPill").textContent=m==="sat"?"Alıcı mısın?":"Satıcı mısın?";
+    },520);
+  }
+  document.getElementById("dSw").addEventListener("click",e=>{const b=e.target.closest("button");if(b)setMode(b.dataset.m)});
+  document.getElementById("dPill").addEventListener("click",()=>setMode(mode==="al"?"sat":"al"));
+  // 2: arama = talep
+  const s=document.getElementById("dS"),dd=document.getElementById("dd");
+  s.addEventListener("input",()=>{const q=s.value.trim();if(!words(q).length){dd.classList.remove("on");return}
+    const hits=R.filter(r=>match(r,q)).slice(0,3);
+    dd.innerHTML=hits.map(r=>`<a href="#D"><span>${r[0]}</span><small>${tl(r[1])}–${tl(r[2])} TL</small></a>`).join("")+
+      `<a class="ask" href="#D"><span>${hits.length?`Sen de <b>“${q}”</b> mı arıyorsun? Talebini yaz, satıcılar sana gelsin`:`<b>“${q}”</b> arayan yok. İlk talebi sen ver, satıcılar sana gelsin`}</span><small>Talep ver →</small></a>`;
+    dd.classList.add("on")});
+  s.addEventListener("blur",()=>setTimeout(()=>dd.classList.remove("on"),200));
+})();
+</script>
+
+<script>(function(){
+var keep=["#B .frame"];
+var K=keep.map(function(s){return document.querySelector(s)}).filter(Boolean);
+function gez(n){[].slice.call(n.children).forEach(function(c){
+  if(K.indexOf(c)>=0)return;
+  if(K.some(function(k){return c.contains(k)})){gez(c);return}
+  if(/^(SCRIPT|STYLE|LINK|svg)$/i.test(c.tagName))return;
+  c.style.setProperty('display','none','important');
+})}
+if(K.length){gez(document.body);K[0].style.margin='0 auto';document.body.style.padding='24px 0';document.body.style.margin='0'}
+function boy(){var b=document.body,h=Math.ceil(b.getBoundingClientRect().height+parseFloat(getComputedStyle(b).marginTop)+parseFloat(getComputedStyle(b).marginBottom));
+parent.postMessage({vitrin:window.name,h:h},'*')}
+new ResizeObserver(boy).observe(document.body);addEventListener('load',boy);setTimeout(boy,800);
+})();</script></body>
+</html>
