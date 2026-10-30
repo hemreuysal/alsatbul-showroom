@@ -261,7 +261,7 @@ function logo() {
 }
 const hdr = (bg = "#f7f4ef") => `<div class="m-hdr" style="background:${bg}">${logo()}<span class="m-ara">Kelime veya kategori ile talep ara…</span><nav><span>Talepler</span><span>Nasıl çalışır?</span><span style="color:var(--blue);font-weight:700">Satıcı mısın?</span><span>Giriş</span><span class="m-btn">Talep ver</span></nav></div>`;
 const FOTO = ["cep-telefonu", "kadin-giyim", "bilgisayar", "sac-bakimi", "tablet", "erkek-giyim", "beyaz-esya", "makyaj"];
-const f = (k) => `../alsatbul-demo/web/public/kategori/${FOTO[k % FOTO.length]}${k > 7 ? "-2" : ""}.webp`;
+const f = (k) => `kategori/${FOTO[k % FOTO.length]}${k > 7 ? "-2" : ""}.webp`;
 const rafKart = (r, k) => `<div style="flex:none;width:236px;background:#fff;border-radius:14px;box-shadow:inset 0 0 0 1px #e9e4dc;overflow:hidden"><div style="height:130px;background:url(${f(k)}) center/cover;position:relative"><span style="position:absolute;left:8px;top:8px;background:var(--orange);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.1em;padding:2px 7px;border-radius:5px">ARANIYOR</span></div><div style="padding:11px 13px"><b style="font-size:15px;color:var(--navy)">“${kisa(r.t)}”</b><div style="margin-top:6px;font-weight:800;font-size:16px">${r.b ? tl(r.b) + " TL" : "Teklife açık"}</div><div style="font-size:11.5px;color:var(--muted);margin-top:4px">${r.il}</div></div></div>`;
 const YON = {
   A: () => `<div class="mock" style="background:#f6f1ea">${hdr()}
