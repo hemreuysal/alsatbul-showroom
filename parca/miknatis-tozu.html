@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mıknatıs ve demir tozu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Mona+Sans:wdth,wght@75..125,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--header:#18181b;--primary:#f59e0b;--primary-fg:#18181b;--text:#18181b;--seller:#2563eb;--font-script:"Caveat",cursive}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#18181b;font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit;border:0;background:none}
+a{text-decoration:none}
+.display{font-family:"Mona Sans",system-ui,sans-serif;font-stretch:112%}
+/* Mıknatıs kapanışı: grafit sahne, alan çizgileri canvas'ta, talepler DOM'da (keskin yazı). Footer hemen altında
+   aynı zeminde başlar; sahne bu yüzden alt boşluk bırakmaz. */
+.stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--header);
+  color: #fff;
+  margin-top: 56px;
+}
+.field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.in {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
+  align-items: center;
+  gap: 48px;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 44px 16px 40px;
+  pointer-events: none;
+}
+.in > * {
+  pointer-events: auto;
+}
+.switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.switch button {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #a1a1aa;
+}
+.switch button.on {
+  background: #fff;
+  color: var(--text);
+}
+.main h2 {
+  margin-top: 4px;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.02;
+}
+.main h2 span {
+  color: #a1a1aa;
+}
+.box {
+  display: flex;
+  max-width: 520px;
+  height: 48px;
+  margin-top: 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  transition: box-shadow 0.2s;
+}
+.box:focus-within {
+  box-shadow: inset 0 0 0 1.5px #fff;
+}
+.box.got {
+  box-shadow: inset 0 0 0 2px var(--primary);
+}
+.box input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 16px;
+  background: none;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  font-size: 16px;
+}
+.box input::placeholder {
+  color: #71717a;
+}
+.box button {
+  margin: 6px;
+  padding: 0 18px;
+  border-radius: 7px;
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.box button:hover {
+  background: #fbbf24;
+}
+.sat .box button {
+  background: var(--seller);
+  color: #fff;
+}
+.sat .box button:hover {
+  background: #3b82f6;
+}
+.count {
+  margin-top: 10px;
+  min-height: 21px;
+  font-size: 13px;
+  color: #71717a;
+}
+.count b {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.count a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+
+.kicker {
+  margin-top: 16px;
+  font-family: var(--font-script);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--primary);
+  transform: rotate(-2deg);
+  transform-origin: left;
+}
+.sat .kicker {
+  color: #60a5fa;
+}
+/* Sağ sütun: kip düğmesi üstte, mıknatıslı logo altta; talepler yalnızca sağdan bu logoya gelir. */
+.right {
+  display: grid;
+  justify-items: center;
+  gap: 34px;
+}
+.mark {
+  position: relative;
+  z-index: 1;
+  width: 150px;
+  pointer-events: none;
+}
+.mark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.lt {
+  fill: #f4f4f5;
+}
+.pole {
+  fill: var(--primary);
+  transition: filter 0.2s;
+}
+.pole.hit {
+  filter: brightness(1.4);
+}
+
+/* Çekilen talepler */
+.req {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px 0 4px;
+  border-radius: 999px;
+  background: rgba(24, 24, 27, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: #e4e4e7;
+  pointer-events: auto;
+  will-change: transform, opacity;
+}
+.req:not(:has(img)) {
+  padding-left: 12px;
+}
+.req img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #27272b;
+}
+.req i {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--primary);
+}
+.req:hover {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+.req.match {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: none;
+}
+.req.match i {
+  color: var(--primary-fg);
+}
+.req.own {
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.35);
+}
+
+@media (max-width: 860px) {
+  .in {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 30px 16px 24px;
+  }
+  .main h2 {
+    font-size: 26px;
+  }
+  .kicker {
+    font-size: 22px;
+  }
+  .right {
+    justify-items: center;
+    gap: 40px;
+  }
+  .mark {
+    width: 110px;
+  }
+}
+
+.stage{margin-top:0!important}
+</style>
+</head>
+<body>
+<section id="stage" class="stage">
+  <canvas id="cv" class="field" aria-hidden="true"></canvas>
+  <div id="layer" class="layer" aria-hidden="true"></div>
+  <div class="in">
+    <div class="main" id="main">
+      <div class="switch" role="tablist"><button type="button" class="on" data-m="al">Alıyorum</button><button type="button" data-m="sat">Satıyorum</button></div>
+      <p class="kicker" id="kicker">Aramayı bırak, seçmeye başla.</p>
+      <h2 class="display" id="h2">Talebini yaz.<br><span>Satıcıları biz çekeriz.</span></h2>
+      <form id="box" class="box" role="search"><input id="q" placeholder="Ne arıyorsun? Örn. iPhone 13" maxlength="120"><button type="submit" id="go">Talep ver</button></form>
+      <p class="count" id="count"><b>152</b> açık talep · son talep 3 dk önce</p>
+    </div>
+    <div class="right">
+      <div class="mark"><svg id="mk" viewBox="-6 34 119.2 112" aria-hidden="true"><path class="lt" d="M0 66.2L0 86.4A53.6 53.6 0 0 0 107.2 86.4L107.2 66.2L73.5 66.2L73.5 86.4A19.9 19.9 0 0 1 33.7 86.4L33.7 66.2Z"/><path id="pole" class="pole" d="M0 40H33.7V64H0Z M73.5 40H107.2V64H73.5Z"/></svg></div>
+    </div>
+  </div>
+</section>
+<script>
+const $ = (id) => document.getElementById(id);
+const K = "kategori/";
+const items = [
+  ["iPhone 15 128 GB, sıfır", "En fazla 45 bin TL", "cep-telefonu"],
+  ["Kore cilt bakım seti arıyorum", "En fazla 2,4 bin TL", "cilt-bakimi"],
+  ["Trençkot bej, 38 beden", "En fazla 4,3 bin TL", "kadin-giyim"],
+  ["Derin dondurucu, hemen alınacak", "10,5–21,5 bin TL", "beyaz-esya"],
+  ["iPad 10. nesil", "En fazla 10 bin TL", "tablet"],
+  ["MacBook Air M2", "En fazla 38 bin TL", "bilgisayar"],
+  ["Erkek deri mont, L beden", "En fazla 6 bin TL", "erkek-giyim"],
+].map(([title, budget, slug], i) => ({ id: i, title, budget, img: K + slug + ".webp", hay: (title + " " + slug).toLocaleLowerCase("tr-TR") }));
+const live = { mode: "al", q: "", send: null, repaint: null };
+const STEP = 8;
+const VB = { x: -6, y: 34, w: 119.2, h: 112 };
+(() => {
+    const stage = $("stage"), inner = $("main"), cv = $("cv"), svg = $("mk"), layer = $("layer"), box = $("box");
+    const cx = cv.getContext("2d");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let W = 0, H = 0, lane = 0, textRight = 0, stacked = false, N = { x: 0, y: 0 }, S = { x: 0, y: 0 };
+    let mouse = null, mOn = false, mStr = 0, glow = 0, dirty = true;
+    let dust = [];
+    const pills = [];
+    let qi = 0, spawnT = 0, raf = 0, visible = false;
+
+    const layout = () => {
+      const dpr = Math.min(2, devicePixelRatio || 1);
+      const r = stage.getBoundingClientRect();
+      W = r.width;
+      H = r.height;
+      cv.width = Math.round(W * dpr);
+      cv.height = Math.round(H * dpr);
+      cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const b = svg.getBoundingClientRect(), k = b.width / VB.w;
+      const X = (v) => b.left - r.left + (v - VB.x) * k, Y = (v) => b.top - r.top + (v - VB.y) * k;
+      N = { x: X(16.85), y: Y(42) };
+      S = { x: X(90.35), y: Y(42) };
+      // Talepler metnin üstüne binmesin: metin kutusunun sağ ve alt sınırı tutulur.
+      const ib = inner.getBoundingClientRect();
+      textRight = ib.right - r.left + 12;
+      lane = ib.bottom - r.top + 6;
+      stacked = b.top - r.top > lane - 6;
+      dirty = true;
+    };
+    // N kaynak, S kuyu; imleç zayıf bir kuyu (yalnızca tozlar için; talepler imleçten etkilenmez).
+    const F = (x, y, withMouse = true) => {
+      let dx = x - N.x, dy = y - N.y, d = dx * dx + dy * dy + 60;
+      let fx = dx / d, fy = dy / d;
+      dx = x - S.x; dy = y - S.y; d = dx * dx + dy * dy + 60;
+      fx -= dx / d; fy -= dy / d;
+      if (withMouse && mouse && mStr > 0.01) {
+        dx = x - mouse.x; dy = y - mouse.y; d = dx * dx + dy * dy + 400;
+        fx -= (1.6 * mStr * dx) / d; fy -= (1.6 * mStr * dy) / d;
+      }
+      return [fx, fy];
+    };
+    // Demir tozu: sahneye serpilmiş kısa çizgiler, her biri bulunduğu yerdeki alan yönüne döner.
+    // Kutuplara yakın tozlar koyu ve uzun, uzaktakiler soluk. İmleç ikinci bir mıknatıs gibi tozları kendine çevirir.
+    const build = () => {
+      dust = [];
+      let seed = 7;
+      const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+      for (let y = 6; y < H; y += STEP) {
+        for (let x = 6; x < W; x += STEP) {
+          dust.push({ x: x + (rnd() - 0.5) * STEP * 0.8, y: y + (rnd() - 0.5) * STEP * 0.8, l: 2.2 + rnd() * 3 });
+        }
+      }
+      dirty = true;
+    };
+    const draw = () => {
+      cx.clearRect(0, 0, W, H);
+      cx.lineWidth = 1;
+      cx.lineCap = "round";
+      const sat = live.mode === "sat";
+      // Saydamlık kovaları: her kova tek seferde çizilir (binlerce çizgi tek stroke).
+      const buckets = Array.from({ length: 6 }, () => new Path2D());
+      const hot = new Path2D();
+      for (const d of dust) {
+        const [fx, fy] = F(d.x, d.y), m = Math.hypot(fx, fy);
+        if (!m) continue;
+        const k = Math.min(1, Math.pow(m * 34, 0.55)), ux = fx / m, uy = fy / m, l = d.l * (0.7 + k * 0.8);
+        const target = k > 0.8 ? hot : buckets[Math.min(5, Math.floor(k * 6))];
+        target.moveTo(d.x - ux * l, d.y - uy * l);
+        target.lineTo(d.x + ux * l, d.y + uy * l);
+      }
+      buckets.forEach((b, i) => {
+        cx.strokeStyle = `rgba(255,255,255,${(0.05 + i * 0.07).toFixed(3)})`;
+        cx.stroke(b);
+      });
+      // Kutuplara en yakın tozlar amber (satıcı kipinde mavi): mıknatıs kendi ışığını saçar, yapışmada parlar.
+      cx.strokeStyle = sat ? `rgba(96,165,250,${(0.45 + glow * 0.5).toFixed(3)})` : `rgba(245,158,11,${(0.45 + glow * 0.5).toFixed(3)})`;
+      cx.stroke(hot);
+      dirty = false;
+    };
+
+    const flash = () => {
+      glow = 1;
+      $("pole").classList.add("hit");
+      setTimeout(() => $("pole").classList.remove("hit"), 280);
+    };
+    const pill = (text, budget, href, own = false, img) => {
+      const el = document.createElement("a");
+      el.className = own ? "req own" : "req";
+      el.href = href;
+      el.tabIndex = -1;
+      if (img) {
+        const im = document.createElement("img");
+        im.src = img;
+        im.alt = "";
+        im.decoding = "async";
+        el.append(im);
+      }
+      el.append(text);
+      if (budget) {
+        const i = document.createElement("i");
+        i.textContent = budget;
+        el.append(i);
+      }
+      layer.appendChild(el);
+      return el;
+    };
+    const boxPt = () => {
+      const r = stage.getBoundingClientRect(), b = box.getBoundingClientRect();
+      return { x: b.left - r.left + b.width * 0.5, y: b.top - r.top + b.height * 0.5 };
+    };
+    const spawn = () => {
+      const max = W < 700 ? 2 : 3;
+      if (pills.filter((p) => !p.own).length >= max) return;
+      const it = items[qi++ % items.length];
+      const el = pill(it.title, it.budget, `/talep/${it.id}`, false, it.img);
+      const sat = live.mode === "sat";
+      let p;
+      if (sat) {
+        const from = Math.random() < 0.5 ? N : S, ang = -Math.PI / 2 + (Math.random() - 0.5) * 2.6;
+        const hit = live.q.length >= 2 && it.hay.includes(live.q);
+        p = { el, x: from.x - 60 + (Math.random() - 0.5) * 80, y: from.y - 40 - Math.random() * 30, tgt: hit ? "box" : "out", dx: Math.cos(ang), dy: Math.sin(ang), sp: 1.1 + Math.random() * 0.5, hover: false, own: false, life: 0 };
+        if (hit) el.classList.add("match");
+      } else {
+        p = { el, x: W + 20, y: N.y - 55 + Math.random() * 100, tgt: Math.random() < 0.5 ? "N" : "S", dx: 0, dy: 0, sp: 0.55 + Math.random() * 0.35, hover: false, own: false, life: 0 };
+      }
+      el.onmouseenter = () => (p.hover = true);
+      el.onmouseleave = () => (p.hover = false);
+      pills.push(p);
+    };
+    // Alıcının yazdığı talep: kutudan mıknatısa uçar, sonra forma gidilir.
+    live.repaint = () => { dirty = true; if (reduce) draw(); };
+    live.send = (text) => {
+      const href = `/talep-ver?baslik=${encodeURIComponent(text.slice(0, 120))}`;
+      if (reduce || !visible) { (location.hash = ""); return; }
+      const b = boxPt();
+      const el = pill(text, "", href, true);
+      pills.push({ el, x: b.x - 120, y: b.y - 16, tgt: "N", dx: 0, dy: 0, sp: 2.4, hover: false, own: true, life: 0 });
+      setTimeout(() => (location.hash = ""), 1500);
+    };
+
+    const step = () => {
+      for (let i = pills.length - 1; i >= 0; i--) {
+        const p = pills[i], w = p.el.offsetWidth, h = p.el.offsetHeight;
+        const cxp = p.x + w / 2, cyp = p.y + h / 2;
+        p.life = Math.min(1, p.life + 0.03);
+        let sc = 1, op = p.life, done = false;
+        if (p.tgt === "out") {
+          if (!p.hover) {
+            const [fx, fy] = F(cxp, cyp, false), fm = Math.hypot(fx, fy) || 1;
+            p.dx = p.dx * 0.97 + (fx / fm) * 0.03; p.dy = p.dy * 0.97 + (fy / fm) * 0.03 - 0.004;
+            const m = Math.hypot(p.dx, p.dy) || 1;
+            p.x += (p.dx / m) * p.sp; p.y += (p.dy / m) * p.sp;
+          }
+          op = Math.min(op, stacked ? (p.y - lane) / 50 : (p.x - textRight) / 60, (W - p.x) / 160, (p.x + w) / 160);
+          done = (stacked ? p.y < lane - 10 : p.x < textRight - 20) || p.x > W + 40 || p.x < -w - 40;
+        } else {
+          const T = p.tgt === "box" ? boxPt() : p.tgt === "N" ? N : S;
+          const tx = T.x - cxp, ty = T.y - (p.tgt === "box" ? 0 : 6) - cyp, dist = Math.hypot(tx, ty) || 1;
+          if (!p.hover) {
+            const [fx, fy] = F(cxp, cyp, false), fm = Math.hypot(fx, fy) || 1, sg = p.tgt === "S" ? 1 : p.tgt === "N" ? -1 : 0;
+            const vx = tx / dist + (0.55 * sg * fx) / fm, vy = ty / dist + (0.55 * sg * fy) / fm;
+            const vm = Math.hypot(vx, vy) || 1;
+            const sp = p.sp * (1 + Math.max(0, 260 - dist) / 90);
+            p.x += (vx / vm) * sp; p.y += (vy / vm) * sp;
+          }
+          if (dist < 120) { sc = Math.max(0.15, dist / 120); op = Math.min(op, (dist - 14) / 106); }
+          // Yazı alanına giren talep söner; metnin üstüne binmez.
+          if (!p.own) op = Math.min(op, stacked ? (p.y - lane) / 50 : (p.x - textRight) / 60, (p.y + h) / 40);
+          if (dist < 16) {
+            done = true;
+            if (p.tgt === "box") { box.classList.add("got"); setTimeout(() => box.classList.remove("got"), 300); } else flash();
+          }
+        }
+        p.el.style.transform = `translate(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px) scale(${sc.toFixed(3)})`;
+        p.el.style.opacity = String(Math.max(0, op));
+        if (done) { p.el.remove(); pills.splice(i, 1); }
+      }
+    };
+
+    let lastM = -1;
+    const frame = (t) => {
+      raf = requestAnimationFrame(frame);
+      if (!visible) return;
+      const target = mOn ? 1 : 0;
+      mStr += (target - mStr) * 0.08;
+      if (Math.abs(mStr - lastM) > 0.004 || (mOn && mouse)) { dirty = true; lastM = mStr; }
+      glow *= 0.94;
+      if (dirty || glow > 0.01) draw();
+      step();
+      if (t - spawnT > 2400) { spawn(); spawnT = t; }
+    };
+
+    const onMove = (e) => {
+      const r = stage.getBoundingClientRect();
+      mouse = { x: e.clientX - r.left, y: e.clientY - r.top };
+      mOn = true;
+    };
+    const onLeave = () => { mOn = false; };
+    const onResize = () => { layout(); build(); draw(); };
+    stage.addEventListener("mousemove", onMove);
+    stage.addEventListener("mouseleave", onLeave);
+    addEventListener("resize", onResize);
+    const io = new IntersectionObserver((es) => es.forEach((e) => (visible = e.isIntersecting)));
+    io.observe(stage);
+    let alive = true;
+    document.fonts.ready.then(() => {
+      if (!alive) return;
+      layout();
+      build();
+      draw();
+      if (!reduce) raf = requestAnimationFrame(frame);
+    });
+})();
+// Kip düğmesi ve form (vitrin: gönderince talep mıknatısa uçar, sayfa değişmez)
+document.querySelectorAll(".switch button").forEach((b) => b.onclick = () => {
+  live.mode = b.dataset.m; const sat = live.mode === "sat";
+  $("stage").classList.toggle("sat", sat);
+  document.querySelectorAll(".switch button").forEach((x) => x.classList.toggle("on", x === b));
+  $("kicker").textContent = sat ? "Satıcı mısın? Alıcılar seni bekliyor." : "Aramayı bırak, seçmeye başla.";
+  $("h2").innerHTML = sat ? "Ne satıyorsun?<br><span>Alıcıları biz çekeriz.</span>" : "Talebini yaz.<br><span>Satıcıları biz çekeriz.</span>";
+  $("q").placeholder = sat ? "Ne satıyorsun? Örn. telefon" : "Ne arıyorsun? Örn. iPhone 13";
+  $("go").textContent = sat ? "Taleplere bak" : "Talep ver";
+  live.repaint && live.repaint();
+});
+$("q").oninput = (e) => { live.q = e.target.value.toLocaleLowerCase("tr-TR").trim(); };
+$("box").onsubmit = (e) => { e.preventDefault(); const t = $("q").value.trim(); if (live.mode === "al" && t.length >= 3 && live.send) { live.send(t); $("q").value = ""; } };
+(function(){function boy(){parent.postMessage({vitrin:window.name,h:Math.ceil(document.body.getBoundingClientRect().height)},'*')}
+new ResizeObserver(boy).observe(document.body);addEventListener('load',boy);setTimeout(boy,800);})();
+</script>
+</body>
+</html>
