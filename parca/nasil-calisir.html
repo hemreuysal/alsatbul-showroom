@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nasıl çalışır · mıknatıs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Mona+Sans:wdth,wght@75..125,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--text:#18181b;--muted:#71717a;--line:#e7e5e4;--subbar:#f5f5f4;--primary:#f59e0b;--primary-fg:#18181b;--font-script:"Caveat",cursive;--font-display:"Mona Sans",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding:8px 24px 24px}
+/* Nasıl çalışır: tek şerit. Solda el yazısı başlık, ortada mıknatıs sahnesi, altında üç adım.
+   Döngü 9 sn: %0-30 talep yazılır, %30-62 satıcılar çekilir, %62-100 teklifler talebe uçar. */
+.how {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 6px 28px;
+  margin-top: 0;
+  padding: 22px 0 20px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.title {
+  grid-row: span 2;
+  align-self: center;
+  font-family: var(--font-script);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 0.95;
+  transform: rotate(-4deg);
+}
+
+/* ---------- sahne ---------- */
+.scene {
+  position: relative;
+  height: 112px;
+  --t: 9s;
+}
+.req {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 6px 0 14px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+.reqText {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 0;
+  animation: type var(--t) steps(26) infinite;
+}
+.badge {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--primary-fg);
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(0.6);
+  animation: badge var(--t) infinite;
+}
+@keyframes type {
+  0% { max-width: 0; }
+  22%, 100% { max-width: 300px; }
+}
+@keyframes badge {
+  0%, 84% { opacity: 0; transform: scale(0.6); }
+  90%, 97% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; }
+}
+
+.field {
+  position: absolute;
+  inset: 0 0 0 calc(44% + 30px);
+  width: calc(56% - 30px);
+  height: 100%;
+  fill: none;
+  stroke: #d6d3d1;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 7;
+  vector-effect: non-scaling-stroke;
+  animation: flow 1.2s linear infinite;
+}
+@keyframes flow {
+  to { stroke-dashoffset: 20; }
+}
+.magnet {
+  position: absolute;
+  left: 44%;
+  top: 50%;
+  width: 58px;
+  height: auto;
+  overflow: visible;
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+.body {
+  fill: var(--text);
+}
+.poles {
+  fill: var(--primary);
+  animation: pole var(--t) infinite;
+}
+@keyframes pole {
+  0%, 30% { filter: none; }
+  36%, 58% { filter: brightness(1.25) drop-shadow(0 0 6px rgb(245 158 11 / 0.8)); }
+  64%, 100% { filter: none; }
+}
+
+.seller,
+.offer {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.seller {
+  background: var(--subbar);
+  color: var(--muted);
+  animation: pull var(--t) cubic-bezier(0.5, 0, 0.2, 1) infinite;
+}
+.seller svg {
+  width: 15px;
+  height: 15px;
+}
+.s0 { top: 4px; right: 12%; }
+.s1 { top: 41px; right: 0; animation-delay: 0.15s; }
+.s2 { top: 78px; right: 16%; animation-delay: 0.3s; }
+@keyframes pull {
+  0%, 30% { transform: none; background: var(--subbar); color: var(--muted); }
+  46%, 92% { transform: translateX(-48px); background: var(--text); color: #fff; }
+  100% { transform: none; background: var(--subbar); color: var(--muted); }
+}
+
+.offer {
+  background: var(--primary);
+  color: var(--primary-fg);
+  opacity: 0;
+  animation: fly var(--t) cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+.o0 { --y: 4px; animation-delay: 0s; }
+.o1 { --y: 41px; animation-delay: 0.25s; }
+.o2 { --y: 78px; animation-delay: 0.5s; }
+@keyframes fly {
+  0%, 60% { opacity: 0; top: var(--y); right: 14%; transform: scale(0.8); }
+  64% { opacity: 1; top: var(--y); right: 14%; transform: scale(1); }
+  84% { opacity: 1; top: 41px; right: 66%; transform: scale(0.85); }
+  88%, 100% { opacity: 0; top: 41px; right: 70%; transform: scale(0.5); }
+}
+
+/* ---------- adımlar ---------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--subbar);
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+}
+.steps b {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 700;
+}
+.steps small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.steps small svg {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  color: #16a34a;
+}
+.p0 .no { animation: on0 9s infinite; }
+.p1 .no { animation: on1 9s infinite; }
+.p2 .no { animation: on2 9s infinite; }
+@keyframes on0 {
+  0%, 29% { background: var(--text); color: #fff; }
+  31%, 100% { background: var(--subbar); color: var(--muted); }
+}
+@keyframes on1 {
+  0%, 29% { background: var(--subbar); color: var(--muted); }
+  31%, 61% { background: var(--text); color: #fff; }
+  63%, 100% { background: var(--subbar); color: var(--muted); }
+}
+@keyframes on2 {
+  0%, 61% { background: var(--subbar); color: var(--muted); }
+  63%, 100% { background: var(--primary); color: var(--primary-fg); }
+}
+
+@media (max-width: 860px) {
+  .how {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .title {
+    grid-row: auto;
+    font-size: 30px;
+  }
+  .wide {
+    display: none;
+  }
+  .magnet {
+    left: 50%;
+    width: 46px;
+  }
+  .field {
+    inset: 0 0 0 calc(50% + 26px);
+    width: calc(50% - 26px);
+  }
+  .s0 { right: 4%; }
+  .s2 { right: 8%; }
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+/* Hareket istemeyene son kare: talep, çekilmiş satıcılar, rozet. */
+@media (prefers-reduced-motion: reduce) {
+  .reqText, .badge, .field, .poles, .seller, .offer, .no {
+    animation: none !important;
+  }
+  .reqText { max-width: 300px; }
+  .badge { opacity: 1; transform: none; }
+  .seller { background: var(--text); color: #fff; }
+}
+
+</style>
+</head>
+<body>
+<section class="how">
+  <h2 class="title">Nasıl çalışır?</h2>
+  <div class="scene" aria-hidden="true">
+    <span class="req"><span class="reqText">iPhone 13 arıyorum<span class="wide"> · bütçem 30 bin TL</span></span><b class="badge">3 teklif</b></span>
+    <svg class="field" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M150 52 C 220 10, 300 10, 380 30"/><path d="M150 60 C 230 60, 310 60, 380 64"/><path d="M150 68 C 220 110, 300 110, 380 98"/></svg>
+    <svg class="magnet" viewBox="-2 38 111.2 104"><path class="body" d="M0 66.2L0 86.4A53.6 53.6 0 0 0 107.2 86.4L107.2 66.2L73.5 66.2L73.5 86.4A19.9 19.9 0 0 1 33.7 86.4L33.7 66.2Z"/><path class="poles" d="M0 40H33.7V64H0Z M73.5 40H107.2V64H73.5Z"/></svg>
+    <span class="seller s0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span><span class="seller s1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span><span class="seller s2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span>
+    <span class="offer o0">28.900 TL</span><span class="offer o1">29.500 TL</span><span class="offer o2">30.000 TL</span>
+  </div>
+  <ol class="steps">
+    <li class="p0"><span class="no">1</span><span><b>Ne istediğini yaz</b><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Ücretsiz, bir dakika</small></span></li><li class="p1"><span class="no">2</span><span><b>Mıknatıs satıcıları çeker</b><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Numaran yalnızca abone satıcıya açılır</small></span></li><li class="p2"><span class="no">3</span><span><b>Teklifler sana gelir</b><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>Karşılaştır, karar senin</small></span></li>
+  </ol>
+</section>
+<script>(function(){function boy(){var b=document.body,h=Math.ceil(b.getBoundingClientRect().height);parent.postMessage({vitrin:window.name,h:h},'*')}
+new ResizeObserver(boy).observe(document.body);addEventListener('load',boy);setTimeout(boy,800);})();</script>
+</body>
+</html>
