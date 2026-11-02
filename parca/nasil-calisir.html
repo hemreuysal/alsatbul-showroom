@@ -83,13 +83,14 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
 
 .field {
   position: absolute;
-  inset: 0 0 0 calc(44% + 30px);
-  width: calc(56% - 30px);
+  inset: 0 0 0 calc(50% + 30px);
+  width: calc(50% - 30px);
   height: 100%;
   fill: none;
-  stroke: #d6d3d1;
-  stroke-width: 1.4;
-  stroke-dasharray: 3 7;
+  stroke: #a8a29e;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 0.1 7;
   vector-effect: non-scaling-stroke;
   animation: flow 1.2s linear infinite;
 }
@@ -98,7 +99,7 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
 }
 .magnet {
   position: absolute;
-  left: 44%;
+  left: 50%;
   top: 50%;
   width: 58px;
   height: auto;
@@ -161,8 +162,8 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
 @keyframes fly {
   0%, 60% { opacity: 0; top: var(--y); right: 14%; transform: scale(0.8); }
   64% { opacity: 1; top: var(--y); right: 14%; transform: scale(1); }
-  84% { opacity: 1; top: 41px; right: 66%; transform: scale(0.85); }
-  88%, 100% { opacity: 0; top: 41px; right: 70%; transform: scale(0.5); }
+  80% { opacity: 1; top: 41px; right: 54%; transform: scale(0.9); }
+  86%, 100% { opacity: 0; top: 41px; right: 60%; transform: scale(0.5); }
 }
 
 /* ---------- adımlar ---------- */
@@ -175,6 +176,13 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
   display: flex;
   align-items: flex-start;
   gap: 10px;
+}
+/* Her adım anlattığı nesnenin altında: talep solda, mıknatıs ortada, satıcılar sağda. */
+.steps li:nth-child(2) {
+  justify-content: center;
+}
+.steps li:nth-child(3) {
+  justify-content: flex-end;
 }
 .no {
   flex: none;
@@ -239,8 +247,10 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
     display: none;
   }
   .magnet {
-    left: 50%;
     width: 46px;
+  }
+  .steps li:nth-child(n) {
+    justify-content: flex-start;
   }
   .field {
     inset: 0 0 0 calc(50% + 26px);
@@ -271,7 +281,7 @@ body{background:#fff;color:var(--text);font-family:"Plus Jakarta Sans",system-ui
   <h2 class="title">Nasıl çalışır?</h2>
   <div class="scene" aria-hidden="true">
     <span class="req"><span class="reqText">iPhone 13 arıyorum<span class="wide"> · bütçem 30 bin TL</span></span><b class="badge">3 teklif</b></span>
-    <svg class="field" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M150 52 C 220 10, 300 10, 380 30"/><path d="M150 60 C 230 60, 310 60, 380 64"/><path d="M150 68 C 220 110, 300 110, 380 98"/></svg>
+    <svg class="field" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 44 C 80 0, 260 -4, 400 14"/><path d="M0 52 C 90 24, 270 22, 400 38"/><path d="M0 60 C 120 58, 280 58, 400 60"/><path d="M0 68 C 90 96, 270 98, 400 84"/><path d="M0 76 C 80 120, 260 124, 400 106"/></svg>
     <svg class="magnet" viewBox="-2 38 111.2 104"><path class="body" d="M0 66.2L0 86.4A53.6 53.6 0 0 0 107.2 86.4L107.2 66.2L73.5 66.2L73.5 86.4A19.9 19.9 0 0 1 33.7 86.4L33.7 66.2Z"/><path class="poles" d="M0 40H33.7V64H0Z M73.5 40H107.2V64H73.5Z"/></svg>
     <span class="seller s0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span><span class="seller s1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span><span class="seller s2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9M3 9h18M3 9v11h18V9M9 20v-6h6v6"/></svg>Satıcı</span>
     <span class="offer o0">28.900 TL</span><span class="offer o1">29.500 TL</span><span class="offer o2">30.000 TL</span>
