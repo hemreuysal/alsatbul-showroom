@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>İki Kapı Stilleri</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Young+Serif&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@75..125,400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Young+Serif&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0}
 html,body{background:#e7e7ea}
@@ -28,8 +28,8 @@ button{cursor:pointer}
 
 /* ---------- site kopyası ---------- */
 .site{container-type:inline-size;max-width:1440px;margin:0 auto;background:var(--page);--r1:62;--r2:38}
-.site[data-site=canli]{--page:#f4f4f5;--hdr:#1b1a1d;--hdr-t:#fff;--hdr-in:#2b2b30;--hdr-m:#a1a1aa;--cta:#e9a23b;--cta-t:#1b1a1d;--cta-r:999px;--acc:#e9a23b;--ink:#1b1a1d;--mut:#71717a;--line:#e4e4e7;
-  --bb:#fbf5ea;--bl:#efe3cc;--bi:#1b1a1d;--bm:#6b6359;--ba:#e9a23b;--bat:#1b1a1d;--bmark:#f3c879;--sb:#172463;--sh:#a9b8f5;--st:#c7d0f7;--sbtt:#172463;--paper:#fffaf0}
+.site[data-site=canli]{--page:#f5f5f4;--hdr:#18181b;--hdr-t:#fff;--hdr-in:#27272a;--hdr-m:#a1a1aa;--cta:#f59e0b;--cta-t:#18181b;--cta-r:999px;--acc:#f59e0b;--ink:#18181b;--mut:#71717a;--line:#e7e5e4;
+  --bb:#ffffff;--bl:#e7e5e4;--bi:#18181b;--bm:#71717a;--ba:#f59e0b;--bat:#18181b;--bmark:#fcd34d;--sb:#2563eb;--sh:#bfdbfe;--st:#dbeafe;--sbtt:#1d4ed8;--paper:#fffbeb}
 .site[data-site=yerel]{--page:#f7f4ef;--hdr:#fff;--hdr-t:#12344a;--hdr-in:#f4f1ec;--hdr-m:#6a737c;--cta:#f2632f;--cta-t:#fff;--cta-r:10px;--acc:#f2632f;--ink:#1d2b36;--mut:#6a737c;--line:#e6e1d9;
   --bb:#fff0e8;--bl:#f6d6c4;--bi:#12344a;--bm:#5f6a72;--ba:#e2531f;--bat:#fff;--bmark:#f7a582;--sb:#173a6b;--sh:#a9c8ee;--st:#cbdcf2;--sbtt:#173a6b;--paper:#fffaf6}
 .wrapx{max-width:1150px;margin:0 auto;padding:0 16px}
@@ -182,6 +182,17 @@ button{cursor:pointer}
 .sec h3{font-size:14px;color:#18181b;margin-bottom:4px}
 .sec ul{padding-left:18px}.sec li{margin:3px 0}
 @media (max-width:800px){.sec .cols{grid-template-columns:1fr}}
+/* canlı sitenin dili */
+.site[data-site=canli] .hdr{border-top:0}
+.site[data-site=canli] .door h2,.site[data-site=canli] .door.s h3,.site[data-site=canli] .big b{font-family:"Mona Sans",system-ui,sans-serif;font-stretch:112%;font-weight:800;letter-spacing:-.02em}
+.site[data-site=canli] .door{border-radius:14px}
+.site[data-site=canli][data-style=d] .door.a,.site[data-site=canli][data-style=a] .door.a{background:#fff}
+.site[data-site=canli] .door.a{border:1px solid var(--line)}
+.site[data-site=canli] .btn.b:hover{filter:none;background:#fbbf24}
+.site[data-site=canli] .ask:focus-within{border-color:var(--bi);box-shadow:0 0 0 4px rgb(245 158 11 / .18)}
+.site[data-site=canli] .lbl{text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:800}
+.site[data-site=canli] main.wrapx{padding-bottom:22px}
+.stage{padding:0!important}
 </style>
 </head>
 <body>
@@ -228,8 +239,6 @@ button{cursor:pointer}
       </div>
     </section>
 
-    <section class="cats"><h3 class="ttl">Kategorilere göz at</h3><div class="circles" id="circ"></div></section>
-    <div class="grid" id="grid"></div>
   </main>
 </div>
 </div>
@@ -269,8 +278,6 @@ const R=[
 const $=s=>document.querySelector(s), site=$("#site"), doors=$("#doors");
 $("#aph").innerHTML=R.slice(0,4).map(r=>`<a href="#" title="${r[0]}"><img src="${IMG(r[3])}" alt=""><span>${r[1]} TL</span></a>`).join("");
 $("#xs").innerHTML=R.slice(0,2).map(r=>`<div class="q"><img src="${IMG(r[3])}" alt=""><b>“${r[0]}”</b><span>${r[1]} TL'ye kadar · ${r[2]}</span><em>Teklif ver</em></div>`).join("");
-$("#circ").innerHTML=R.map(r=>`<a class="ci" href="#"><span class="ph"><img src="${IMG(r[3])}" alt="" loading="lazy"></span>${r[2]}</a>`).join("");
-$("#grid").innerHTML=R.map(r=>`<a class="card" href="#"><span class="im"><img src="${IMG(r[3])}" alt="" loading="lazy"></span><b>${r[0]}</b><span>${r[1]} TL'ye kadar · ${r[2]}</span></a>`).join("");
 
 // kayma
 const setR=r1=>{doors.style.setProperty("--r1",r1);doors.style.setProperty("--r2",100-r1);if(r1<50)doors.dataset.hot="s";else delete doors.dataset.hot;};
