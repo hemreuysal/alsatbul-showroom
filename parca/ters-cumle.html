@@ -10,18 +10,19 @@
 *{box-sizing:border-box;margin:0}
 body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:#fff;padding:24px}
 /* Sabit sahne; değişen yalnızca kelimelerin yeri ve "Sen" kutusunun dolgusu. */
-.stage{position:relative;max-width:1150px;margin:0 auto;border-radius:14px;padding:clamp(24px,3.2vw,40px) clamp(20px,3.6vw,48px) clamp(22px,2.8vw,32px);background:#fff;color:#18181b;box-shadow:inset 0 0 0 1px #e7e5e4;transition:background-color 1.2s ease .35s,box-shadow 1.2s ease .35s}
-.stage.on{background:#fde9b8;box-shadow:inset 0 0 0 1px #f6cf7a}
-.lbl{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:#71717a;transition:color 1.2s ease .35s}
-.stage.on .lbl{color:#92400e}
+.stage{position:relative;max-width:1150px;margin:0 auto;border-radius:14px;padding:clamp(24px,3.2vw,40px) clamp(20px,3.6vw,48px) clamp(22px,2.8vw,32px);background:#fff;color:#18181b;box-shadow:inset 0 0 0 1px #e7e5e4;transition:background-color 1.4s ease .3s,color 1.4s ease .3s,box-shadow 1.4s ease .3s}
+.stage.on{background:#18181b;color:#fafaf9;box-shadow:inset 0 0 0 1px #18181b}
+.lbl{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:#71717a;transition:color 1.4s ease .3s}
+.stage.on .lbl{color:#f59e0b}
 .line{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;column-gap:.24em;row-gap:.12em;font-size:clamp(32px,4.8vw,64px);line-height:1.06;font-weight:800;letter-spacing:-.04em}
 .w{position:relative;display:inline-block}
 /* "Sen": yumuşak köşeli dikdörtgen; yer değiştirirken öbür kelimenin önünden geçer. */
 .you{z-index:1;padding:.04em .2em .08em;border-radius:.16em;background:transparent;box-shadow:inset 0 0 0 .05em currentColor;transition:background-color .6s ease .8s,color .6s ease .8s,box-shadow .6s ease .8s}
-.stage.on .you{background:#18181b;color:#fbbf24;box-shadow:inset 0 0 0 .05em #18181b}
-.sub{margin-top:12px;max-width:34em;font-size:clamp(14px,1.2vw,16px);line-height:1.5;color:#71717a}
+.stage.on .you{background:#f59e0b;color:#18181b;box-shadow:inset 0 0 0 .05em #f59e0b}
+.sub{margin-top:12px;max-width:34em;font-size:clamp(14px,1.2vw,16px);line-height:1.5;color:#71717a;transition:color 1.4s ease .3s}
+.stage.on .sub,.stage.on .btn{color:#a1a1aa}
 .btn{position:absolute;right:clamp(18px,2.6vw,32px);bottom:clamp(16px,2.4vw,26px);display:inline-flex;align-items:center;gap:6px;padding:6px 4px;border:0;font:600 13px "Plus Jakarta Sans",sans-serif;color:#71717a;background:transparent;cursor:pointer}
-.btn:hover{color:#18181b;text-decoration:underline;text-underline-offset:3px}
+.btn:hover{color:inherit;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:767px){.btn{position:static;margin-top:16px}}
 @media (prefers-reduced-motion:reduce){.stage,.lbl,.you{transition:none}}
 </style>
