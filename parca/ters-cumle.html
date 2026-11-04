@@ -9,26 +9,19 @@
 <style>
 *{box-sizing:border-box;margin:0}
 body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:#fff;padding:24px}
-/* Cümle dönerken sahne negatifine döner: beyaz/grafit → grafit/beyaz. İki hâl de tam kontrastlı. */
-.stage{position:relative;overflow:hidden;max-width:1150px;margin:0 auto;border-radius:14px;padding:clamp(24px,3.2vw,40px) clamp(20px,3.6vw,48px) clamp(22px,2.8vw,32px);background:#fff;color:#18181b;box-shadow:inset 0 0 0 1px #e7e5e4;transition:background-color 2.2s cubic-bezier(.4,0,.2,1),color 2.2s cubic-bezier(.4,0,.2,1),box-shadow 2.2s cubic-bezier(.4,0,.2,1)}
-.stage.on{background:#18181b;color:#fafaf9;box-shadow:inset 0 0 0 1px #18181b}
+/* Sabit sahne; değişen yalnızca kelimelerin yeri ve "Sen" kutusunun dolgusu. */
+.stage{position:relative;max-width:1150px;margin:0 auto;border-radius:14px;padding:clamp(24px,3.2vw,40px) clamp(20px,3.6vw,48px) clamp(22px,2.8vw,32px);background:#fff;color:#18181b;box-shadow:inset 0 0 0 1px #e7e5e4}
 .lbl{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;line-height:1;color:#71717a}
-.stage.on .lbl{color:#f59e0b}
-.lbl span{display:inline-block;animation:fade 1.3s ease .6s both}
 .line{margin-top:14px;display:flex;flex-wrap:wrap;align-items:center;column-gap:.24em;row-gap:.12em;font-size:clamp(32px,4.8vw,64px);line-height:1.06;font-weight:800;letter-spacing:-.04em}
-.w{display:inline-block;will-change:transform}
-/* "Sen": dikdörtgen kutu; önce çerçeveli, dönünce amber dolgulu. */
-.you{padding:.04em .2em .08em;border-radius:.16em;box-shadow:inset 0 0 0 .05em currentColor;transition:background-color 1.2s ease 1s,color 1.2s ease 1s,box-shadow 1.2s ease 1s}
-.stage.on .you{background:#f59e0b;color:#18181b;box-shadow:inset 0 0 0 .05em #f59e0b}
-.sub{display:block;margin-top:12px;max-width:34em;font-size:clamp(14px,1.2vw,16px);line-height:1.5;color:#71717a;animation:fade 1.4s ease 1s both}
-.stage.on .sub{color:#a1a1aa}
-.btn{position:absolute;right:clamp(18px,2.6vw,32px);bottom:clamp(16px,2.4vw,26px);display:inline-flex;align-items:center;gap:6px;padding:6px 4px;border:0;font:600 13px "Plus Jakarta Sans",sans-serif;color:inherit;opacity:.7;background:transparent;cursor:pointer}
-.btn:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
-.btn i{font-style:normal;display:inline-block;transition:transform .9s ease}
-.stage.on .btn i{transform:rotate(-180deg)}
-@keyframes fade{from{opacity:0;transform:translateY(4px)}}
+.w{position:relative;display:inline-block}
+/* "Sen": yumuşak köşeli dikdörtgen; yer değiştirirken öbür kelimenin önünden geçer. */
+.you{z-index:1;padding:.04em .2em .08em;border-radius:.16em;background:#fff;box-shadow:inset 0 0 0 .05em currentColor;transition:background-color .3s ease .45s,box-shadow .3s ease .45s}
+.stage.on .you{background:#f59e0b;box-shadow:inset 0 0 0 .05em #f59e0b}
+.sub{margin-top:12px;max-width:34em;font-size:clamp(14px,1.2vw,16px);line-height:1.5;color:#71717a}
+.btn{position:absolute;right:clamp(18px,2.6vw,32px);bottom:clamp(16px,2.4vw,26px);display:inline-flex;align-items:center;gap:6px;padding:6px 4px;border:0;font:600 13px "Plus Jakarta Sans",sans-serif;color:#71717a;background:transparent;cursor:pointer}
+.btn:hover{color:#18181b;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:767px){.btn{position:static;margin-top:16px}}
-@media (prefers-reduced-motion:reduce){.stage,.you,.btn i{transition:none}.lbl span,.sub{animation:none}}
+@media (prefers-reduced-motion:reduce){.you{transition:none}}
 </style>
 </head>
 <body>
@@ -36,11 +29,10 @@ body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:#fff;paddin
   <p class="lbl"><span id="lbl">İlan sitelerinde</span></p>
   <p class="line" id="line"></p>
   <p class="sub" id="sub">Sayfa sayfa ilan, aynı ürün, tek tek mesaj.</p>
-  <button class="btn" id="btn" type="button"><i>↻</i> bir daha çevir</button>
+  <button class="btn" id="btn" type="button">↻ bir daha çevir</button>
 </div>
 <script>
-// "Sen satıcı ararsın." yerinde ters döner: "Satıcılar seni arar." olur. Yalnızca "Sen" kutusu
-// hafifçe kalkıp yeni yerine kayar (FLIP); diğer kelimeler yerinde solup yenisi belirir.
+// "Sen satıcı ararsın." yerinde ters döner: "Satıcılar seni arar." olur; kelimeler yer değiştirir.
 const W = { sen: ["Sen", "seni"], satici: ["satıcı", "Satıcılar"], fiil: ["ararsın.", "arar."] };
 const ORDER = [["sen", "satici", "fiil"], ["satici", "sen", "fiil"]];
 const TXT = [["İlan sitelerinde", "Sayfa sayfa ilan, aynı ürün, tek tek mesaj."], ["alsatbul'da", "Ne istediğini bir kez yaz, teklifler sana gelsin."]];
@@ -61,25 +53,13 @@ function flip() {
   i = 1 - i;
   for (const k of ORDER[i]) { els[k].textContent = W[k][i]; line.append(els[k]); }
   s.classList.toggle("on", i === 1);
-  for (const [id, t] of [["lbl", TXT[i][0]], ["sub", TXT[i][1]]]) {
-    const n = document.getElementById(id);
-    n.textContent = t;
-    n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
-  }
+  document.getElementById("lbl").textContent = TXT[i][0];
+  document.getElementById("sub").textContent = TXT[i][1];
   if (still) return;
-  const you = els.sen, ar = you.getBoundingClientRect(), b = before.sen;
-  const dx = b.left - ar.left, dy = b.top - ar.top;
-  you.animate([
-    { transform: `translate(${dx}px,${dy}px)` },
-    { transform: `translate(${dx}px,${dy - 6}px) scale(1.03)`, offset: 0.2 },
-    { transform: "translate(0,-6px) scale(1.03)", offset: 0.8 },
-    { transform: "translate(0,0)" },
-  ], { duration: 2100, easing: "cubic-bezier(.45,0,.2,1)" });
-  for (const [k, d] of [["satici", 650], ["fiil", 900]]) {
-    els[k].animate([
-      { opacity: 0, transform: "translateY(.12em)", filter: "blur(2px)" },
-      { opacity: 1, transform: "translateY(0)", filter: "blur(0)" },
-    ], { duration: 1200, delay: d, easing: "cubic-bezier(.25,.6,.25,1)", fill: "backwards" });
+  // Tek hareket: iki kelime düz bir çizgide yer değiştirir ("Sen" önden geçer).
+  for (const k of ["sen", "satici"]) {
+    const a = els[k].getBoundingClientRect(), b = before[k];
+    els[k].animate([{ transform: `translate(${b.left - a.left}px,${b.top - a.top}px)` }, { transform: "none" }], { duration: 700, easing: "cubic-bezier(.2,.8,.2,1)" });
   }
 }
 document.getElementById("btn").onclick = flip;
